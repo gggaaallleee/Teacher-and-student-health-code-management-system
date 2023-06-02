@@ -3,8 +3,12 @@ package main.models;
 import java.util.HashMap;
 
 public class Student {
+    private String id;
     private String name;
     private String idCard;
+
+
+
     private String studentNo;
     private String college;
     private String major;
@@ -12,7 +16,19 @@ public class Student {
     private String healthCode;
     private boolean dailycheck;
 
-    public Student(String name, String idCard, String studentNo, String college, String major, String classNo, String healthCode, boolean dailycheck) {
+    public Student() {
+        this.id = "";
+        this.name = "";
+        this.idCard = "";
+        this.studentNo = "";
+        this.college = "";
+        this.major = "";
+        this.classNo = "";
+        this.healthCode = "";
+        this.dailycheck = false;
+    }
+    public Student(String id,String name, String idCard, String studentNo, String college, String major, String classNo, String healthCode, boolean dailycheck) {
+        this.id = id;
         this.name = name;
         this.idCard = idCard;
         this.studentNo = studentNo;
@@ -24,7 +40,13 @@ public class Student {
     }
 
     // getter and setter ...
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
