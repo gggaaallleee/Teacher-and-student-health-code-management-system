@@ -10,7 +10,7 @@ public class Teacher {
     private String college;
     private String role;
     private String healthCode;
-    private boolean dailycheck;
+    private String dailycheck;
 
 
     public Teacher(){
@@ -21,9 +21,9 @@ public class Teacher {
         this.college = "";
         this.role = "";
         this.healthCode = "";
-        this.dailycheck = false;
+        this.dailycheck = "";
     }
-    public Teacher(String id, String name, String idCard, String workNo, String college, String role, String healthCode, boolean dailycheck) {
+    public Teacher(String id, String name, String idCard, String workNo, String college, String role, String healthCode, String dailycheck) {
         this.id = id;
         this.name = name;
         this.idCard = idCard;
@@ -91,11 +91,11 @@ public class Teacher {
         this.healthCode = healthCode;
     }
 
-    public boolean isDailycheck() {
+    public String isDailycheck() {
         return dailycheck;
     }
 
-    public void setDailycheck(boolean dailycheck) {
+    public void setDailycheck(String dailycheck) {
         this.dailycheck = dailycheck;
     }
 }

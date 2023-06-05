@@ -5,7 +5,6 @@ public class CClass {
     private String id;
     private String name;
     private String studentNo;
-
     private String Cmajor;
 
     public CClass(){

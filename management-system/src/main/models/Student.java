@@ -7,31 +7,29 @@ public class Student {
     private String name;
     private String idCard;
 
-
-
-    private String studentNo;
+    private String workNo;
     private String college;
     private String major;
     private String classNo;
     private String healthCode;
-    private boolean dailycheck;
+    private String dailycheck;
 
     public Student() {
         this.id = "";
         this.name = "";
         this.idCard = "";
-        this.studentNo = "";
+        this.workNo = "";
         this.college = "";
         this.major = "";
         this.classNo = "";
         this.healthCode = "";
-        this.dailycheck = false;
+        this.dailycheck = "";
     }
-    public Student(String id,String name, String idCard, String studentNo, String college, String major, String classNo, String healthCode, boolean dailycheck) {
+    public Student(String id,String name, String idCard, String workNo, String college, String major, String classNo, String healthCode, String dailycheck) {
         this.id = id;
         this.name = name;
         this.idCard = idCard;
-        this.studentNo = studentNo;
+        this.workNo = workNo;
         this.college = college;
         this.major = major;
         this.classNo = classNo;
@@ -65,11 +63,19 @@ public class Student {
     }
 
     public String getStudentNo() {
-        return studentNo;
+        return workNo;
     }
 
-    public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo;
+    public String getWorkNo() {
+        return workNo;
+    }
+
+    public void setWorkNo(String workNo) {
+        this.workNo = workNo;
+    }
+
+    public void setStudentNo(String workNo) {
+        this.workNo = workNo;
     }
 
     public String getCollege() {
@@ -104,11 +110,11 @@ public class Student {
         this.healthCode = healthCode;
     }
 
-    public boolean isDailycheck() {
+    public String isDailycheck() {
         return dailycheck;
     }
 
-    public void setDailycheck(boolean dailycheck) {
+    public void setDailycheck(String dailycheck) {
         this.dailycheck = dailycheck;
     }
 }

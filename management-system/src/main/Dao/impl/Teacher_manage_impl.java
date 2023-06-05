@@ -23,7 +23,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(5,teacher.getCollege());
             pstmt.setString(6,teacher.getRole());
             pstmt.setString(7,teacher.getHealthCode());
-            pstmt.setBoolean(8,teacher.isDailycheck());
+            pstmt.setString(8,teacher.isDailycheck());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 pstmt.setString(5,t.getCollege());
                 pstmt.setString(6,t.getRole());
                 pstmt.setString(7,t.getHealthCode());
-                pstmt.setBoolean(8,t.isDailycheck());
+                pstmt.setString(8,t.isDailycheck());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -95,7 +95,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(4,teacher.getCollege());
             pstmt.setString(5,teacher.getRole());
             pstmt.setString(6,teacher.getHealthCode());
-            pstmt.setBoolean(7,teacher.isDailycheck());
+            pstmt.setString(7,teacher.isDailycheck());
             pstmt.setString(8,teacher.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -163,7 +163,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teacher.setCollege(rs.getString("college"));
                 teacher.setRole(rs.getString("role"));
                 teacher.setHealthCode(rs.getString("healthCode"));
-                teacher.setDailycheck(rs.getBoolean("dailycheck"));
+                teacher.setDailycheck(rs.getString("dailycheck"));
                 teachers.add(teacher);
             }
         } catch (SQLException e) {
@@ -207,7 +207,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teacher.setCollege(rs.getString("college"));
                 teacher.setRole(rs.getString("role"));
                 teacher.setHealthCode(rs.getString("healthCode"));
-                teacher.setDailycheck(rs.getBoolean("dailycheck"));
+                teacher.setDailycheck(rs.getString("dailycheck"));
                 teachers.add(teacher);
             }
         } catch (SQLException e) {

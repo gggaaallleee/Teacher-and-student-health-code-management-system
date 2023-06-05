@@ -26,7 +26,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
             pstmt.setString(6, student.getMajor());
             pstmt.setString(7, student.getClassNo());
             pstmt.setString(8, student.getHealthCode());
-            pstmt.setBoolean(9, student.isDailycheck());
+            pstmt.setString(9, student.isDailycheck());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                     pstmt.setString(6,s.getMajor());
                     pstmt.setString(7,s.getClassNo());
                     pstmt.setString(8,s.getHealthCode());
-                    pstmt.setBoolean(9,s.isDailycheck());
+                    pstmt.setString(9,s.isDailycheck());
                     pstmt.addBatch();
                 }
                 pstmt.executeBatch();
@@ -127,7 +127,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                 pstmt.setString(5, student.getMajor());
                 pstmt.setString(6, student.getClassNo());
                 pstmt.setString(7, student.getHealthCode());
-                pstmt.setBoolean(8, student.isDailycheck());
+                pstmt.setString(8, student.isDailycheck());
                 pstmt.setString(9, student.getId());
                 pstmt.executeUpdate();
             } catch (SQLException e) {
@@ -169,7 +169,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                     student.setMajor(rs.getString("major"));
                     student.setClassNo(rs.getString("classNo"));
                     student.setHealthCode(rs.getString("healthCode"));
-                    student.setDailycheck(rs.getBoolean("dailycheck"));
+                    student.setDailycheck(rs.getString("dailycheck"));
                     students.add(student);
                 }
 
@@ -215,7 +215,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                     student.setMajor(rs.getString("major"));
                     student.setClassNo(rs.getString("classNo"));
                     student.setHealthCode(rs.getString("healthCode"));
-                    student.setDailycheck(rs.getBoolean("dailycheck"));
+                    student.setDailycheck(rs.getString("dailycheck"));
                     students.add(student);
                 }
 
