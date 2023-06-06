@@ -4,19 +4,16 @@ public class CClass {
     //Cid,Cname,CstudentNo,Cmajor
     private String id;
     private String name;
-    private String studentNo;
     private String Cmajor;
 
     public CClass(){
         this.id = "";
         this.name = "";
-        this.studentNo = "";
         this.Cmajor = "";
     }
-    public CClass(String id, String name, String studentNo ,String Cmajor) {
+    public CClass(String id, String name ,String Cmajor) {
         this.id = id;
         this.name = name;
-        this.studentNo = studentNo;
         this.Cmajor = Cmajor;
     }
 
@@ -38,9 +35,6 @@ public class CClass {
         this.name = name;
     }
 
-    public String getStudentNo() {
-        return studentNo;
-    }
 
     public String getCmajor() {
         return Cmajor;
@@ -50,7 +44,4 @@ public class CClass {
         Cmajor = cmajor;
     }
 
-    public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo;
-    }
 }

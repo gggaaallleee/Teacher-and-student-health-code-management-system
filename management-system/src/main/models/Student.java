@@ -8,9 +8,9 @@ public class Student {
     private String idCard;
 
     private String workNo;
-    private String college;
-    private String major;
-    private String classNo;
+    private String college; //这里链接到学院表
+    private String major; //这里链接到专业表
+    private String classNo;   //这里链接到班级表
     private String healthCode;
     private String dailycheck;
 
