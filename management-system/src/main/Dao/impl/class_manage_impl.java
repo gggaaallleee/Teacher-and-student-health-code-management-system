@@ -4,10 +4,7 @@ import main.Dao.class_manage;
 
 import main.models.CClass;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class class_manage_impl implements main.Dao.class_manage{
@@ -15,15 +12,14 @@ public class class_manage_impl implements main.Dao.class_manage{
     @Override
     public void addClass(CClass cClass){
         //String id, String name, String studentNo,String Cmajor
-        String sql = "INSERT INTO Class(id,name,Cmajor) VALUES(?,?,?)";
+        String sql = "INSERT INTO Class(name,Cmajor) VALUES(?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,cClass.getId());
-            pstmt.setString(2,cClass.getName());
-            pstmt.setString(3,cClass.getCmajor());
+            pstmt.setString(1,cClass.getName());
+            pstmt.setString(2,cClass.getCmajor());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,16 +41,15 @@ public class class_manage_impl implements main.Dao.class_manage{
 
     @Override
     public void batchAddClass( List<CClass> cClass){
-        String sql = "INSERT INTO Class(id,name,Cmajor) VALUES(?,?,?)";
+        String sql = "INSERT INTO Class(name,Cmajor) VALUES(?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             for (CClass c: cClass) {
-                pstmt.setString(1,c.getId());
-                pstmt.setString(2,c.getName());
-                pstmt.setString(3,c.getCmajor());
+                pstmt.setString(1,c.getName());
+                pstmt.setString(2,c.getCmajor());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -78,14 +73,14 @@ public class class_manage_impl implements main.Dao.class_manage{
 
 
     @Override
-    public void deleteClass(String id) {
-        String sql = "DELETE FROM Class WHERE id = ?";
+    public void deleteClass(String name) {
+        String sql = "DELETE FROM Class WHERE name = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, name);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,16 +102,14 @@ public class class_manage_impl implements main.Dao.class_manage{
 
     @Override
     public void updateClass(CClass cClass) {
-        String sql = "UPDATE Class SET name = ?,Cmajor = ? WHERE id = ?";
+        String sql = "UPDATE Class SET Cmajor = ? WHERE name = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, cClass.getName());
-            pstmt.setString(2, cClass.getCmajor());
-            pstmt.setString(3, cClass.getId());
-
+                pstmt.setString(2, cClass.getName());
+                pstmt.setString(1, cClass.getCmajor());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,11 +139,11 @@ public class class_manage_impl implements main.Dao.class_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, thing);
+            String pattern = "%" + thing + "%";
+            pstmt.setString(1, pattern);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 CClass cClass = new CClass();
-                cClass.setId(rs.getString("id"));
                 cClass.setName(rs.getString("name"));
                 cClass.setCmajor(rs.getString("Cmajor"));
                 cClassList.add(cClass);
@@ -191,7 +184,6 @@ public class class_manage_impl implements main.Dao.class_manage{
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 CClass cClass = new CClass();
-                cClass.setId(rs.getString("id"));
                 cClass.setName(rs.getString("name"));
                 cClass.setCmajor(rs.getString("Cmajor"));
                 cClassList.add(cClass);

@@ -1,5 +1,6 @@
 package main.controllers;
 
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.class_manage_impl;
 
 import javax.servlet.*;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.List;
 import main.models.CClass;
+import main.models.respond_json;
+
 @WebServlet({"/AddClass.do", "/FindClass.do", "/DeleteClass.do", "/UpdateClass.do", "/BatchAddClass.do"})
 public class Servlet_Class_manage extends HttpServlet {
     @Override
@@ -23,27 +26,32 @@ public class Servlet_Class_manage extends HttpServlet {
         class_manage_impl classDao = new class_manage_impl();
         //进行四个操作的时候同时注意，添加数据要注意Major表的name是否有此处的Cmajor，删除数据时联合student表一起删除
         if(uri.endsWith("AddClass.do")){
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String Cmajor = request.getParameter("Cmajor");
             CClass cClass = new CClass();
-            cClass.setId(id);
             cClass.setName(name);
             cClass.setCmajor(Cmajor);
+            //如果不报错，返回json格式中的状态，为result：true
             try {
                 classDao.addClass(cClass);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
 
 
         }
         else if (uri.endsWith("/UpdateClass.do")){
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String Cmajor = request.getParameter("Cmajor");
             CClass cClass = new CClass();
-            cClass.setId(id);
             cClass.setName(name);
             cClass.setCmajor(Cmajor);
             try {
@@ -54,9 +62,13 @@ public class Servlet_Class_manage extends HttpServlet {
             }
         }
         else if (uri.endsWith("/DeleteClass.do")){
-            String id = request.getParameter("id");
+            String name = request.getParameter("name");
             try {
-                classDao.deleteClass(id);
+                classDao.deleteClass(name);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -66,9 +78,13 @@ public class Servlet_Class_manage extends HttpServlet {
             //如果way和thing有值的话调用findStudent，否则调用findAllStudent
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            if(way!=null&&thing!=null){
+            if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<CClass> cClass = classDao.findClass(way,thing);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("cClass",cClass);
                     request.getRequestDispatcher("Class_manage.jsp").forward(request,response);
                 } catch (Exception e) {
@@ -92,11 +108,14 @@ public class Servlet_Class_manage extends HttpServlet {
             for (String line:lines) {
                 String[] words = line.split(",");
                 CClass cClass = new CClass();
-                cClass.setId(words[0]);
-                cClass.setName(words[1]);
-                cClass.setCmajor(words[2]);
+                cClass.setName(words[0]);
+                cClass.setCmajor(words[1]);
                 try {
                     classDao.addClass(cClass);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -16,7 +16,7 @@ public interface college_manage    extends BaseDao{
 */
     void addCollege(College college);
     void updateCollege(College college);
-    void deleteCollege(String id);
+    void deleteCollege(String name);
     void batchAddCollege(List<College> college);
 
     List<College> findCollege(String way,String thing);

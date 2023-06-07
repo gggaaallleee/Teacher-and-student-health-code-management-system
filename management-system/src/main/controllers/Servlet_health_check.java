@@ -12,7 +12,7 @@ import main.Dao.impl.health_check_manage_impl;
 import main.models.health_check;
 
 
-@WebServlet(name = "Servlet_health_check", value = "/Servlet_health_check")
+@WebServlet({"/Addhealth_check.do", "/Findhealth_check.do", "/Deletehealth_check.do", "/Updatehealth_check.do", "/BatchAddhealth_check.do"})
 public class Servlet_health_check extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +59,7 @@ public class Servlet_health_check extends HttpServlet {
 
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            if(way!=null&&thing!=null){
+            if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<health_check> health_checks = health_checkDao.findhealth_check(way, thing);
                     request.setAttribute("health_checks", health_checks);

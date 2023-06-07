@@ -6,9 +6,9 @@
             maxActive="4"
             maxIdle="2"
             driverClassName="org.postgresql.Driver"
-            <!-- url="jdbc:postgresql:-->
             url="jdbc:postgresql://192.168.88.129:26000/xiejy_db_uni1"
             username="opengaussuser"
             password="openGauss@123"
-            maxWaitMillis="5000"/>
+            maxWaitMillis="5000"
+    />
 </Context>

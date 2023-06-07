@@ -25,11 +25,9 @@ public class Servlet_Major_manage extends HttpServlet {
         String uri = request.getRequestURI();
         major_manage_impl majorDao = new major_manage_impl();
         if (uri.endsWith("AddMajor.do")) {
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String college = request.getParameter("college");
             Major major = new Major();
-            major.setId(id);
             major.setName(name);
             major.setCollege(college);
             try {
@@ -44,7 +42,7 @@ public class Servlet_Major_manage extends HttpServlet {
 
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            if(way!=null&&thing!=null){
+            if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<Major> majors = majorDao.findMajor(way, thing);
                     request.setAttribute("majors", majors);
@@ -63,18 +61,16 @@ public class Servlet_Major_manage extends HttpServlet {
                 }
             }
             } else if (uri.endsWith("DeleteMajor.do")) {
-                String id = request.getParameter("id");
+                String name = request.getParameter("name");
                 try {
-                    majorDao.deleteMajor(id);
+                    majorDao.deleteMajor(name);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (uri.endsWith("UpdateMajor.do")) {
-                String id = request.getParameter("id");
                 String name = request.getParameter("name");
                 String college = request.getParameter("college");
                 Major major = new Major();
-                major.setId(id);
                 major.setName(name);
                 major.setCollege(college);
                 try {
@@ -88,9 +84,8 @@ public class Servlet_Major_manage extends HttpServlet {
                 for (String line : lines) {
                     String[] items = line.split(" ");
                     Major major = new Major();
-                    major.setId(items[0]);
-                    major.setName(items[1]);
-                    major.setCollege(items[2]);
+                    major.setName(items[0]);
+                    major.setCollege(items[1]);
                     try {
                         majorDao.addMajor(major);
                     } catch (Exception e) {

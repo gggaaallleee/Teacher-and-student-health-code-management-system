@@ -60,7 +60,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../fastjson-2.0.25.jar!/" />
+          <root url="jar://$USER_HOME$/IdeaProjects/third_homework/web/WEB-INF/lib/fastjson-1.2.75.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

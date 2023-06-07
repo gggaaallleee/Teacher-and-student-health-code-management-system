@@ -15,15 +15,14 @@ public class major_manage_impl implements main.Dao.major_manage{
 
     @Override
     public void addMajor(Major major){
-        String sql = "INSERT INTO Major(id,name,college) VALUES(?,?,?)";
+        String sql = "INSERT INTO Major(name,college) VALUES(?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,major.getId());
-            pstmt.setString(2,major.getName());
-            pstmt.setString(3,major.getCollege());
+            pstmt.setString(1,major.getName());
+            pstmt.setString(2,major.getCollege());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,15 +43,18 @@ public class major_manage_impl implements main.Dao.major_manage{
 
     @Override
     public void updateMajor(Major major){
-        String sql = "UPDATE Major SET name=?,college=? WHERE id=?";
+        String sql = "UPDATE Major SET college=? WHERE name=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
+            /*
             pstmt.setString(3,major.getId());
             pstmt.setString(1,major.getName());
-            pstmt.setString(2,major.getCollege());
+            pstmt.setString(2,major.getCollege());*/
+                pstmt.setString(2,major.getName());
+                pstmt.setString(1,major.getCollege());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,14 +73,14 @@ public class major_manage_impl implements main.Dao.major_manage{
         }
     }
     @Override
-    public void deleteMajor(String id){
-        String sql = "DELETE FROM Major WHERE id=?";
+    public void deleteMajor(String name){
+        String sql = "DELETE FROM Major WHERE name=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,id);
+            pstmt.setString(1,name);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,16 +100,15 @@ public class major_manage_impl implements main.Dao.major_manage{
     }
     @Override
     public void batchAddMajor( List<Major> major){
-        String sql = "INSERT INTO Major(id,name,college) VALUES(?,?,?)";
+        String sql = "INSERT INTO Major(name,college) VALUES(?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             for (Major c: major) {
-                pstmt.setString(1,c.getId());
-                pstmt.setString(2,c.getName());
-                pstmt.setString(3,c.getCollege());
+                pstmt.setString(1,c.getName());
+                pstmt.setString(2,c.getCollege());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -138,11 +139,11 @@ public class major_manage_impl implements main.Dao.major_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,thing);
+            String pattern = "%" + thing + "%";
+            pstmt.setString(1, pattern);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Major major = new Major();
-                major.setId(rs.getString("id"));
                 major.setName(rs.getString("name"));
                 major.setCollege(rs.getString("college"));
                 majors.add(major);
@@ -183,7 +184,6 @@ public class major_manage_impl implements main.Dao.major_manage{
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Major major = new Major();
-                major.setId(rs.getString("id"));
                 major.setName(rs.getString("name"));
                 major.setCollege(rs.getString("college"));
                 majors.add(major);

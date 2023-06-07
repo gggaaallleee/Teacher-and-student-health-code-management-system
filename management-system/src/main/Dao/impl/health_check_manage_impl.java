@@ -53,7 +53,10 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
         try{
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,health_check.getName());
+            if(!health_check.getName().equals("")){
+                pstmt.setString(1,health_check.getName());
+            }
+
             pstmt.setString(2,health_check.getId());
             pstmt.setString(3,health_check.getNumber());
             pstmt.setString(4,health_check.getPhone());
@@ -161,7 +164,8 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,way);
-            pstmt.setString(2,thing);
+            String pattern = "%" + thing + "%";
+            pstmt.setString(2, pattern);
             rs = pstmt.executeQuery();
             while(rs.next()){
                 health_check health_check1 = new health_check();

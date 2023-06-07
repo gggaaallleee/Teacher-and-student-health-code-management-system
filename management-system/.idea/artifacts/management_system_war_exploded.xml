@@ -11,6 +11,7 @@
           <element id="file-copy" path="$USER_HOME$/Downloads/zxing-master/zxing-master/webhomework_5/postgresql-42.6.0.jar" />
           <element id="file-copy" path="$USER_HOME$/Desktop/新建文件夹/core.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../../../../fastjson-2.0.25.jar" />
+          <element id="file-copy" path="$USER_HOME$/IdeaProjects/third_homework/web/WEB-INF/lib/fastjson-1.2.75.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="management-system/web/Web" />

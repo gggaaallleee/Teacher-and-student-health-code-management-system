@@ -3,11 +3,10 @@ package main.models;
 import java.util.HashMap;
 
 public class Student {
-    private String id;
     private String name;
     private String idCard;
 
-    private String workNo;
+    private String StudentNo;
     private String college; //这里链接到学院表
     private String major; //这里链接到专业表
     private String classNo;   //这里链接到班级表
@@ -15,21 +14,19 @@ public class Student {
     private String dailycheck;
 
     public Student() {
-        this.id = "";
         this.name = "";
         this.idCard = "";
-        this.workNo = "";
+        this.StudentNo = "";
         this.college = "";
         this.major = "";
         this.classNo = "";
         this.healthCode = "";
         this.dailycheck = "";
     }
-    public Student(String id,String name, String idCard, String workNo, String college, String major, String classNo, String healthCode, String dailycheck) {
-        this.id = id;
+    public Student(String name, String idCard, String StudentNo, String college, String major, String classNo, String healthCode, String dailycheck) {
         this.name = name;
         this.idCard = idCard;
-        this.workNo = workNo;
+        this.StudentNo = StudentNo;
         this.college = college;
         this.major = major;
         this.classNo = classNo;
@@ -38,13 +35,6 @@ public class Student {
     }
 
     // getter and setter ...
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -63,19 +53,19 @@ public class Student {
     }
 
     public String getStudentNo() {
-        return workNo;
+        return StudentNo;
     }
 
     public String getWorkNo() {
-        return workNo;
+        return StudentNo;
     }
 
-    public void setWorkNo(String workNo) {
-        this.workNo = workNo;
+    public void setWorkNo(String StudentNo) {
+        this.StudentNo = StudentNo;
     }
 
-    public void setStudentNo(String workNo) {
-        this.workNo = workNo;
+    public void setStudentNo(String StudentNo) {
+        this.StudentNo = StudentNo;
     }
 
     public String getCollege() {

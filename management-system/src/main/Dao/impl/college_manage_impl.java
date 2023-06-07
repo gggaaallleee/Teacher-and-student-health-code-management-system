@@ -54,8 +54,8 @@ public class college_manage_impl  implements college_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(2,college.getId());
-            pstmt.setString(1,college.getName());
+                pstmt.setString(2,college.getId());
+                pstmt.setString(1,college.getName());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,7 +141,8 @@ public class college_manage_impl  implements college_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,thing);
+            String pattern = "%" + thing + "%";
+            pstmt.setString(1, pattern);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 College temp = new College();

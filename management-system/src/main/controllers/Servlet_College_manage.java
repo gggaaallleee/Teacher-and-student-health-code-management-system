@@ -39,7 +39,7 @@ public class Servlet_College_manage extends HttpServlet {
 
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            if(way!=null&&thing!=null){
+            if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<College> colleges = collegeDao.findCollege(way, thing);
                     request.setAttribute("colleges", colleges);

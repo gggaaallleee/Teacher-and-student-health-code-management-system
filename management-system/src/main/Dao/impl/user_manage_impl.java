@@ -19,16 +19,15 @@ public class user_manage_impl implements main.Dao.user_manage{
 
     @Override
     public void addUser(User user){
-        String sql = "INSERT INTO User(id,username,password,level) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO User(username,password,level) VALUES(?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,user.getId());
-            pstmt.setString(2,user.getUsername());
-            pstmt.setString(3,user.getPassword());
-            pstmt.setInt(4,user.getLevel());
+            pstmt.setString(1,user.getUsername());
+            pstmt.setString(2,user.getPassword());
+            pstmt.setInt(3,user.getLevel());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,17 +48,16 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public void batchAddUser(List<User> users){
-        String sql = "INSERT INTO User(id,username,password,level) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO User(username,password,level) VALUES(?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             for (User u : users) {
-                pstmt.setString(1,u.getId());
-                pstmt.setString(2,u.getUsername());
-                pstmt.setString(3,u.getPassword());
-                pstmt.setInt(4,u.getLevel());
+                pstmt.setString(1,u.getUsername());
+                pstmt.setString(2,u.getPassword());
+                pstmt.setInt(3,u.getLevel());
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -81,16 +79,16 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public void updateUser(User user){
-        String sql = "UPDATE User SET username=?,password=?,level=? WHERE id=?";
+        String sql = "UPDATE User SET password=?,level=? WHERE username=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,user.getUsername());
-            pstmt.setString(2,user.getPassword());
-            pstmt.setInt(3,user.getLevel());
-            pstmt.setString(4,user.getId());
+
+            pstmt.setString(3,user.getUsername());
+            pstmt.setString(1,user.getPassword());
+            pstmt.setInt(2,user.getLevel());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,14 +108,14 @@ public class user_manage_impl implements main.Dao.user_manage{
 
     }
     @Override
-    public void deleteUser(String id){
-        String sql = "DELETE FROM User WHERE id=?";
+    public void deleteUser(String username){
+        String sql = "DELETE FROM User WHERE username=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,id);
+            pstmt.setString(1,username);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,11 +143,11 @@ public class user_manage_impl implements main.Dao.user_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, thing);
+            String pattern = "%" + thing + "%";
+            pstmt.setString(1, pattern);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getString("id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setLevel(rs.getInt("level"));
@@ -186,7 +184,6 @@ public class user_manage_impl implements main.Dao.user_manage{
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getString("id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setLevel(rs.getInt("level"));

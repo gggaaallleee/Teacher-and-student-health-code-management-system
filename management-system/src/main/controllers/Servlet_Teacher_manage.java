@@ -21,7 +21,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
         Teacher_manage_impl teacherDao = new Teacher_manage_impl();
         String uri = request.getRequestURI();
         if(uri.endsWith("AddTeacher.do")){
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
@@ -30,12 +29,10 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
             Teacher teacher = new Teacher();
-            teacher.setId(id);
             teacher.setName(name);
             teacher.setIdCard(idCard);
             teacher.setWorkNo(workNo);
             teacher.setCollege(college);
-            teacher.setRole(role);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
             try {
@@ -46,7 +43,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
 
         }
         else if (uri.endsWith("/UpdateTeacher.do")){
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
@@ -55,12 +51,10 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
             Teacher teacher = new Teacher();
-            teacher.setId(id);
             teacher.setName(name);
             teacher.setIdCard(idCard);
             teacher.setWorkNo(workNo);
             teacher.setCollege(college);
-            teacher.setRole(role);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
             try {
@@ -70,7 +64,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             }
         }
         else if(uri.endsWith("/DeleteTeacher.do")){
-            String id = request.getParameter("id");
+            String id = request.getParameter("workNo");
             try {
                 teacherDao.deleteTeacher(id);
             } catch (Exception e) {
@@ -83,7 +77,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
 
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            if(way!=null && thing!=null){
+            if(!"".equals(way) && !"".equals(thing)){
                 try {
                     request.setAttribute("teachers", teacherDao.findTeacher(way,thing));
                 } catch (Exception e) {
@@ -107,14 +101,12 @@ public class Servlet_Teacher_manage extends HttpServlet {
             for(String line:lines){
                 String[] fields = line.split(" ");
                 Teacher teacher = new Teacher();
-                teacher.setId(fields[0]);
-                teacher.setName(fields[1]);
-                teacher.setIdCard(fields[2]);
-                teacher.setWorkNo(fields[3]);
-                teacher.setCollege(fields[4]);
-                teacher.setRole(fields[5]);
-                teacher.setHealthCode(fields[6]);
-                teacher.setDailycheck(fields[7]);
+                teacher.setName(fields[0]);
+                teacher.setIdCard(fields[1]);
+                teacher.setWorkNo(fields[2]);
+                teacher.setCollege(fields[3]);
+                teacher.setHealthCode(fields[4]);
+                teacher.setDailycheck(fields[5]);
                 try {
                     teacherDao.addTeacher(teacher);
                 } catch (Exception e) {
