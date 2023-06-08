@@ -8,8 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.health_check_manage_impl;
 import main.models.health_check;
+import main.models.respond_json;
 
 
 @WebServlet({"/Addhealth_check.do", "/Findhealth_check.do", "/Deletehealth_check.do", "/Updatehealth_check.do", "/BatchAddhealth_check.do"})
@@ -49,7 +51,15 @@ public class Servlet_health_check extends HttpServlet {
             health_check.setHealth_status(health_status);
             try {
                 health_checkDao.addhealth_check(health_check);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -62,18 +72,34 @@ public class Servlet_health_check extends HttpServlet {
             if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<health_check> health_checks = health_checkDao.findhealth_check(way, thing);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("health_checks", health_checks);
                     request.getRequestDispatcher("health_check_manage.jsp").forward(request, response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
             else {
                 try {
                     List<health_check> health_checks = health_checkDao.findAllhealth_check();
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("health_checks", health_checks);
                     request.getRequestDispatcher("health_check_manage.jsp").forward(request, response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
@@ -82,7 +108,15 @@ public class Servlet_health_check extends HttpServlet {
             String id = request.getParameter("id");
             try {
                 health_checkDao.deletehealth_check(id);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -110,7 +144,15 @@ public class Servlet_health_check extends HttpServlet {
             health_check.setHealth_status(health_status);
             try {
                 health_checkDao.updatehealth_check(health_check);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -132,7 +174,15 @@ public class Servlet_health_check extends HttpServlet {
                 health_check.setHealth_status(items[9]);
                 try {
                     health_checkDao.addhealth_check(health_check);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }

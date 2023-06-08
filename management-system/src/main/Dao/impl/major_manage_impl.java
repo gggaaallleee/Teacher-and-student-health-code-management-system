@@ -25,7 +25,9 @@ public class major_manage_impl implements main.Dao.major_manage{
             pstmt.setString(2,major.getCollege());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -36,7 +38,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -57,7 +61,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                 pstmt.setString(1,major.getCollege());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -68,7 +74,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -83,7 +91,9 @@ public class major_manage_impl implements main.Dao.major_manage{
             pstmt.setString(1,name);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -94,7 +104,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -113,7 +125,9 @@ public class major_manage_impl implements main.Dao.major_manage{
             }
             pstmt.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -124,7 +138,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
 
             }
         }
@@ -150,8 +166,9 @@ public class major_manage_impl implements main.Dao.major_manage{
             }
             return majors;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -166,7 +183,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
 
             }
         }
@@ -190,8 +209,9 @@ public class major_manage_impl implements main.Dao.major_manage{
             }
             return majors;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -206,7 +226,9 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
 
             }
         }

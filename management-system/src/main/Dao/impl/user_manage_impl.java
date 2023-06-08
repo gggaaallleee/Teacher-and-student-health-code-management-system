@@ -30,7 +30,9 @@ public class user_manage_impl implements main.Dao.user_manage{
             pstmt.setInt(3,user.getLevel());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -41,7 +43,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -61,7 +65,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -72,7 +78,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -91,7 +99,9 @@ public class user_manage_impl implements main.Dao.user_manage{
             pstmt.setInt(2,user.getLevel());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -102,7 +112,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -118,7 +130,9 @@ public class user_manage_impl implements main.Dao.user_manage{
             pstmt.setString(1,username);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -129,7 +143,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -154,7 +170,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -165,7 +183,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return users;
@@ -190,7 +210,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -204,7 +226,9 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }return users;
     }

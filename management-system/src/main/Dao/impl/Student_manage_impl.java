@@ -1,5 +1,7 @@
 package main.Dao.impl;
+import com.alibaba.fastjson.JSON;
 import main.models.Student;
+import main.models.respond_json;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +30,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
             pstmt.setString(8, student.isDailycheck());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -39,7 +43,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -67,7 +73,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                 }
                 pstmt.executeBatch();
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 // 关闭资源
                 try {
@@ -78,7 +86,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                         conn.close();
                     }
                 } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
                 }
             }
         }
@@ -94,7 +104,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                 pstmt.setString(1,workNo);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 // 关闭资源
                 try {
@@ -105,7 +117,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                         conn.close();
                     }
                 } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
                 }
             }
         }
@@ -118,16 +132,6 @@ public class Student_manage_impl implements main.Dao.Student_manage{
             try {
                 conn = getConnection();
                 pstmt = conn.prepareStatement(sql);
-                /*
-                pstmt.setString(1, student.getName());
-                pstmt.setString(2, student.getIdCard());
-                pstmt.setString(3, student.getStudentNo());
-                pstmt.setString(4, student.getCollege());
-                pstmt.setString(5, student.getMajor());
-                pstmt.setString(6, student.getClassNo());
-                pstmt.setString(7, student.getHealthCode());
-                pstmt.setString(8, student.isDailycheck());
-                pstmt.setString(9, student.getId());*/
                     pstmt.setString(8, student.getName());
                     pstmt.setString(1, student.getIdCard());
                     pstmt.setString(2, student.getStudentNo());
@@ -138,7 +142,10 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                     pstmt.setString(7, student.isDailycheck());
                 pstmt.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("更新数据失败");
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 // 关闭资源
                 try {
@@ -149,7 +156,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                         conn.close();
                     }
                 } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
                 }
             }
         }
@@ -181,7 +190,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                 }
 
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 // 关闭资源
                 try {
@@ -195,7 +206,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                         conn.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    
+                e.printStackTrace();
+                throw new RuntimeException(e);
                 }
             }
             return students;
@@ -226,7 +239,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                 }
 
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 // 关闭资源
                 try {
@@ -240,7 +255,9 @@ public class Student_manage_impl implements main.Dao.Student_manage{
                         conn.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    
+                e.printStackTrace();
+                throw new RuntimeException(e);
                 }
             }
             return students;

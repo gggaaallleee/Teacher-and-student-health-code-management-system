@@ -24,7 +24,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(6,teacher.isDailycheck());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -35,7 +37,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -61,7 +65,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             }
             pstmt.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -72,7 +78,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -93,7 +101,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(5,teacher.isDailycheck());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -104,7 +114,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -120,7 +132,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(1,workNo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -131,7 +145,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -160,7 +176,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teachers.add(teacher);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -174,7 +192,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return teachers;
@@ -202,7 +222,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teachers.add(teacher);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -216,7 +238,9 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 conn.close();
                 }
             } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return teachers;

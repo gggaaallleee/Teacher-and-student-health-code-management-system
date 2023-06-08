@@ -5,8 +5,12 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.college_manage_impl;
 import main.models.College;
+import main.models.respond_json;
+
 @WebServlet({"/AddCollege.do", "/FindCollege.do", "/DeleteCollege.do", "/UpdateCollege.do", "/BatchAddCollege.do"})
 public class Servlet_College_manage extends HttpServlet {
     @Override
@@ -29,8 +33,16 @@ public class Servlet_College_manage extends HttpServlet {
             college.setName(name);
             try {
                 collegeDao.addCollege(college);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
-                e.printStackTrace();
+                               e.printStackTrace();
+                               respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             }
         }
         else if (uri.endsWith("FindCollege.do")) {
@@ -42,28 +54,52 @@ public class Servlet_College_manage extends HttpServlet {
             if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<College> colleges = collegeDao.findCollege(way, thing);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("colleges", colleges);
                     request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                                   e.printStackTrace();
+                                   respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 }
             }
             else{
                 try {
                     List<College> colleges = collegeDao.findAllCollege();
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("colleges", colleges);
                     request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                                   e.printStackTrace();
+                                   respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 }
             }
         }
         else if (uri.endsWith("DeleteCollege.do")) {
             String id = request.getParameter("id");
             try {
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 collegeDao.deleteCollege(id);
             } catch (Exception e) {
-                e.printStackTrace();
+                               e.printStackTrace();
+                               respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             }
         }
         else if (uri.endsWith("UpdateCollege.do")) {
@@ -74,8 +110,16 @@ public class Servlet_College_manage extends HttpServlet {
             college.setName(name);
             try {
                 collegeDao.updateCollege(college);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
-                e.printStackTrace();
+                               e.printStackTrace();
+                               respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             }
         }
         else if (uri.endsWith("BatchAddCollege.do")) {
@@ -88,8 +132,16 @@ public class Servlet_College_manage extends HttpServlet {
                 college.setName(items[1]);
                 try {
                     collegeDao.addCollege(college);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 }
             }
         }

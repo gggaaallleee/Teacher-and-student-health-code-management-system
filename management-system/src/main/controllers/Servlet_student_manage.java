@@ -1,7 +1,9 @@
 package main.controllers;
 
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.Student_manage_impl;
 import main.models.Student;
+import main.models.respond_json;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -40,7 +42,15 @@ public class Servlet_student_manage extends HttpServlet {
             student.setDailycheck(dailycheck);
             try {
                 studentDao.addStudent(student);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -64,7 +74,19 @@ public class Servlet_student_manage extends HttpServlet {
             student.setDailycheck(dailycheck);
             try {
                 studentDao.updateStudent(student);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                System.out.println(json);
+                System.out.println("success");
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                System.out.println(json);
+                System.out.println("failed");
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -72,7 +94,15 @@ public class Servlet_student_manage extends HttpServlet {
             String id = request.getParameter("studentNo");
             try {
                 studentDao.deleteStudent(id);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -87,7 +117,15 @@ public class Servlet_student_manage extends HttpServlet {
                 try {
                     System.out.println("something");
                     studentDao.findStudent(way,thing);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
@@ -95,7 +133,15 @@ public class Servlet_student_manage extends HttpServlet {
                 try {
                     System.out.println("nothing");
                     studentDao.findAllStudent();
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
@@ -118,7 +164,15 @@ public class Servlet_student_manage extends HttpServlet {
                 student.setDailycheck(fields[7]);
                 try {
                     studentDao.addStudent(student);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }

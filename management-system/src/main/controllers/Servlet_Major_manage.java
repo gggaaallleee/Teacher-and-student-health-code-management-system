@@ -5,8 +5,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.major_manage_impl;
 import main.models.Major;
+import main.models.respond_json;
 
 @WebServlet({"/AddMajor.do", "/FindMajor.do", "/DeleteMajor.do", "/UpdateMajor.do", "/BatchAddMajor.do"})
 public class Servlet_Major_manage extends HttpServlet {
@@ -32,7 +35,15 @@ public class Servlet_Major_manage extends HttpServlet {
             major.setCollege(college);
             try {
                 majorDao.addMajor(major);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -45,26 +56,50 @@ public class Servlet_Major_manage extends HttpServlet {
             if(!"".equals(way) && !"".equals(thing)){
                 try {
                     List<Major> majors = majorDao.findMajor(way, thing);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("majors", majors);
                     request.getRequestDispatcher("major_manage.jsp").forward(request, response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
             else{
                 try {
                     List<Major> majors = majorDao.findAllMajor();
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("majors", majors);
                     request.getRequestDispatcher("major_manage.jsp").forward(request, response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
             } else if (uri.endsWith("DeleteMajor.do")) {
                 String name = request.getParameter("name");
                 try {
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     majorDao.deleteMajor(name);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             } else if (uri.endsWith("UpdateMajor.do")) {
@@ -74,8 +109,16 @@ public class Servlet_Major_manage extends HttpServlet {
                 major.setName(name);
                 major.setCollege(college);
                 try {
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     majorDao.updateMajor(major);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             } else if (uri.endsWith("BatchAddMajor.do")) {
@@ -87,8 +130,16 @@ public class Servlet_Major_manage extends HttpServlet {
                     major.setName(items[0]);
                     major.setCollege(items[1]);
                     try {
+                        respond_json respond = new respond_json(0,"success");
+                        String json = JSON.toJSONString(respond);
+                        response.setContentType("application/json");
+                        response.getWriter().write(json);
                         majorDao.addMajor(major);
                     } catch (Exception e) {
+                        respond_json respond = new respond_json(1,"failed");
+                        String json = JSON.toJSONString(respond);
+                        response.setContentType("application/json");
+                        response.getWriter().write(json);
                         e.printStackTrace();
                     }
                 }

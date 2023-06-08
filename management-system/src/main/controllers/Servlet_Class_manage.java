@@ -55,9 +55,16 @@ public class Servlet_Class_manage extends HttpServlet {
             cClass.setName(name);
             cClass.setCmajor(Cmajor);
             try {
-
                 classDao.updateClass(cClass);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -70,6 +77,10 @@ public class Servlet_Class_manage extends HttpServlet {
                 response.setContentType("application/json");
                 response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -88,15 +99,27 @@ public class Servlet_Class_manage extends HttpServlet {
                     request.setAttribute("cClass",cClass);
                     request.getRequestDispatcher("Class_manage.jsp").forward(request,response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
             else{
                 try {
                     List<CClass> cClass = classDao.findAllClass();
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     request.setAttribute("cClass",cClass);
                     request.getRequestDispatcher("Class_manage.jsp").forward(request,response);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
@@ -117,6 +140,10 @@ public class Servlet_Class_manage extends HttpServlet {
                     response.setContentType("application/json");
                     response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }

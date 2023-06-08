@@ -30,7 +30,9 @@ public class college_manage_impl  implements college_manage{
             pstmt.setString(2,college.getName());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -41,7 +43,9 @@ public class college_manage_impl  implements college_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -58,7 +62,9 @@ public class college_manage_impl  implements college_manage{
                 pstmt.setString(1,college.getName());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -69,7 +75,9 @@ public class college_manage_impl  implements college_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -85,7 +93,9 @@ public class college_manage_impl  implements college_manage{
             pstmt.setString(1,id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -96,7 +106,9 @@ public class college_manage_impl  implements college_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -115,7 +127,9 @@ public class college_manage_impl  implements college_manage{
             }
             pstmt.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -127,7 +141,9 @@ public class college_manage_impl  implements college_manage{
                 }
 
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -152,8 +168,9 @@ public class college_manage_impl  implements college_manage{
             }
             return college;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -169,7 +186,9 @@ public class college_manage_impl  implements college_manage{
                 }
 
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -192,8 +211,9 @@ public class college_manage_impl  implements college_manage{
             }
             return college;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -209,7 +229,9 @@ public class college_manage_impl  implements college_manage{
                 }
 
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }

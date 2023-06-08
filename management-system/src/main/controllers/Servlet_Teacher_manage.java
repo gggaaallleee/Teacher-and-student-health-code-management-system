@@ -1,7 +1,9 @@
 package main.controllers;
 
+import com.alibaba.fastjson.JSON;
 import main.Dao.impl.Teacher_manage_impl;
 import main.models.Teacher;
+import main.models.respond_json;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -37,7 +39,15 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setDailycheck(dailycheck);
             try {
                 teacherDao.addTeacher(teacher);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
 
@@ -59,7 +69,15 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setDailycheck(dailycheck);
             try {
                 teacherDao.updateTeacher(teacher);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -67,7 +85,15 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String id = request.getParameter("workNo");
             try {
                 teacherDao.deleteTeacher(id);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
             } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
                 e.printStackTrace();
             }
         }
@@ -80,14 +106,30 @@ public class Servlet_Teacher_manage extends HttpServlet {
             if(!"".equals(way) && !"".equals(thing)){
                 try {
                     request.setAttribute("teachers", teacherDao.findTeacher(way,thing));
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
             else{
                 try {
                     request.setAttribute("teachers", teacherDao.findAllTeacher());
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }
@@ -109,7 +151,15 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 teacher.setDailycheck(fields[5]);
                 try {
                     teacherDao.addTeacher(teacher);
+                    respond_json respond = new respond_json(0,"success");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                 } catch (Exception e) {
+                    respond_json respond = new respond_json(1,"failed");
+                    String json = JSON.toJSONString(respond);
+                    response.setContentType("application/json");
+                    response.getWriter().write(json);
                     e.printStackTrace();
                 }
             }

@@ -30,7 +30,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             pstmt.setString(10,health_check.getHealth_status());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -41,7 +43,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -69,7 +73,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             pstmt.setString(11,health_check.getNumber());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -80,7 +86,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                     conn.close();
                 }
             }catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -96,7 +104,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             pstmt.setString(1,number);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -107,7 +117,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                     conn.close();
                 }
             }catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -135,7 +147,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             }
             pstmt.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -147,7 +161,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                 }
 
             }catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -183,8 +199,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             }
             return health_check;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -199,7 +216,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                     conn.close();
                 }
             }catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -231,8 +250,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             }
             return health_check;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            
+                e.printStackTrace();
+                throw new RuntimeException(e);
         } finally {
             // 关闭资源
             try {
@@ -247,7 +267,9 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
                     conn.close();
                 }
             }catch (SQLException e) {
+                
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
