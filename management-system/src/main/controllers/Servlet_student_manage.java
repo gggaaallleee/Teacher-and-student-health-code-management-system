@@ -1,6 +1,15 @@
 package main.controllers;
+import javax.servlet.http.Part;
 
+//导入jar包 地址是https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
+
+
+
+import java.io.InputStream;
 import com.alibaba.fastjson.JSON;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import main.Dao.impl.Student_manage_impl;
 import main.models.Student;
 import main.models.respond_json;
@@ -9,8 +18,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-
+@MultipartConfig
 @WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/BatchAddStudent.do"})
 public class Servlet_student_manage extends HttpServlet {
     @Override
@@ -151,31 +161,44 @@ public class Servlet_student_manage extends HttpServlet {
                 }
             }
         }
-        else if (uri.endsWith("/BatchAddStudent.do")){
+        else if (uri.endsWith("/BatchAddStudent.do")) {
             //接受前端传过来的文件流，是txt文件，txt文件内每行字段以空格分割，每行结尾为分号，进行批量添加
             //INSERT INTO Student(id,name,idCard,studentNo,college,major,classNo,healthCode,dailycheck) VALUES(?,?,?,?,?,?,?,?,?)
-            String txt = request.getParameter("txt");
-            String[] lines = txt.split(";");
-            for(String line : lines){
-                String[] fields = line.split(" ");
+            Part filePart = request.getPart("file"); // "file"是文件在表单中的字段名
+
+            // 将文件转换为Excel Workbook
+            InputStream fileContent = filePart.getInputStream();
+            Workbook workbook = null;
+            try {
+                workbook = Workbook.getWorkbook(fileContent);
+            } catch (BiffException e) {
+                throw new RuntimeException(e);
+            }
+
+            // 遍历Workbook中的所有行，并打印出来
+            Sheet sheet = workbook.getSheet(0);
+            for (int i = 0; i < sheet.getRows(); i++) {
+                // 创建一个新的Student对象
                 Student student = new Student();
-                student.setName(fields[0]);
-                student.setIdCard(fields[1]);
-                student.setStudentNo(fields[2]);
-                student.setCollege(fields[3]);
-                student.setMajor(fields[4]);
-                student.setClassNo(fields[5]);
-                student.setHealthCode(fields[6]);
-                student.setDailycheck(fields[7]);
+
+                // 设置Student对象的各个字段
+                student.setName(sheet.getCell(0, i).getContents());
+                student.setIdCard(sheet.getCell(1, i).getContents());
+                student.setStudentNo(sheet.getCell(2, i).getContents());
+                student.setCollege(sheet.getCell(3, i).getContents());
+                student.setMajor(sheet.getCell(4, i).getContents());
+                student.setClassNo(sheet.getCell(5, i).getContents());
+                student.setHealthCode(sheet.getCell(6, i).getContents());
+                student.setDailycheck(sheet.getCell(7, i).getContents());
                 student.setCheckdays(0);
                 try {
                     studentDao.addStudent(student);
-                    respond_json respond = new respond_json(0,"success");
+                    respond_json respond = new respond_json(0, "success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);
                 } catch (Exception e) {
-                    respond_json respond = new respond_json(1,"failed");
+                    respond_json respond = new respond_json(1, "failed");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);

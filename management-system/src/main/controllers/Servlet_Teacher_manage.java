@@ -1,6 +1,9 @@
 package main.controllers;
 
 import com.alibaba.fastjson.JSON;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import main.Dao.impl.Teacher_manage_impl;
 import main.models.Teacher;
 import main.models.respond_json;
@@ -9,6 +12,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.InputStream;
 
 @WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/BatchAddTeacher.do"})
 public class Servlet_Teacher_manage extends HttpServlet {
@@ -140,17 +144,30 @@ public class Servlet_Teacher_manage extends HttpServlet {
             //接受前端传过来的文件流，是txt文件，txt文件内每行字段以空格分割，每行结尾为分号，进行批量添加
 
 
-            String txt = request.getParameter("txt");
-            String[] lines = txt.split(";");
-            for(String line:lines){
-                String[] fields = line.split(" ");
+            Part filePart = request.getPart("file"); // "file"是文件在表单中的字段名
+
+            // 将文件转换为Excel Workbook
+            InputStream fileContent = filePart.getInputStream();
+            Workbook workbook = null;
+            try {
+                workbook = Workbook.getWorkbook(fileContent);
+            } catch (BiffException e) {
+                throw new RuntimeException(e);
+            }
+
+            // 遍历Workbook中的所有行，并打印出来
+            Sheet sheet = workbook.getSheet(0);
+            for (int i = 0; i < sheet.getRows(); i++) {
+                // 创建一个新的Teacher对象
                 Teacher teacher = new Teacher();
-                teacher.setName(fields[0]);
-                teacher.setIdCard(fields[1]);
-                teacher.setWorkNo(fields[2]);
-                teacher.setCollege(fields[3]);
-                teacher.setHealthCode(fields[4]);
-                teacher.setDailycheck(fields[5]);
+
+                // 设置Teacher对象的各个字段
+                teacher.setName(sheet.getCell(0, i).getContents());
+                teacher.setIdCard(sheet.getCell(1, i).getContents());
+                teacher.setWorkNo(sheet.getCell(2, i).getContents());
+                teacher.setCollege(sheet.getCell(3, i).getContents());
+                teacher.setHealthCode(sheet.getCell(4, i).getContents());
+                teacher.setDailycheck(sheet.getCell(5, i).getContents());
                 teacher.setCheckdays(0);
                 try {
                     teacherDao.addTeacher(teacher);
