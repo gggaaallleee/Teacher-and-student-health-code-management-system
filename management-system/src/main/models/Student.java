@@ -13,6 +13,8 @@ public class Student {
     private String healthCode;
     private String dailycheck;
 
+    private int checkdays;
+
     public Student() {
         this.name = "";
         this.idCard = "";
@@ -22,8 +24,10 @@ public class Student {
         this.classNo = "";
         this.healthCode = "";
         this.dailycheck = "";
+        this.checkdays = 0;
+
     }
-    public Student(String name, String idCard, String StudentNo, String college, String major, String classNo, String healthCode, String dailycheck) {
+    public Student(String name, String idCard, String StudentNo, String college, String major, String classNo, String healthCode, String dailycheck, int checkdays) {
         this.name = name;
         this.idCard = idCard;
         this.StudentNo = StudentNo;
@@ -32,9 +36,21 @@ public class Student {
         this.classNo = classNo;
         this.healthCode = healthCode;
         this.dailycheck = dailycheck;
+        this.checkdays = checkdays;
     }
 
-    // getter and setter ...
+    public String getDailycheck() {
+        return dailycheck;
+    }
+
+    public int getCheckdays() {
+        return checkdays;
+    }
+
+    public void setCheckdays(int checkdays) {
+        this.checkdays = checkdays;
+    }
+// getter and setter ...
 
     public String getName() {
         return name;

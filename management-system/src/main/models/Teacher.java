@@ -9,6 +9,7 @@ public class Teacher {
     private String college;
     private String healthCode;
     private String dailycheck;
+    private  int checkdays;
 
 
     public Teacher(){
@@ -18,14 +19,22 @@ public class Teacher {
         this.college = "";
         this.healthCode = "";
         this.dailycheck = "";
+        this.checkdays = 0;
+
     }
-    public Teacher(String name, String idCard, String workNo, String college,  String healthCode, String dailycheck) {
+
+    public String getDailycheck() {
+        return dailycheck;
+    }
+
+    public Teacher(String name, String idCard, String workNo, String college, String healthCode, String dailycheck, int checkdays) {
         this.name = name;
         this.idCard = idCard;
         this.workNo = workNo;
         this.college = college;
         this.healthCode = healthCode;
         this.dailycheck = dailycheck;
+        this.checkdays = checkdays;
     }
 
     // getter and setter ...
@@ -40,6 +49,14 @@ public class Teacher {
 
     public String getIdCard() {
         return idCard;
+    }
+
+    public int getCheckdays() {
+        return checkdays;
+    }
+
+    public void setCheckdays(int checkdays) {
+        this.checkdays = checkdays;
     }
 
     public void setIdCard(String idCard) {

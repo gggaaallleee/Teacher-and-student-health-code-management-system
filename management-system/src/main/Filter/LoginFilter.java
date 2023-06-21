@@ -16,6 +16,7 @@ public class LoginFilter implements Filter {
         // 获取请求的URL
         String url = req.getRequestURI();
         // 如果是登录页面或者注册页面,放行
+        /*
         if (url.endsWith("login.jsp") || url.endsWith("register.jsp")) {
             chain.doFilter(request, response);
             System.out.println(1);
@@ -34,6 +35,7 @@ public class LoginFilter implements Filter {
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
+        */
         // 其他请求放行
         chain.doFilter(request, response);
     }

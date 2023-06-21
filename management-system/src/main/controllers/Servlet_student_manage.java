@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/BatchAddStudent.do"})
 public class Servlet_student_manage extends HttpServlet {
@@ -40,6 +41,7 @@ public class Servlet_student_manage extends HttpServlet {
             student.setClassNo(classNo);
             student.setHealthCode(healthCode);
             student.setDailycheck(dailycheck);
+            student.setCheckdays(0);
             try {
                 studentDao.addStudent(student);
                 respond_json respond = new respond_json(0,"success");
@@ -63,6 +65,7 @@ public class Servlet_student_manage extends HttpServlet {
             String classNo = request.getParameter("classNo");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
+            int checkdays = Integer.parseInt(request.getParameter("checkdays"));
             Student student = new Student();
             student.setName(name);
             student.setIdCard(idCard);
@@ -72,6 +75,7 @@ public class Servlet_student_manage extends HttpServlet {
             student.setClassNo(classNo);
             student.setHealthCode(healthCode);
             student.setDailycheck(dailycheck);
+            student.setCheckdays(checkdays);
             try {
                 studentDao.updateStudent(student);
                 respond_json respond = new respond_json(0,"success");
@@ -109,7 +113,6 @@ public class Servlet_student_manage extends HttpServlet {
         else if (uri.endsWith("/FindStudent.do")){
             // String sql = "SELECT * FROM Teacher WHERE " + way + "=?";
             //如果way和thing有值的话调用findStudent，否则调用findAllStudent
-
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
             System.out.println(way);
@@ -132,7 +135,9 @@ public class Servlet_student_manage extends HttpServlet {
             else{
                 try {
                     System.out.println("nothing");
-                    studentDao.findAllStudent();
+                    List<Student> s= studentDao.findAllStudent();
+                    //把s给到setparameter里供前端读
+                    request.setAttribute("studentlist",s);
                     respond_json respond = new respond_json(0,"success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
@@ -162,6 +167,7 @@ public class Servlet_student_manage extends HttpServlet {
                 student.setClassNo(fields[5]);
                 student.setHealthCode(fields[6]);
                 student.setDailycheck(fields[7]);
+                student.setCheckdays(0);
                 try {
                     studentDao.addStudent(student);
                     respond_json respond = new respond_json(0,"success");

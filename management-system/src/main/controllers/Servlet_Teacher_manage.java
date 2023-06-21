@@ -27,9 +27,9 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
             String college = request.getParameter("college");
-            String role = request.getParameter("role");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
+            int checkdays = 0;
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setIdCard(idCard);
@@ -37,6 +37,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setCollege(college);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
+            teacher.setCheckdays(checkdays);
             try {
                 teacherDao.addTeacher(teacher);
                 respond_json respond = new respond_json(0,"success");
@@ -57,9 +58,9 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
             String college = request.getParameter("college");
-            String role = request.getParameter("role");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
+            int checkdays = Integer.parseInt(request.getParameter("checkdays"));
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setIdCard(idCard);
@@ -67,6 +68,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setCollege(college);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
+            teacher.setCheckdays(checkdays);
             try {
                 teacherDao.updateTeacher(teacher);
                 respond_json respond = new respond_json(0,"success");
@@ -105,7 +107,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String thing = request.getParameter("thing");
             if(!"".equals(way) && !"".equals(thing)){
                 try {
-                    request.setAttribute("teachers", teacherDao.findTeacher(way,thing));
+                    request.setAttribute("teacherlist", teacherDao.findTeacher(way,thing));
                     respond_json respond = new respond_json(0,"success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
@@ -120,7 +122,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             }
             else{
                 try {
-                    request.setAttribute("teachers", teacherDao.findAllTeacher());
+                    request.setAttribute("teacherlist", teacherDao.findAllTeacher());
                     respond_json respond = new respond_json(0,"success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
@@ -149,6 +151,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 teacher.setCollege(fields[3]);
                 teacher.setHealthCode(fields[4]);
                 teacher.setDailycheck(fields[5]);
+                teacher.setCheckdays(0);
                 try {
                     teacherDao.addTeacher(teacher);
                     respond_json respond = new respond_json(0,"success");

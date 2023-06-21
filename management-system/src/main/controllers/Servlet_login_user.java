@@ -45,6 +45,7 @@ public class Servlet_login_user extends HttpServlet {
             } else {
                 if (list.get(0).getWorkNo().equals(username) && list.get(0).getIdCard().substring(10,18).equals(password)) {
                     request.getSession().setAttribute("username",username);
+                    request.getSession().setAttribute("identity",type);
                     request.getRequestDispatcher("web_jsp/user.jsp").forward(request,response);
                 } else {
                     request.setAttribute("msg","密码错误");

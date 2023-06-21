@@ -1,0 +1,8 @@
+管理员登录页面 admin_login.jsp
+用户登录页面 user_login.jsp
+每日一报填写页面 health_enter.jsp
+每日一报查看页面 health_show.jsp
+管理员管理页面 manage.jsp
+管理员统计页面 static.jsp
+健康码展示主页 index.jsp
+欢迎页面 用于区分用户登录和管理员登录
