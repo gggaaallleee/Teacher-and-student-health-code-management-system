@@ -14,8 +14,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-@WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/BatchAddTeacher.do"})
+@MultipartConfig
+@WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/AddTeacherBatch.do"})
 public class Servlet_Teacher_manage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +30,9 @@ public class Servlet_Teacher_manage extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String uri = request.getRequestURI();
+        System.out.println("thisisenter");
         if(uri.endsWith("AddTeacher.do")){
+            System.out.println("thisisaddone");
             String name = request.getParameter("name");
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
@@ -105,7 +107,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
             }
         }
         else if(uri.endsWith("/DeleteTeacher.do")){
-            System.out.println("delete");
             String id = request.getParameter("workNo");
             try {
                 teacherDao.deleteTeacher(id);
@@ -158,7 +159,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 }
             }
         }
-        else if(uri.endsWith("/BatchAddTeacher.do")){
+        else if(uri.endsWith("/AddTeacherBatch.do")){
             //接受前端传过来的文件流，是txt文件，txt文件内每行字段以空格分割，每行结尾为分号，进行批量添加
             System.out.println("thisisright");
             Part filePart = request.getPart("file"); // "file"是文件在表单中的字段名
@@ -171,7 +172,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
             } catch (BiffException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("thisisright");
             Sheet sheet = workbook.getSheet(0);
             if(!"name".equals(sheet.getCell(0,0).getContents()) || !"idCard".equals(sheet.getCell(1,0).getContents()) || !"workNo".equals(sheet.getCell(2,0).getContents()) || !"college".equals(sheet.getCell(3,0).getContents()) || !"role".equals(sheet.getCell(4,0).getContents()) ){
                 respond_json respond = new respond_json(1,"failed");
@@ -180,7 +180,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 response.getWriter().write(json);
                 request.getRequestDispatcher("/Teacher_table.jsp").forward(request,response);
             }
-            System.out.println("thisisright");
             for (int i = 1; i < sheet.getRows(); i++) {
                 if(!"校级管理员".equals(sheet.getCell(4,i).getContents()) && !"院级管理员".equals(sheet.getCell(4,i).getContents()) && !"普通教师".equals(sheet.getCell(4,i).getContents())){
                     respond_json respond = new respond_json(1,"failed");
@@ -190,11 +189,9 @@ public class Servlet_Teacher_manage extends HttpServlet {
                     request.getRequestDispatcher("/Teacher_table.jsp").forward(request,response);
                 }
             }
-            System.out.println("getit");
             for (int i = 1; i < sheet.getRows(); i++) {
                 // 创建一个新的Teacher对象
                 Teacher teacher = new Teacher();
-
                 // 设置Teacher对象的各个字段
                 teacher.setName(sheet.getCell(0, i).getContents());
                 teacher.setIdCard(sheet.getCell(1, i).getContents());
@@ -214,11 +211,13 @@ public class Servlet_Teacher_manage extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+
             respond_json respond = new respond_json(0,"success");
             String json = JSON.toJSONString(respond);
             response.setContentType("application/json");
             response.getWriter().write(json);
             request.getRequestDispatcher("/Servlet_refresh_teacher").forward(request,response);
+            fileContent.close();
 
         }
     }

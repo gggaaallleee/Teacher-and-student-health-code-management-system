@@ -97,7 +97,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
 
         @Override
         public void deleteStudent(String workNo){
-            String sql = "DELETE FROM Student WHERE workNo = ?";
+            String sql = "DELETE FROM Student WHERE studentno = ?";
             Connection conn = null;
             PreparedStatement pstmt = null;
             try {
@@ -167,7 +167,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
 
         @Override
         public List<Student> findStudent(String way,String thing) {
-            String sql = "SELECT * FROM Teacher WHERE " + way + "=?";
+            String sql = "SELECT * FROM Student WHERE " + way + "=?";
             Connection conn = null;
             PreparedStatement pstmt = null;
             ResultSet rs = null;
@@ -175,7 +175,7 @@ public class Student_manage_impl implements main.Dao.Student_manage{
             try {
                 conn = getConnection();
                 pstmt = conn.prepareStatement(sql);
-                String pattern = "%" + thing + "%";
+                String pattern =  thing ;
                 pstmt.setString(1, pattern);
                 rs = pstmt.executeQuery();
                 while (rs.next()) {

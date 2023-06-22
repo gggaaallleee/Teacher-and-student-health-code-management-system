@@ -2,9 +2,6 @@ package main.controllers;
 import javax.servlet.http.Part;
 
 //导入jar包 地址是https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
-
-
-
 import java.io.InputStream;
 import com.alibaba.fastjson.JSON;
 import jxl.Sheet;
@@ -21,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 @MultipartConfig
-@WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/BatchAddStudent.do"})
+@WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/AddStudentBatch.do"})
 public class Servlet_student_manage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +29,8 @@ public class Servlet_student_manage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Student_manage_impl studentDao = new Student_manage_impl();
         String uri = request.getRequestURI();
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         //INSERT INTO Student(id,name,idCard,studentNo,college,major,classNo,healthCode,dailycheck) VALUES(?,?,?,?,?,?,?,?,?)
         if(uri.endsWith("/AddStudent.do")){
             String name = request.getParameter("name");
@@ -42,6 +41,9 @@ public class Servlet_student_manage extends HttpServlet {
             String classNo = request.getParameter("classNo");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
+            int checkdays = 0;
+            healthCode = "green";
+            dailycheck = "no";
             Student student = new Student();
             student.setName(name);
             student.setIdCard(idCard);
@@ -51,6 +53,7 @@ public class Servlet_student_manage extends HttpServlet {
             student.setClassNo(classNo);
             student.setHealthCode(healthCode);
             student.setDailycheck(dailycheck);
+            student.setCheckdays(checkdays);
             student.setCheckdays(0);
             try {
                 studentDao.addStudent(student);
@@ -58,6 +61,7 @@ public class Servlet_student_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -73,26 +77,11 @@ public class Servlet_student_manage extends HttpServlet {
             String college = request.getParameter("college");
             String major = request.getParameter("major");
             String classNo = request.getParameter("classNo");
-
-            String healthCode = request.getParameter("healthCode");
-            String dailycheck = request.getParameter("dailycheck");
-            String checkdays_temp = request.getParameter("checkdays");
             List<Student> students = studentDao.findStudent("studentNo",studentNo);
             Student student1 = students.get(0);
-            int checkdays;
-            if(checkdays_temp.equals(null)){
-               checkdays = student1.getCheckdays();
-            }
-            else{
-               checkdays = Integer.parseInt(checkdays_temp);
-            }
-            if(healthCode.equals(null)){
-                healthCode = student1.getHealthCode();
-            }
-            if(dailycheck.equals(null)){
-                dailycheck = student1.getDailycheck();
-            }
-
+            int checkdays= student1.getCheckdays();
+            String healthCode = student1.getHealthCode();
+            String dailycheck = student1.getDailycheck();
             Student student = new Student();
             student.setName(name);
             student.setIdCard(idCard);
@@ -111,6 +100,7 @@ public class Servlet_student_manage extends HttpServlet {
                 System.out.println("success");
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -122,13 +112,14 @@ public class Servlet_student_manage extends HttpServlet {
             }
         }
         else if (uri.endsWith("/DeleteStudent.do")){
-            String id = request.getParameter("studentNo");
+            String id = request.getParameter("StudentNo");
             try {
                 studentDao.deleteStudent(id);
                 respond_json respond = new respond_json(0,"success");
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -175,11 +166,10 @@ public class Servlet_student_manage extends HttpServlet {
                 }
             }
         }
-        else if (uri.endsWith("/BatchAddStudent.do")) {
+        else if (uri.endsWith("/AddStudentBatch.do")) {
             //接受前端传过来的文件流，是txt文件，txt文件内每行字段以空格分割，每行结尾为分号，进行批量添加
             //INSERT INTO Student(id,name,idCard,studentNo,college,major,classNo,healthCode,dailycheck) VALUES(?,?,?,?,?,?,?,?,?)
             Part filePart = request.getPart("file"); // "file"是文件在表单中的字段名
-
             // 将文件转换为Excel Workbook
             InputStream fileContent = filePart.getInputStream();
             Workbook workbook = null;
@@ -188,10 +178,15 @@ public class Servlet_student_manage extends HttpServlet {
             } catch (BiffException e) {
                 throw new RuntimeException(e);
             }
-
-            // 遍历Workbook中的所有行，并打印出来
             Sheet sheet = workbook.getSheet(0);
-            for (int i = 0; i < sheet.getRows(); i++) {
+            if(!"name".equals(sheet.getCell(0,0).getContents()) || !"idCard".equals(sheet.getCell(1,0).getContents()) || !"studentNo".equals(sheet.getCell(2,0).getContents()) || !"college".equals(sheet.getCell(3,0).getContents()) || !"major".equals(sheet.getCell(4,0).getContents()) || !"class".equals(sheet.getCell(5,0).getContents())){
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+                request.getRequestDispatcher("/Student_table.jsp").forward(request,response);
+            }
+            for (int i = 1; i < sheet.getRows(); i++) {
                 // 创建一个新的Student对象
                 Student student = new Student();
                 // 设置Student对象的各个字段
@@ -201,15 +196,11 @@ public class Servlet_student_manage extends HttpServlet {
                 student.setCollege(sheet.getCell(3, i).getContents());
                 student.setMajor(sheet.getCell(4, i).getContents());
                 student.setClassNo(sheet.getCell(5, i).getContents());
-                student.setHealthCode(sheet.getCell(6, i).getContents());
-                student.setDailycheck(sheet.getCell(7, i).getContents());
+                student.setHealthCode("green");
+                student.setDailycheck("no");
                 student.setCheckdays(0);
                 try {
                     studentDao.addStudent(student);
-                    respond_json respond = new respond_json(0, "success");
-                    String json = JSON.toJSONString(respond);
-                    response.setContentType("application/json");
-                    response.getWriter().write(json);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1, "failed");
                     String json = JSON.toJSONString(respond);
@@ -218,6 +209,14 @@ public class Servlet_student_manage extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            respond_json respond = new respond_json(0,"success");
+            String json = JSON.toJSONString(respond);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
+            fileContent.close();
+
+
         }
         else{
             System.out.println("Error: Servlet_student_manage.java");

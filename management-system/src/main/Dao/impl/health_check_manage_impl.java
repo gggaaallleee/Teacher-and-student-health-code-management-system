@@ -30,7 +30,6 @@ public class health_check_manage_impl  implements main.Dao.health_check_manage{
             pstmt.setString(10,health_check.getHealth_status());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            
                 e.printStackTrace();
                 throw new RuntimeException(e);
         } finally {

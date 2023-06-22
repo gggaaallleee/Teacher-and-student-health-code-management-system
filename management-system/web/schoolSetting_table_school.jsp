@@ -1,11 +1,15 @@
-<%--
+<%@ page import="main.models.Teacher" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="main.models.User" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2023/6/21
-  Time: 20:47
+  Time: 20:46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +19,9 @@
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
 
-  <title>Teacher Table</title>
+  <title>Editable Table</title>
 
-  <!--dynamic table-->
-  <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
-  <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+  <!--data table-->
   <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
 
   <link href="css/style.css" rel="stylesheet">
@@ -30,6 +32,7 @@
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
+
 </head>
 
 <body class="sticky-header">
@@ -40,15 +43,13 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
-
-
     <div class="left-side-inner">
 
       <!-- visible to small devices only -->
@@ -71,24 +72,23 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
-            <li><a href="Student_table.jsp"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
             <li><a href="health_table.jsp"> 打卡查询</a></li>
           </ul>
         </li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Teacher_table1.jsp">查看教师信息</a></li>
-            <li><a href="Student_table2.jsp"> 查看学生信息</a></li>
+            <li><a href="Teacher_table_school.jsp">查看教师信息</a></li>
+            <li><a href="Student_table_school.jsp"> 查看学生信息</a></li>
             <li><a href="health_table.jsp">打卡查询</a></li>
           </ul>
         </li>
         <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Teacher_table.jsp"> 查看教师信息</a></li>
             <li><a href="Student_table.jsp"> 查看学生信息</a></li>
             <li><a href="health_table.jsp"> 打卡查询</a></li>
           </ul>
@@ -122,7 +122,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.html" method="post">
+      <form class="searchform" action="Servlet_refresh_index" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -329,9 +329,9 @@
           <a href="#">Dashboard</a>
         </li>
         <li>
-          <a href="#">Data Tables</a>
+          <a href="#">Data Table</a>
         </li>
-        <li class="active"> Dynamic Table </li>
+        <li class="active"> Editable Table </li>
       </ul>
     </div>
     <!-- page heading end-->
@@ -342,54 +342,84 @@
         <div class="col-sm-12">
           <section class="panel">
             <header class="panel-heading">
-              Teacher Table
+              管理员设置
               <span class="tools pull-right">
-                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                <a href="javascript:;" class="fa fa-times"></a>
-             </span>
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                     </span>
             </header>
             <div class="panel-body">
-              <div class="adv-table">
-                <table  class="display table table-bordered table-striped" id="dynamic-table">
+              <div class="adv-table editable-table ">
+                <div class="clearfix">
+                  <div class="btn-group">
+                    <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addmanage_school.jsp'"> > Add New <i class="fa fa-plus"></i></button>
+                    <label for="file1"  id="upFile"  class="btn btn-primary">数据导入</label>
+                    <input type="file" id="file1" name="file1" multiple style="width: 0;" >
+                  </div>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right">
+                      <li><a href="#">Print</a></li>
+                      <li><a href="#">Save as PDF</a></li>
+                      <li><a href="#">Export to Excel</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="space15"></div>
+                <table class="table table-striped table-hover table-bordered" id="editable-sample">
                   <thead>
                   <tr>
-                    <th>姓名</th>
-                    <th>身份证号</th>
                     <th>工号</th>
-                    <th class="hidden-phone">学院</th>
-                    <th class="hidden-phone">角色</th>
+                    <th>密码</th>
+                    <th>等级</th>
                   </tr>
-                  <%
-                    List<Teacher>list=new ArrayList<>();
-                    list=(list<Teacher>)request.getAttribute("list");
-                  %>
-                  <c:forEach items="<%=list%>" var="teacher">
-                  </thead>
-                  <tbody>
-                  <tr class="">
-                    <td>${teacher.name}</td>
-                    <td>${teacher.idCard}</td>
-                    <td>${teacher.WordNo}</td>
-                    <td class="center">${teacher.collage}</td>
-                    <td>${teacher.role}</td>
-                  </tr>
-                  </c:forEach>
 
+                  <%
+                    List<User> user_list=new ArrayList<>();
+                    user_list=(List<User>) request.getAttribute("user_list");
+                  %>
+
+                  </thead>
+
+                  <tbody>
+                  <c:forEach items="<%=user_list%>" var="user">
+                    <c:if test="${user.level ne 0}">
+                      <c:if test="${user.level ne 3}">
+                        <c:if test="${user.level ne 1}">
+                        <tr>
+                          <td>${user.username}</td>
+                          <td>${user.password}</td>
+                          <td>
+                            <c:if test="${user.level eq 2}">
+                              院级管理员
+                            </c:if>
+                          </td>
+                          <td><a class="edit" href="editmanage_school.jsp?username=${user.username}&password=${user.password}&level=${user.level}">修改</a></td>
+                          <td><a class="delete" href="DeleteUser.do?username=${user.username}">Delete</a></td>
+                        </tr>
+                        </c:if>
+                      </c:if>
+                    </c:if>
+                  </c:forEach>
                   </tbody>
+
                 </table>
               </div>
             </div>
           </section>
+
+
+
         </div>
       </div>
     </div>
 
+
+
     <!--body wrapper end-->
 
-    <!--footer section start-->
-    <footer>
-      2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-    </footer>
+
     <!--footer section end-->
 
 
@@ -405,15 +435,22 @@
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
 
-<!--dynamic table-->
-<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+<!--data table-->
+<script type="text/javascript" src="js/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
-<!--dynamic table initialization -->
-<script src="js/dynamic_table_init.js"></script>
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 
+<!--script for editable table-->
+<script src="js/editable-table.js"></script>
+
+<!-- END JAVASCRIPTS -->
+<script>
+  jQuery(document).ready(function() {
+    EditableTable.init();
+  });
+</script>
+
 </body>
 </html>
-

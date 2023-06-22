@@ -24,7 +24,8 @@ public class Servlet_Major_manage extends HttpServlet {
         // String sql = "SELECT * FROM Teacher WHERE " + way + "=?";
         //如果way和thing有值的话调用findStudent，否则调用findAllStudent
         //传入txt
-
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String uri = request.getRequestURI();
         major_manage_impl majorDao = new major_manage_impl();
         if (uri.endsWith("AddMajor.do")) {
@@ -39,6 +40,7 @@ public class Servlet_Major_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("Servlet_refresh_major").forward(request, response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -114,6 +116,7 @@ public class Servlet_Major_manage extends HttpServlet {
                     response.setContentType("application/json");
                     response.getWriter().write(json);
                     majorDao.updateMajor(major);
+                    request.getRequestDispatcher("Servlet_refresh_major").forward(request, response);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1,"failed");
                     String json = JSON.toJSONString(respond);

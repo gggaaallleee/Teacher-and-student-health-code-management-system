@@ -30,7 +30,6 @@ public class user_manage_impl implements main.Dao.user_manage{
             pstmt.setInt(3,user.getLevel());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            
                 e.printStackTrace();
                 throw new RuntimeException(e);
         } finally {

@@ -22,21 +22,10 @@ import main.models.respond_json;
 public class Servlet_health_check extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
     }
 
 
     protected String check_daily_healthcode(String is_in_danger,String is_abroad,String is_contact,String is_confirmed,String vaccine,String[] healthStatus){
-        /*如果有下列任意一种情况的为黄色健康码
-	本人近期（14天内）去过重点疫区
-	本人近期（14天内）去过国外
-	当前健康状况有且仅有发烧（≥37.3℃）、乏力、干咳、鼻塞、流涕、咽痛、腹泻中的一种
-如果有下列任意一种情况的为红色健康码
-	本人近期（14天内）接触过新冠确诊病人或疑似病人
-	本人被卫生部门确认为新冠肺炎确诊病例或疑似病例
-	当前健康状况有发烧（≥37.3℃）、乏力、干咳、鼻塞、流涕、咽痛、腹泻等中两种症状及以上
-     除黄色健康码和红色健康码以外的情形为绿色健康码。如果打过新冠疫苗，健康码为戴金色边框的蓝色二维码
-*/
         if(is_in_danger.equals("yes")||is_abroad.equals("yes")||(healthStatus.length == 1)){
             return "yellow";
         }
@@ -44,7 +33,7 @@ public class Servlet_health_check extends HttpServlet {
             return "red";
         }
         else if(is_in_danger.equals("no")&&is_abroad.equals("no")&&is_confirmed.equals("no")&&is_contact.equals("no")){
-            if(vaccine.equals("yes")){
+            if(!vaccine.equals("0")){
                 return "blue";
             }
             else{
@@ -56,8 +45,7 @@ public class Servlet_health_check extends HttpServlet {
         }
     }
 
-    protected String check_healthcode_update(Student student){
-    /*红色健康码的师生需连续打卡7天满足绿色健康码条件才可转为黄码；黄色健康码的师生需连续打卡7天满足绿色健康码条件才可转为绿码。*/
+    protected String check_healthcode_updates(Student student){
         if(student.getHealthCode().equals("red")){
             if(student.getCheckdays() >= 7){
                 return "yellow";
@@ -80,8 +68,7 @@ public class Servlet_health_check extends HttpServlet {
 
     }
 
-    protected String check_healthcode_update(Teacher teacher){
-        /*红色健康码的师生需连续打卡7天满足绿色健康码条件才可转为黄码；黄色健康码的师生需连续打卡7天满足绿色健康码条件才可转为绿码。*/
+    protected String check_healthcode_updatet(Teacher teacher){
         if(teacher.getHealthCode().equals("red")){
             if(teacher.getCheckdays() >= 7){
                 return "yellow";
@@ -105,12 +92,15 @@ public class Servlet_health_check extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//String sql = "INSERT INTO health_check(name,id,number,phone,is_in_danger,is_abroad,is_contact,is_confirmed,vaccine,health_status) VALUES(?,?,?,?,?,?,?,?,?,?)";
-
+        System.out.println("once");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String uri = request.getRequestURI();
         health_check_manage_impl health_checkDao = new health_check_manage_impl();
         if (uri.endsWith("Addhealth_check.do")) {
-            String identity = request.getParameter("identity");
+            //session
+            String identity = request.getSession().getAttribute("identity").toString();
+            System.out.println(identity);
             String name = request.getParameter("name");
             String id = request.getParameter("id");
             String number = request.getParameter("number");
@@ -121,10 +111,20 @@ public class Servlet_health_check extends HttpServlet {
             String is_confirmed = request.getParameter("is_confirmed");
             String vaccine = request.getParameter("vaccine");
             String[] healthStatus = request.getParameterValues("healthStatus");
+            System.out.println(healthStatus.length);
             //对healthStatus进行处理，如果选中则置1未选中则置0，生成仅包括0和1的字符串，并保存到health_status中
+            //建立list正常,发烧,乏力,干咳,鼻塞,流涕,咽痛,腹泻的列表，如果healthStatus中有则置1，没有则置0
             String health_status = "";
-            for(int i = 0;i < healthStatus.length;i++){
-                if(healthStatus[i].equals("yes")){
+            String[] healthStatusList = {"正常","发烧","乏力","干咳","鼻塞","流涕","咽痛","腹泻"};
+            for(int i = 0;i < healthStatusList.length;i++){
+                int flag = 0;
+                for(int j = 0;j < healthStatus.length;j++){
+                    if(healthStatusList[i].equals(healthStatus[j])){
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag == 1){
                     health_status += "1";
                 }
                 else{
@@ -144,35 +144,48 @@ public class Servlet_health_check extends HttpServlet {
             health_check.setHealth_status(health_status);
             try {
                 health_checkDao.addhealth_check(health_check);
-                if(identity == "student"){
+                System.out.println("添加成功");
+                System.out.println(identity);
+                if(identity.equals("student")){
                     Student_manage_impl studentDao = new Student_manage_impl();
-                    List<Student> tmp = studentDao.findStudent("id",id);
+                    List<Student> tmp = studentDao.findStudent("idcard",id);
                     Student student = tmp.get(0);
                     student.setCheckdays(student.getCheckdays()+1);
                     String check_result = check_daily_healthcode(is_in_danger,is_abroad,is_contact,is_confirmed,vaccine,healthStatus);
-                    if(!student.getHealthCode().equals("green")) student.setCheckdays(0);
-                    String check_result_update = check_healthcode_update(student);
+                    if(!check_result.equals("green")) student.setCheckdays(0);
+                    //如果student的healthcode为green，而checkresult不为green，则将student的healthcode设置为checkresult；如果student的healthcode不为green，则不操作
+                    if(student.getHealthCode().equals("green")){
+                        if(!check_result.equals("green")) student.setHealthCode(check_result);
+                    }
+
+                    String check_result_update = check_healthcode_updates(student);
                     if(!check_result_update.equals("notdone")) student.setHealthCode(check_result_update);
                     student.setDailycheck("yes");
                     studentDao.updateStudent(student);
+                    request.getRequestDispatcher("healthy_enter.jsp").forward(request, response);
                 }
                 else{
                     Teacher_manage_impl teacherDao = new Teacher_manage_impl();
-                    List<Teacher> tmp = teacherDao.findTeacher("id",id);
+                    List<Teacher> tmp = teacherDao.findTeacher("idcard",id);
                     Teacher teacher = tmp.get(0);
                     teacher.setCheckdays(teacher.getCheckdays()+1);
                     String check_result = check_daily_healthcode(is_in_danger,is_abroad,is_contact,is_confirmed,vaccine,healthStatus);
-                    teacher.setHealthCode(check_result);
-                    String check_result_update = check_healthcode_update(teacher);
+                    if(!check_result.equals("green")) teacher.setCheckdays(0);
+                    //如果student的healthcode为green，而checkresult不为green，则将student的healthcode设置为checkresult；如果student的healthcode不为green，则不操作
+                    if(teacher.getHealthCode().equals("green")){
+                        if(!check_result.equals("green")) teacher.setHealthCode(check_result);
+                    }
+                    String check_result_update = check_healthcode_updatet(teacher);
                     if(!check_result_update.equals("notdone")) teacher.setHealthCode(check_result_update);
-                    if(!teacher.getHealthCode().equals("green")) teacher.setCheckdays(0);
                     teacher.setDailycheck("yes");
                     teacherDao.updateTeacher(teacher);
+                    request.getRequestDispatcher("healthy_enter.jsp").forward(request, response);
                 }
                 respond_json respond = new respond_json(0,"success");
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
