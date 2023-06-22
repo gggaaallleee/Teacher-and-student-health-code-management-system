@@ -226,7 +226,6 @@ public class major_manage_impl implements main.Dao.major_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-                
                 e.printStackTrace();
                 throw new RuntimeException(e);
 

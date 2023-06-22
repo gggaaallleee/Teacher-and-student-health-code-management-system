@@ -1,0 +1,80 @@
+body{
+    /* background-color: #f6f6f6; */
+    height: auto;
+
+}
+
+.main{
+    padding:10px 10px;
+}
+
+a{
+    text-decoration: none;
+    color: skyblue;
+    font-weight: 400;
+}
+.time{
+
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 2px solid grey;
+}
+
+#clock1{
+    width: 300px;
+    border: 0px;
+    outline: none;
+    /* font-family: JetBrains Mono Medium; */
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+}
+#clock2{
+    width: 300px;
+    border: 0px;
+    outline:none ;
+    /* font-family: JetBrains Mono Medium; */
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+}
+
+
+.center{
+    margin-top: 30px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    /* background-color: pink; */
+
+}
+.center .top{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.center .top .name{
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.center .top .change{
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.healthpic{
+    columns: 200px;
+}
+.center .pic{
+
+    margin-top:5px ;
+    text-align: center;
+}
+
+.center .text{
+    padding: 0 15px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+

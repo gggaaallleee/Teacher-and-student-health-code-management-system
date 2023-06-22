@@ -134,6 +134,7 @@ public class Servlet_student_manage extends HttpServlet {
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);
+                    request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1,"failed");
                     String json = JSON.toJSONString(respond);
@@ -152,6 +153,7 @@ public class Servlet_student_manage extends HttpServlet {
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);
+                    request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1,"failed");
                     String json = JSON.toJSONString(respond);
@@ -180,7 +182,6 @@ public class Servlet_student_manage extends HttpServlet {
             for (int i = 0; i < sheet.getRows(); i++) {
                 // 创建一个新的Student对象
                 Student student = new Student();
-
                 // 设置Student对象的各个字段
                 student.setName(sheet.getCell(0, i).getContents());
                 student.setIdCard(sheet.getCell(1, i).getContents());

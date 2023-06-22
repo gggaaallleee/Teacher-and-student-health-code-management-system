@@ -150,10 +150,9 @@ public class Servlet_health_check extends HttpServlet {
                     Student student = tmp.get(0);
                     student.setCheckdays(student.getCheckdays()+1);
                     String check_result = check_daily_healthcode(is_in_danger,is_abroad,is_contact,is_confirmed,vaccine,healthStatus);
-                    student.setHealthCode(check_result);
+                    if(!student.getHealthCode().equals("green")) student.setCheckdays(0);
                     String check_result_update = check_healthcode_update(student);
                     if(!check_result_update.equals("notdone")) student.setHealthCode(check_result_update);
-                    if(!student.getHealthCode().equals("green")) student.setCheckdays(0);
                     student.setDailycheck("yes");
                     studentDao.updateStudent(student);
                 }

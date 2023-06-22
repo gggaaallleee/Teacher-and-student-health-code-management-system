@@ -226,7 +226,6 @@ public class user_manage_impl implements main.Dao.user_manage{
                     conn.close();
                 }
             } catch (SQLException e) {
-                
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
