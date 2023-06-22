@@ -1,12 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lenovo
-  Date: 2023/6/21
-  Time: 20:45
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="main.models.Student" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -14,47 +10,27 @@
   <meta name="description" content="">
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
-
   <title>Student Table</title>
-
   <!--data table-->
   <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
-
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
-  <![endif]-->
-
-  <style>
-    .lab{
-      margin-right: 10px;
-    }
-  </style>
 </head>
-
 <body class="sticky-header">
-
 <section>
   <!-- left side start-->
   <div class="left-side sticky-left-side">
-
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
     </div>
-
     <div class="logo-icon text-center">
-      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
-
-
     <div class="left-side-inner">
-
       <!-- visible to small devices only -->
       <div class="visible-xs hidden-sm hidden-md hidden-lg">
         <div class="media logged-user">
@@ -75,37 +51,37 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Teacher_table.html"> 教师信息管理</a></li>
-            <li><a href="./Student_table.html"> 学生信息管理</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
+            <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
+            <li><a href="health_table.jsp"> 打卡查询</a></li>
           </ul>
         </li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Teacher_table1.html">查看教师信息</a></li>
-            <li><a href="./Student_table2.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html">打卡查询</a></li>
+            <li><a href="Teacher_table1.jsp">查看教师信息</a></li>
+            <li><a href="Student_table2.jsp"> 查看学生信息</a></li>
+            <li><a href="health_table.jsp">打卡查询</a></li>
           </ul>
         </li>
         <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Student_table.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
+            <li><a href="Student_table.jsp"> 查看学生信息</a></li>
+            <li><a href="health_table.jsp"> 打卡查询</a></li>
           </ul>
         </li>
 
         <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
           <ul class="sub-menu-list">
-            <li><a href="mail.html">每日打卡</a></li>
-            <li><a href="mail_compose.html">健康码显示</a></li>
+            <li><a href="mail.jsp">每日打卡</a></li>
+            <li><a href="mail_compose.jsp">健康码显示</a></li>
           </ul>
         </li>
 
 
-        <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+        <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -125,7 +101,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.html" method="post">
+      <form class="searchform" action="Servlet_refresh_index" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -213,6 +189,7 @@
             <div class="dropdown-menu dropdown-menu-head pull-right">
               <h5 class="title">You have 5 Mails </h5>
               <ul class="dropdown-list normal-list">
+
                 <li class="new">
                   <a href="">
                     <span class="thumb"><img src="images/photos/user1.png" alt="" /></span>
@@ -337,9 +314,6 @@
         <li class="active"> Editable Table </li>
       </ul>
     </div>
-    <!-- page heading end-->
-
-    <!--body wrapper start-->
     <div class="wrapper">
       <div class="row">
         <div class="col-sm-12">
@@ -385,21 +359,23 @@
                     <th>修改</th>
                     <th>删除</th>
                   </tr>
-                  <%
-                    List<Student>list=new ArrayList<>();
-                    list=(list<Student>)request.getAttribute("list");
-                  %>
-                  <c:forEach items="<%=list%>" var="student">
                   </thead>
+                  <%
+                    List<Student> list=new ArrayList<>();
+                    System.out.println(list.get(0).getName());
+                    list= (List<Student>) request.getAttribute("student_list");
+                  %>
+
                   <tbody>
-                  <tr class="">
+                  <c:forEach items="<%=list%>" var="student">
+                  <tr>
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>
                     <td>${student.StudentNo}</td>
-                    <td class="center">${student.collage}</td>
+                    <td>${student.college}</td>
                     <th>${student.major}</th>
                     <th>${student.classNo}</th>
-                    <td><a class="edit" href="updateStudent.jsp?name=${student.name}&idCard=${student.idCard}&StudentNo=${student.StudentNo}&college=${student.college}&major=${student.major}&classNo=${student.classNo}">修改</a></td>
+                    <td><a class="edit" href="UpdateStudent.do?name=${student.name}&idCard=${student.idCard}&StudentNo=${student.StudentNo}&college=${student.college}&major=${student.major}&classNo=${student.classNo}">修改</a></td>
                     <td><a class="delete" href="DeleteStudent.do?StudentNo=${student.StudentNo}">Delete</a></td>
                   </tr>
                   </c:forEach>
@@ -408,24 +384,11 @@
               </div>
             </div>
           </section>
-
         </div>
       </div>
     </div>
 
-
-
-    <!--body wrapper end-->
-
-    <!--footer section start-->
-    <footer>
-      2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-    </footer>
-    <!--footer section end-->
-
-
   </div>
-  <!-- main content end-->
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->

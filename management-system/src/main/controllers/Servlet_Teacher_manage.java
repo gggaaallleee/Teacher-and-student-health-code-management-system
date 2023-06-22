@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/BatchAddTeacher.do"})
 public class Servlet_Teacher_manage extends HttpServlet {
@@ -69,7 +70,22 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String role = request.getParameter("role");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
-            int checkdays = Integer.parseInt(request.getParameter("checkdays"));
+            String checkdays_temp = request.getParameter("checkdays");
+            List<Teacher> teacherlist = teacherDao.findTeacher("workNo",workNo);
+            Teacher teacher1 = teacherlist.get(0);
+            int checkdays;
+            if(checkdays_temp.equals(null)){
+                checkdays = teacher1.getCheckdays();
+            }
+            else{
+                checkdays = Integer.parseInt(checkdays_temp);
+            }
+            if(healthCode.equals(null)){
+                healthCode = teacher1.getHealthCode();
+            }
+            if(dailycheck.equals(null)){
+                dailycheck = teacher1.getDailycheck();
+            }
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setIdCard(idCard);

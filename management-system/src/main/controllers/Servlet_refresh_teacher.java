@@ -21,7 +21,7 @@ public class Servlet_refresh_teacher extends HttpServlet {
         Teacher_manage_impl teacher_manage = new Teacher_manage_impl();
         List<main.models.Teacher> teacher_list = new ArrayList<main.models.Teacher>();
         teacher_list = teacher_manage.findAllTeacher();
-        request.setAttribute("teacherlist",teacher_list);
+        request.setAttribute("teacher_list",teacher_list);
         request.getRequestDispatcher("Teacher_table.jsp").forward(request,response);
     }
 }

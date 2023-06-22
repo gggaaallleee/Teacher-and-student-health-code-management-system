@@ -73,9 +73,26 @@ public class Servlet_student_manage extends HttpServlet {
             String college = request.getParameter("college");
             String major = request.getParameter("major");
             String classNo = request.getParameter("classNo");
+
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
-            int checkdays = Integer.parseInt(request.getParameter("checkdays"));
+            String checkdays_temp = request.getParameter("checkdays");
+            List<Student> students = studentDao.findStudent("studentNo",studentNo);
+            Student student1 = students.get(0);
+            int checkdays;
+            if(checkdays_temp.equals(null)){
+               checkdays = student1.getCheckdays();
+            }
+            else{
+               checkdays = Integer.parseInt(checkdays_temp);
+            }
+            if(healthCode.equals(null)){
+                healthCode = student1.getHealthCode();
+            }
+            if(dailycheck.equals(null)){
+                dailycheck = student1.getDailycheck();
+            }
+
             Student student = new Student();
             student.setName(name);
             student.setIdCard(idCard);
@@ -125,16 +142,14 @@ public class Servlet_student_manage extends HttpServlet {
             //如果way和thing有值的话调用findStudent，否则调用findAllStudent
             String way = request.getParameter("way");
             String thing = request.getParameter("thing");
-            System.out.println(way);
             if(!"".equals(way) && !"".equals(thing)){
                 try {
-                    System.out.println("something");
+                    request.setAttribute("studentlist", studentDao.findStudent(way,thing));
                     studentDao.findStudent(way,thing);
                     respond_json respond = new respond_json(0,"success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);
-                    request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1,"failed");
                     String json = JSON.toJSONString(respond);
@@ -145,15 +160,12 @@ public class Servlet_student_manage extends HttpServlet {
             }
             else{
                 try {
-                    System.out.println("nothing");
                     List<Student> s= studentDao.findAllStudent();
-                    //把s给到setparameter里供前端读
                     request.setAttribute("studentlist",s);
                     respond_json respond = new respond_json(0,"success");
                     String json = JSON.toJSONString(respond);
                     response.setContentType("application/json");
                     response.getWriter().write(json);
-                    request.getRequestDispatcher("college_manage.jsp").forward(request, response);
                 } catch (Exception e) {
                     respond_json respond = new respond_json(1,"failed");
                     String json = JSON.toJSONString(respond);

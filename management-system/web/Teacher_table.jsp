@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,8 +49,6 @@
             <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
-
-
         <div class="left-side-inner">
 
             <!-- visible to small devices only -->
@@ -75,8 +74,8 @@
                 <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
-                        <li><a href="Student_table.jsp"> 学生信息管理</a></li>
+                        <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
+                        <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
                         <li><a href="health_table.jsp"> 打卡查询</a></li>
                     </ul>
                 </li>
@@ -383,23 +382,25 @@
 
                                     <%
                                         List<Teacher> list=new ArrayList<>();
-                                        list=(List<Teacher>)request.getAttribute("teacherlist");
+                                        list=(List<Teacher>)request.getAttribute("teacher_list");
                                     %>
-                                    <c:forEach items="<%=list%>" var="teacher">
+
                                     </thead>
+
                                     <tbody>
-                                    <tr class="">
+                                    <c:forEach items="<%=list%>" var="teacher">
+                                    <tr>
                                         <td>${teacher.name}</td>
                                         <td>${teacher.idCard}</td>
                                         <td>${teacher.workNo}</td>
-                                        <td class="center">${teacher.college}</td>
+                                        <td>${teacher.college}</td>
                                         <td>${teacher.role}</td>
-
                                         <td><a class="edit" href="UpdateTeacher.do?name=${teacher.name}&idCard=${teacher.idCard}&workNo=${teacher.workNo}&college=${teacher.college}&role=${teacher.role}">修改</a></td>
                                         <td><a class="delete" href="DeleteTeacher.do?workNo=${teacher.workNo}">Delete</a></td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>
+
                                 </table>
                             </div>
                         </div>
@@ -415,10 +416,7 @@
 
         <!--body wrapper end-->
 
-        <!--footer section start-->
-        <footer>
-            2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-        </footer>
+
         <!--footer section end-->
 
 
