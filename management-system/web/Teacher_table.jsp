@@ -1,4 +1,6 @@
-<%--
+<%@ page import="main.models.Teacher" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2023/6/21
@@ -39,11 +41,11 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt=""></a>
+            <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
@@ -70,7 +72,7 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
                     <ul class="sub-menu-list">
                         <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
@@ -100,7 +102,7 @@
                 </li>
 
 
-                <li><a href="login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+                <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
             </ul>
             <!--sidebar nav end-->
@@ -120,7 +122,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="index.html" method="post">
+            <form class="searchform" action="Servlet_refresh_index" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
             </form>
             <!--search end-->
@@ -380,8 +382,8 @@
                                     </tr>
 
                                     <%
-                                        List<Teacher>list=new ArrayList<>();
-                                        list=(list<Teacher>)request.getAttribute("list");
+                                        List<Teacher> list=new ArrayList<>();
+                                        list=(List<Teacher>)request.getAttribute("teacherlist");
                                     %>
                                     <c:forEach items="<%=list%>" var="teacher">
                                     </thead>
@@ -389,11 +391,11 @@
                                     <tr class="">
                                         <td>${teacher.name}</td>
                                         <td>${teacher.idCard}</td>
-                                        <td>${teacher.WordNo}</td>
-                                        <td class="center">${teacher.collage}</td>
+                                        <td>${teacher.workNo}</td>
+                                        <td class="center">${teacher.college}</td>
                                         <td>${teacher.role}</td>
 
-                                        <td><a class="edit" href="updateStudent.jsp?name=${teacher.name}&idCard=${teacher.idCard}&workNo=${teacher.workNo}&college=${teacher.college}&role=${teacher.role}">修改</a></td>
+                                        <td><a class="edit" href="UpdateTeacher.do?name=${teacher.name}&idCard=${teacher.idCard}&workNo=${teacher.workNo}&college=${teacher.college}&role=${teacher.role}">修改</a></td>
                                         <td><a class="delete" href="DeleteTeacher.do?workNo=${teacher.workNo}">Delete</a></td>
                                     </tr>
                                     </c:forEach>

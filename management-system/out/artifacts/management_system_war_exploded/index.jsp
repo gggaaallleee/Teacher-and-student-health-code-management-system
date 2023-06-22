@@ -6,6 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.DateFormat"%>
+<%@ page import="java.text.ParseException"%>
+<%@ page import="main.models.Student" %>
+<%@ page import="main.models.Teacher" %>
+<%@ page import="main.Dao.impl.Teacher_manage_impl" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -84,8 +94,8 @@
                 <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
-                        <li><a href="Student_table.jsp"> 学生信息管理</a></li>
+                        <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
+                        <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
                         <li><a href="health_table.jsp"> 教师打卡查询</a></li>
                         <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
                     </ul>
@@ -115,7 +125,7 @@
                 </li>
 
 
-                <li><a href="login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+                <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
             </ul>
             <!--sidebar nav end-->
@@ -383,32 +393,35 @@
                                         List<Student> studentList = (List<Student>) request.getAttribute("studentlist");
 
                                         // 创建一个新的列表，用于存储所有Student对象的dailycheck字段的值
-                                        List<String> dailycheckList = new ArrayList<String>();
+                                        List<String> dailycheckList_student = new ArrayList<String>();
                                         for (Student student : studentList) {
-                                            dailycheckList.add(student.getDailycheck());
+                                            dailycheckList_student.add(student.getDailycheck());
                                         }
 
                                         // 计算"yes"在dailycheckList中出现的次数
-                                        int scount = Collections.frequency(dailycheckList, "yes");
-                                        int scount1 = Collections.frequency(dailycheckList, "no");
+                                        int scount = Collections.frequency(dailycheckList_student, "yes");
+                                        int scount1 = Collections.frequency(dailycheckList_student, "no");
                                         session.setAttribute("scount",scount);
                                         session.setAttribute("scount1",scount1);
                                     %>
                                     <%
                                         // 获取后端发送的studentlist
-                                        List<Teacher> teacherListList = (List<Teacher>) request.getAttribute("studentlist");
+                                        List<Teacher> teacherList = (List<Teacher>) request.getAttribute("teacherlist");
 
                                         // 创建一个新的列表，用于存储所有Student对象的dailycheck字段的值
-                                        List<String> dailycheckList = new ArrayList<String>();
-                                        for (Teacher student : teacherList) {
-                                            dailycheckList.add(teacher.getDailycheck());
+                                        List<String> dailycheckList_Teacher = new ArrayList<String>();
+                                        for (Teacher teacher : teacherList) {
+                                            dailycheckList_Teacher.add(teacher.getDailycheck());
                                         }
 
                                         // 计算"yes"在dailycheckList中出现的次数
-                                        int tcount = Collections.frequency(dailycheckList, "yes");
-                                        int tcount1 = Collections.frequency(dailycheckList, "no");
+                                        int tcount = Collections.frequency(dailycheckList_Teacher, "yes");
+                                        int tcount1 = Collections.frequency(dailycheckList_Teacher, "no");
                                         session.setAttribute("tcount",tcount);
                                         session.setAttribute("tcount1",tcount1);
+                                        session.setAttribute("list_teacher",teacherList);
+                                        session.setAttribute("list_student",studentList);
+
                                     %>
                                     <div class="value">${scount}</div>
                                     <div class="title">已打卡的学生</div>
@@ -421,7 +434,7 @@
                                     <i class="fa fa-tags"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value">${scount+scount1}</div>
+                                    <div class="value">${scount1}</div>
                                     <div class="title">未打卡的学生</div>
                                 </div>
                             </div>
@@ -445,7 +458,7 @@
                                     <i class="fa fa-eye"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value">${tcount+tcount1}</div>
+                                    <div class="value">${tcount1}</div>
                                     <div class="title"> 未打卡的教师</div>
                                 </div>
                             </div>
@@ -860,9 +873,6 @@
     <!--body wrapper end-->
 
     <!--footer section start-->
-    <footer>
-        2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-    </footer>
     <!--footer section end-->
 
 

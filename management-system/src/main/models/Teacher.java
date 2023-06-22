@@ -7,6 +7,8 @@ public class Teacher {
     private String idCard;
     private String workNo;
     private String college;
+
+    private String role;
     private String healthCode;
     private String dailycheck;
     private  int checkdays;
@@ -18,6 +20,7 @@ public class Teacher {
         this.workNo = "";
         this.college = "";
         this.healthCode = "";
+        this.role = "";
         this.dailycheck = "";
         this.checkdays = 0;
 
@@ -27,11 +30,20 @@ public class Teacher {
         return dailycheck;
     }
 
-    public Teacher(String name, String idCard, String workNo, String college, String healthCode, String dailycheck, int checkdays) {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Teacher(String name, String idCard, String workNo, String college, String healthCode, String dailycheck, String role, int checkdays) {
         this.name = name;
         this.idCard = idCard;
         this.workNo = workNo;
         this.college = college;
+        this.role = role;
         this.healthCode = healthCode;
         this.dailycheck = dailycheck;
         this.checkdays = checkdays;

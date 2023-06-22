@@ -31,6 +31,8 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
             String college = request.getParameter("college");
+            //role
+            String role = request.getParameter("role");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
             int checkdays = 0;
@@ -39,6 +41,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setIdCard(idCard);
             teacher.setWorkNo(workNo);
             teacher.setCollege(college);
+            teacher.setRole(role);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
             teacher.setCheckdays(checkdays);
@@ -62,6 +65,8 @@ public class Servlet_Teacher_manage extends HttpServlet {
             String idCard = request.getParameter("idCard");
             String workNo = request.getParameter("workNo");
             String college = request.getParameter("college");
+            //role
+            String role = request.getParameter("role");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
             int checkdays = Integer.parseInt(request.getParameter("checkdays"));
@@ -70,6 +75,7 @@ public class Servlet_Teacher_manage extends HttpServlet {
             teacher.setIdCard(idCard);
             teacher.setWorkNo(workNo);
             teacher.setCollege(college);
+            teacher.setRole(role);
             teacher.setHealthCode(healthCode);
             teacher.setDailycheck(dailycheck);
             teacher.setCheckdays(checkdays);
@@ -166,8 +172,10 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 teacher.setIdCard(sheet.getCell(1, i).getContents());
                 teacher.setWorkNo(sheet.getCell(2, i).getContents());
                 teacher.setCollege(sheet.getCell(3, i).getContents());
-                teacher.setHealthCode(sheet.getCell(4, i).getContents());
-                teacher.setDailycheck(sheet.getCell(5, i).getContents());
+                //role
+                teacher.setRole(sheet.getCell(4, i).getContents());
+                teacher.setHealthCode(sheet.getCell(5, i).getContents());
+                teacher.setDailycheck(sheet.getCell(6, i).getContents());
                 teacher.setCheckdays(0);
                 try {
                     teacherDao.addTeacher(teacher);

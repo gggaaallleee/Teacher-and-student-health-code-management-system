@@ -10,7 +10,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
     @Override
     public void addTeacher(Teacher teacher){
         //int id, String name, String idCard, String workNo, String college, String role, String healthCode, boolean dailycheck,int checkdays
-        String sql = "INSERT INTO Teacher(name,idCard,workNo,college,healthCode,dailycheck,checkdays) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Teacher(name,idCard,workNo,college,rolee,healthCode,dailycheck,checkdays) VALUES(?,?,?,?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -20,9 +20,10 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
             pstmt.setString(2,teacher.getIdCard());
             pstmt.setString(3,teacher.getWorkNo());
             pstmt.setString(4,teacher.getCollege());
-            pstmt.setString(5,teacher.getHealthCode());
-            pstmt.setString(6,teacher.isDailycheck());
-            pstmt.setInt(7,teacher.getCheckdays());
+            pstmt.setString(5,teacher.getRole());
+            pstmt.setString(6,teacher.getHealthCode());
+            pstmt.setString(7,teacher.isDailycheck());
+            pstmt.setInt(8,teacher.getCheckdays());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             
@@ -49,7 +50,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
     @Override
     public void batchAddTeacher(List<Teacher> teachers){
         //addTeacher是单个添加，这里是批量添加，用list
-        String sql = "INSERT INTO Teacher(name,idCard,workNo,college,healthCode,dailycheck,checkdays) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Teacher(name,idCard,workNo,college,rolee,healthCode,dailycheck,checkdays) VALUES(?,?,?,?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -60,9 +61,10 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 pstmt.setString(2,t.getIdCard());
                 pstmt.setString(3,t.getWorkNo());
                 pstmt.setString(4,t.getCollege());
-                pstmt.setString(5,t.getHealthCode());
-                pstmt.setString(6,t.isDailycheck());
-                pstmt.setInt(7,t.getCheckdays());
+                pstmt.setString(5,t.getRole());
+                pstmt.setString(6,t.getHealthCode());
+                pstmt.setString(7,t.isDailycheck());
+                pstmt.setInt(8,t.getCheckdays());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -89,19 +91,20 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
 
     @Override
     public void updateTeacher(Teacher teacher){
-        String sql = "UPDATE Teacher SET idCard=?,name=?,college=?,healthCode=?,dailycheck=? ,checkdays = ? WHERE workNo=?";
+        String sql = "UPDATE Teacher SET idCard=?,name=?,college=?,rolee=?,healthCode=?,dailycheck=? ,checkdays = ? WHERE workNo=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(7,teacher.getWorkNo());
+            pstmt.setString(8,teacher.getWorkNo());
             pstmt.setString(1,teacher.getIdCard());
             pstmt.setString(2,teacher.getName());
             pstmt.setString(3,teacher.getCollege());
-            pstmt.setString(4,teacher.getHealthCode());
-            pstmt.setString(5,teacher.isDailycheck());
-            pstmt.setInt(6,teacher.getCheckdays());
+            pstmt.setString(4,teacher.getRole());
+            pstmt.setString(5,teacher.getHealthCode());
+            pstmt.setString(6,teacher.isDailycheck());
+            pstmt.setInt(7,teacher.getCheckdays());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             
@@ -174,6 +177,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teacher.setIdCard(rs.getString("idCard"));
                 teacher.setWorkNo(rs.getString("workNo"));
                 teacher.setCollege(rs.getString("college"));
+                teacher.setRole(rs.getString("rolee"));
                 teacher.setHealthCode(rs.getString("healthCode"));
                 teacher.setDailycheck(rs.getString("dailycheck"));
                 teacher.setCheckdays(rs.getInt("checkdays"));
@@ -221,6 +225,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
                 teacher.setIdCard(rs.getString("idCard"));
                 teacher.setWorkNo(rs.getString("workNo"));
                 teacher.setCollege(rs.getString("college"));
+                teacher.setRole(rs.getString("rolee"));
                 teacher.setHealthCode(rs.getString("healthCode"));
                 teacher.setDailycheck(rs.getString("dailycheck"));
                 teacher.setCheckdays(rs.getInt("checkdays"));

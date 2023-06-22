@@ -19,7 +19,7 @@ public class user_manage_impl implements main.Dao.user_manage{
 
     @Override
     public void addUser(User user){
-        String sql = "INSERT INTO User(username,password,level) VALUES(?,?,?)";
+        String sql = "INSERT INTO userr(username,password,level) VALUES(?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -52,7 +52,7 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public void batchAddUser(List<User> users){
-        String sql = "INSERT INTO User(username,password,level) VALUES(?,?,?)";
+        String sql = "INSERT INTO userr(username,password,level) VALUES(?,?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -87,7 +87,7 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public void updateUser(User user){
-        String sql = "UPDATE User SET password=?,level=? WHERE username=?";
+        String sql = "UPDATE userr SET password=?,level=? WHERE username=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -121,7 +121,7 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public void deleteUser(String username){
-        String sql = "DELETE FROM User WHERE username=?";
+        String sql = "DELETE FROM userr WHERE username=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
@@ -151,7 +151,7 @@ public class user_manage_impl implements main.Dao.user_manage{
     }
     @Override
     public List<User> findUser(String way,String thing) {
-        String sql = "SELECT * FROM User WHERE " + way + "=?";
+        String sql = "SELECT * FROM userr WHERE " + way + "=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -159,8 +159,9 @@ public class user_manage_impl implements main.Dao.user_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            String pattern = "%" + thing + "%";
+            String pattern =  thing ;
             pstmt.setString(1, pattern);
+            System.out.println(pstmt);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -170,7 +171,6 @@ public class user_manage_impl implements main.Dao.user_manage{
                 users.add(user);
             }
         } catch (SQLException e) {
-            
                 e.printStackTrace();
                 throw new RuntimeException(e);
         } finally {
@@ -193,7 +193,7 @@ public class user_manage_impl implements main.Dao.user_manage{
 
     @Override
     public List<User> findAllUser(){
-        String sql = "SELECT * FROM User";
+        String sql = "SELECT * FROM userr";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
