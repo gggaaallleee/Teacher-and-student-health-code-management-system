@@ -2,9 +2,6 @@ package main.controllers;
 import javax.servlet.http.Part;
 
 //导入jar包 地址是https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
-
-
-
 import java.io.InputStream;
 import com.alibaba.fastjson.JSON;
 import jxl.Sheet;
@@ -32,6 +29,8 @@ public class Servlet_student_manage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Student_manage_impl studentDao = new Student_manage_impl();
         String uri = request.getRequestURI();
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         //INSERT INTO Student(id,name,idCard,studentNo,college,major,classNo,healthCode,dailycheck) VALUES(?,?,?,?,?,?,?,?,?)
         if(uri.endsWith("/AddStudent.do")){
             String name = request.getParameter("name");
@@ -42,6 +41,9 @@ public class Servlet_student_manage extends HttpServlet {
             String classNo = request.getParameter("classNo");
             String healthCode = request.getParameter("healthCode");
             String dailycheck = request.getParameter("dailycheck");
+            int checkdays = 0;
+            healthCode = "green";
+            dailycheck = "no";
             Student student = new Student();
             student.setName(name);
             student.setIdCard(idCard);
@@ -51,6 +53,7 @@ public class Servlet_student_manage extends HttpServlet {
             student.setClassNo(classNo);
             student.setHealthCode(healthCode);
             student.setDailycheck(dailycheck);
+            student.setCheckdays(checkdays);
             student.setCheckdays(0);
             try {
                 studentDao.addStudent(student);
@@ -58,6 +61,7 @@ public class Servlet_student_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -73,25 +77,11 @@ public class Servlet_student_manage extends HttpServlet {
             String college = request.getParameter("college");
             String major = request.getParameter("major");
             String classNo = request.getParameter("classNo");
-
-            String healthCode = request.getParameter("healthCode");
-            String dailycheck = request.getParameter("dailycheck");
-            String checkdays_temp = request.getParameter("checkdays");
             List<Student> students = studentDao.findStudent("studentNo",studentNo);
             Student student1 = students.get(0);
-            int checkdays;
-            if(checkdays_temp.equals(null)){
-               checkdays = student1.getCheckdays();
-            }
-            else{
-               checkdays = Integer.parseInt(checkdays_temp);
-            }
-            if(healthCode.equals(null)){
-                healthCode = student1.getHealthCode();
-            }
-            if(dailycheck.equals(null)){
-                dailycheck = student1.getDailycheck();
-            }
+            int checkdays= student1.getCheckdays();
+            String healthCode = student1.getHealthCode();
+            String dailycheck = student1.getDailycheck();
 
             Student student = new Student();
             student.setName(name);
@@ -111,6 +101,7 @@ public class Servlet_student_manage extends HttpServlet {
                 System.out.println("success");
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -122,13 +113,14 @@ public class Servlet_student_manage extends HttpServlet {
             }
         }
         else if (uri.endsWith("/DeleteStudent.do")){
-            String id = request.getParameter("studentNo");
+            String id = request.getParameter("StudentNo");
             try {
                 studentDao.deleteStudent(id);
                 respond_json respond = new respond_json(0,"success");
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);

@@ -47,6 +47,8 @@ public class Servlet_User_manage extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         user_manage_impl userDao = new user_manage_impl();
         String uri = request.getRequestURI();
         //String username, String password, int level
@@ -65,6 +67,7 @@ public class Servlet_User_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_schoolsetting").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -76,7 +79,7 @@ public class Servlet_User_manage extends HttpServlet {
         }
         else if (uri.endsWith("/UpdateUser.do")){
             String username = request.getParameter("username");
-                        String password = request.getParameter("password");
+            String password = request.getParameter("password");
             password = getSha256Str(password);
             String level = request.getParameter("level");
             User user = new User();
@@ -89,6 +92,7 @@ public class Servlet_User_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_schoolsetting").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -105,6 +109,7 @@ public class Servlet_User_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("/Servlet_refresh_schoolsetting").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);

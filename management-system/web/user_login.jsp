@@ -65,7 +65,7 @@
       <input name="name" type="text" class="form-control" placeholder="user name" >
       <input name="username" type="text" class="form-control" placeholder="User ID" autofocus>
       <input name="password" type="password" class="form-control" placeholder="Password">
-      <select name="" id=""  class="form-control" placeholder="user-type">
+      <select name="type" id=""  class="form-control" placeholder="user-type">
         <option value="student">student</option>
         <option value="teacher">teacher</option>
       </select>

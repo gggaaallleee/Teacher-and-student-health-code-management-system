@@ -1,18 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Lenovo
-  Date: 2023/6/21
-  Time: 20:41
+  User: 12935
+  Date: 2023/6/22
+  Time: 16:07
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="main.models.Teacher" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.io.ByteArrayOutputStream" %>
-<%@ page import="java.util.Base64" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import=" java.text.*, java.util.*" %>
-<% jsp:useBean id="user" class="com.example.demo.entity.User" scope="session" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -20,147 +18,67 @@
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
 
-    <title>健康码展示页面</title>
+    <title>管理员信息添加</title>
 
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/style-responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/green.css">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->
+    <![endif]-->px
 
-
-    <script>
-        function showTime(){
-            let d=new Date();
-            let year=d.getFullYear();
-            let month=d.getMonth()+1;  //获取月，从 Date 对象返回月份 (0 ~ 11)，故在此处+1
-            let day=d.getDay()    //获取日
-            let days=d.getDate() //获取日期
-            let hour=d.getHours()   //获取小时
-            let minute=d.getMinutes()  //获取分钟
-            let second=d.getSeconds()   //获取秒
-
-            // if(month<10) month="0"+month
-            if(days<10) days="0"+days
-            if(hour<10) hour="0"+hour
-            if(minute<10) minute="0"+minute
-            if(second<10) second="0"+second
-
-            var week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六")
-            let shang=month+"月"+days+"日";
-            let xia=hour+":"+minute+":"+second
-            // var da=year+" 年 "+month+" 月 "+days+" 日 "+week[day]+" "+hour+" : "+minute+" :"+second
-
-            document.getElementById("clock1").value=shang
-            document.getElementById("clock2").value=xia
-        }
-        setInterval("showTime()",1000)
-    </script>
 </head>
 
 <body class="sticky-header">
-<%String name = request.getParameter("name");
-    String id = request.getParameter("id");
-    String code = request.getParameter("code");
-    String number = request.getParameter("number");
-    String phone = request.getParameter("phone");
-    String is_in_danger = request.getParameter("is_in_danger");
-    String is_abroad = request.getParameter("is_abroad");
-    String is_contact = request.getParameter("is_contact");
-    String vaccine = request.getParameter("vaccine");
-    String[] health_status = request.getParameterValues("health_status");
-    name = new String(name.getBytes("ISO-8859-1"),"utf-8");
-%>
-<%    if(is_in_danger.equals("yes")|| is_abroad.equals("yes")) flag = 0; %>
-<%    if((healthStatus.length == 1) && !(healthStatus[0]).equals("normal")) flag = 0;%>
-<%   if(vaccine.equals("yes")|| is_contact.equals("yes")) flag = 1;%>
-<%    if((health_status.length >= 2)) flag = 1;%>
-<%  Date nowTime = new Date();
-    SimpleDateFormat matter = new SimpleDateFormat(
-    "现在时间:yyyy年MM月dd日E HH时mm分ss秒");%>
 
-<p> <%=name%></p>
-<p> <%=matter.format(nowTime)%></p>
-<%
-    String text = "健康码";
-    int width = 400;
-    int height = 400;
-    Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
-    hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-    hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-    int BLACK = 0xFF000000;
-    int YELLOW = 0xFFFFFF00;
-    int RED = 0xFFFF0000;
-    int GREEN = 0xFF008000;
-    int color = YELLOW;
-
-    switch (flag) {
-    case 0:
-    color = YELLOW;
-    break;
-    case 1:
-    color = RED;
-    break;
-    case 2:
-    color = GREEN;
-    break;
-    default:
-    color = YELLOW;
-    break;
-    }
-
-    QRCodeWriter qrCodeWriter = new QRCodeWriter();
-    BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
-
-    java.awt.image.BufferedImage image = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_RGB);
-    for (int x = 0; x < width; x++) {
-    for (int y = 0; y < height; y++) {
-    int pixelColor = bitMatrix.get(x, y) ? BLACK : 0xFFFFFFFF;
-    if (pixelColor == BLACK) {
-    image.setRGB(x, y, color);
-    } else {
-    image.setRGB(x, y, 0xFFFFFFFF);
-    }
-    }
-    }
-
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    javax.imageio.ImageIO.write(image, "png", baos);
-    baos.flush();
-    byte[] imageBytes = baos.toByteArray();
-    baos.close();
-    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-%>
 <section>
     <!-- left side start-->
     <div class="left-side sticky-left-side">
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="../images/logo.png" alt=""></a>
+            <a href="index.jsp"><img src="../images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a href="index.jsp"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
-
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
-
-            <li class="menu-list nav-active"><a href=""><i class="fa fa-tasks"></i> <span>每日一报填写与查看</span></a>
+            <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
+            <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
                 <ul class="sub-menu-list">
-                    <li class="active"><a href="health_enter.html"> 填写表单</a></li>
-                    <li><a href="./healthcode.html"> 我的健康码</a></li>
+                    <li><a href="./Teacher_table.jsp"> 教师信息管理</a></li>
+                    <li><a href="./Student_table.jsp"> 学生信息管理</a></li>
+                    <li><a href="./health_table.jsp"> 打卡查询</a></li>
                 </ul>
             </li>
-            <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="./Teacher_table1.jsp">查看教师信息</a></li>
+                    <li><a href="./Student_table2.jsp"> 查看学生信息</a></li>
+                    <li><a href="./health_table.jsp">打卡查询</a></li>
+                </ul>
+            </li>
+            <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="./Student_table.jsp"> 查看学生信息</a></li>
+                    <li><a href="./health_table.jsp"> 打卡查询</a></li>
+                </ul>
+            </li>
 
+            <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="mail.jsp">每日打卡</a></li>
+                    <li><a href="mail_compose.jsp">健康码显示</a></li>
+                </ul>
+            </li>
+
+
+            <li><a href="./login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
         </ul>
         <!--sidebar nav end-->
 
@@ -179,7 +97,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="index.html" method="post">
+            <form class="searchform" action="index.jsp" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="点此搜索...在开发中未实现" />
             </form>
             <!--search end-->
@@ -317,7 +235,7 @@
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                             <li><a href="#"><i class="fa fa-user"></i>  个人信息</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  设置</a></li>
-                            <li><a href="./student_login.html"><i class="fa fa-sign-out"></i> 登出</a></li>
+                            <li><a href="./user_login.html"><i class="fa fa-sign-out"></i> 登出</a></li>
                         </ul>
                     </li>
 
@@ -331,49 +249,52 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        个人健康码
+                        教师信息填写
                     </header>
-
-                    <div class="main">
-                        <div class="time">
-                            <input type="text" id="clock1"><br>
-                            <input type="text" id="clock2">
-                        </div>
-
-                        <div class="center">
-                            <div class="top">
-                                <div class="name">
-                                    <jsp:getProperty name="user" property="username">
+                    <div class="panel-body">
+                        <div class="form">
+                            <form class="cmxform form-horizontal adminex-form" id="signupForm" method="post" action="AddUser.do">
+                                <div class="form-group ">
+                                    <label for="username" class="control-label col-lg-2">工号</label>
+                                    <div class="col-lg-10">
+                                        <input class=" form-control" id="username" name="username" type="text" />
+                                    </div>
                                 </div>
-                                <div class="change">
-                                    <a href="#">修改</a>
+                                <div class="form-group ">
+                                    <label for="password" class="control-label col-lg-2">密码</label>
+                                    <div class="col-lg-10">
+                                        <input class=" form-control" id="password" name="password" type="password" />
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group ">
+                                    <label for="level" class="control-label col-lg-2">等级</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control " id="level" name="level" type="text" />
+                                    </div>
+                                </div>
 
-                            <div class="pic">
-                             <img src="data:image/png;base64,<%= base64Image %>" alt="QR code">
-                            </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button class="btn btn-primary" type="submit">submit</button>
+                                        <button class="btn btn-default" type="reset">Cancel</button>
 
-                            <div class="text">
-                                绿码：凭此码可以在浙江省内通行，请主动出示，配合检查；并要做好自身防护工作，码颜色将根据的 <br> 您的申报由当地政府按照相关政策动态更新，出行前请仔细检查您的健康码
-                            </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-</section>
-</div>
-</div>
-</div>
-<!--body wrapper end-->
+                </section>
+            </div>
+        </div>
+    </div>
+    <!--body wrapper end-->
 
-<!--footer section start-->
-<footer>
-    2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-</footer>
-<!--footer section end-->
+    <!--footer section start-->
+    <!--footer section end-->
 
 
-</div>
-<!-- main content end-->
+    </div>
+    <!-- main content end-->
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
@@ -392,6 +313,3 @@
 
 </body>
 </html>
-
-
-

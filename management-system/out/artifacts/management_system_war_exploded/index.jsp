@@ -98,6 +98,7 @@
                         <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
                         <li><a href="health_table.jsp"> 教师打卡查询</a></li>
                         <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
+                        <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
                     </ul>
                 </li>
                 <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>

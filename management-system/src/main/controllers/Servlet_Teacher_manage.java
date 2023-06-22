@@ -105,7 +105,6 @@ public class Servlet_Teacher_manage extends HttpServlet {
             }
         }
         else if(uri.endsWith("/DeleteTeacher.do")){
-            System.out.println("delete");
             String id = request.getParameter("workNo");
             try {
                 teacherDao.deleteTeacher(id);

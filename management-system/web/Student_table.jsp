@@ -57,6 +57,7 @@
             <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
             <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
             <li><a href="health_table.jsp"> 打卡查询</a></li>
+            <li><a href="Servlet_refresh_schoolsetting"> 管理员设置</a></li>
           </ul>
         </li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
@@ -329,9 +330,7 @@
               <div class="adv-table editable-table ">
                 <div class="clearfix">
                   <div class="btn-group">
-                    <button id="editable-sample_new" class="btn btn-primary">
-                      Add New <i class="fa fa-plus"></i>
-                    </button>
+                    <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addstudent.jsp'"> > Add New <i class="fa fa-plus"></i></button>
 
                     <label for="file1"  id="upFile"  class="btn btn-primary  lab">数据导入</label>
                     <input type="file" id="file1" name="file1" multiple style="width: 0;" >
@@ -362,7 +361,6 @@
                   </thead>
                   <%
                     List<Student> list=new ArrayList<>();
-                    System.out.println(list.get(0).getName());
                     list= (List<Student>) request.getAttribute("student_list");
                   %>
 
@@ -371,12 +369,12 @@
                   <tr>
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>
-                    <td>${student.StudentNo}</td>
+                    <td>${student.studentNo}</td>
                     <td>${student.college}</td>
                     <th>${student.major}</th>
                     <th>${student.classNo}</th>
-                    <td><a class="edit" href="UpdateStudent.do?name=${student.name}&idCard=${student.idCard}&StudentNo=${student.StudentNo}&college=${student.college}&major=${student.major}&classNo=${student.classNo}">修改</a></td>
-                    <td><a class="delete" href="DeleteStudent.do?StudentNo=${student.StudentNo}">Delete</a></td>
+                    <td><a  href="editmanage.jsp?name=${student.name}&idCard=${student.idCard}&StudentNo=${student.studentNo}&college=${student.college}&major=${student.major}&classNo=${student.classNo}">修改</a></td>
+                    <td><a  href="DeleteStudent.do?StudentNo=${student.studentNo}">Delete</a></td>
                   </tr>
                   </c:forEach>
                   </tbody>

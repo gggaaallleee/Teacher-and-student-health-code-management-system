@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -16,8 +17,8 @@
 
     <title>健康码填写页面</title>
 
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/style-responsive.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,7 +35,7 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="../images/logo.png" alt=""></a>
+            <a href="index.html"><img src="./images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
@@ -115,7 +116,7 @@
                             <ul class="dropdown-list normal-list">
                                 <li class="new">
                                     <a href="">
-                                        <span class="thumb"><img src="../images/photos/user1.png" alt="" /></span>
+                                        <span class="thumb"><img src="./images/photos/user1.png" alt="" /></span>
                                         <span class="desc">学生a <span class="badge badge-success">new</span></span>
                                         <span class="msg"> 快去每日一报...</span>
                                         </span>
@@ -123,7 +124,7 @@
                                 </li>
                                 <li>
                                     <a href="">
-                                        <span class="thumb"><img src="../images/photos/user2.png" alt="" /></span>
+                                        <span class="thumb"><img src="./images/photos/user2.png" alt="" /></span>
                                         <span class="desc">
                                           <span class="name">学生b</span>
                                           <span class="msg">快去每日一报...</span>
@@ -132,7 +133,7 @@
                                 </li>
                                 <li>
                                     <a href="">
-                                        <span class="thumb"><img src="../images/photos/user3.png" alt="" /></span>
+                                        <span class="thumb"><img src="./images/photos/user3.png" alt="" /></span>
                                         <span class="desc">
                                           <span class="name">学生c</span>
                                           <span class="msg">快去每日一报...</span>
@@ -141,7 +142,7 @@
                                 </li>
                                 <li>
                                     <a href="">
-                                        <span class="thumb"><img src="../images/photos/user4.png" alt="" /></span>
+                                        <span class="thumb"><img src="./images/photos/user4.png" alt="" /></span>
                                         <span class="desc">
                                           <span class="name">学生d</span>
                                           <span class="msg">快去每日一报...</span>
@@ -150,7 +151,7 @@
                                 </li>
                                 <li>
                                     <a href="">
-                                        <span class="thumb"><img src="../images/photos/user5.png" alt="" /></span>
+                                        <span class="thumb"><img src="./images/photos/user5.png" alt="" /></span>
                                         <span class="desc">
                                           <span class="name">学生e</span>
                                           <span class="msg">快去每日一报...</span>
@@ -203,7 +204,7 @@
                     </li>
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="../images/photos/user-avatar.png" alt="" />
+                            <img src="./images/photos/user-avatar.png" alt="" />
                             学生a
                             <span class="caret"></span>
                         </a>
@@ -228,11 +229,25 @@
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form class="cmxform form-horizontal adminex-form" id="signupForm" method="get" action="">
+                            <form class="cmxform form-horizontal adminex-form" id="signupForm" method="get" action="Addhealth_check.do">
+                                <div class="form-group ">
+                                    <label  class="control-label col-lg-2 col-sm-3">身份</label>
+                                    <div class="col-lg-10 col-sm-9">
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="identity" value="student" <% if ("student".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 学生
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="identity" value="teacher" <% if ("teacher".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 老师
+                                        </label>
+                                    </div>
+                                </div>
+
+
                                 <div class="form-group ">
                                     <label for="name" class="control-label col-lg-2">姓名</label>
                                     <div class="col-lg-10">
-                                        <input class=" form-control" id="name" name="name" type="text" />
+                                        <input class="form-control" id="name" name="name" type="text" >
+
                                     </div>
                                 </div>
                                 <div class="form-group ">
@@ -242,9 +257,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="StunumberdentNO" class="control-label col-lg-2">学号</label>
+                                    <label for="number" class="control-label col-lg-2">学号</label>
                                     <div class="col-lg-10">
-                                        <input class="form-control " id="number" name="number" type="text" />
+                                        <input class="form-control " id="number" name="number" type="text" value= <%= session.getAttribute("username") %> readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group ">
@@ -267,69 +282,69 @@
                                 </div> -->
 
                                 <div class="form-group ">
-                                    <label for="agree" class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否去过重点疫区？</label>
+                                    <label  class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否去过重点疫区？</label>
                                     <div class="col-lg-10 col-sm-9">
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox1" name="is_in_danger" value="是"> 是
+                                            <input type="radio"  name="is_in_danger" value="yes"> yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox2" name="is_in_danger" value="否"> 否
+                                            <input type="radio"  name="is_in_danger" value="no"> no
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="newsletter" class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否去过国外？</label>
+                                    <label  class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否去过国外？</label>
                                     <div class="col-lg-10 col-sm-9">
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox1" name="is_abroad" value="是"> 是
+                                            <input type="radio" name="is_abroad" value="yes"> yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox2" name="is_abroad" value="否"> 否
+                                            <input type="radio"  name="is_abroad" value="no"> no
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="form-group ">
-                                    <label for="newsletter" class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否接触过新冠确诊病人或疑似病人？</label>
+                                    <label  class="control-label col-lg-2 col-sm-3">本人近期（14天内）是否接触过新冠确诊病人或疑似病人？</label>
                                     <div class="col-lg-10 col-sm-9">
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox1" name="is_contact" value="是"> 是
+                                            <input type="radio"  name="is_contact" value="yes"> yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox2" name="is_contact" value="否"> 否
+                                            <input type="radio"  name="is_contact" value="no"> no
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="newsletter" class="control-label col-lg-2 col-sm-3">本人是否被卫生部门确认为新冠肺炎确诊病例或疑似病例？</label>
+                                    <label  class="control-label col-lg-2 col-sm-3">本人是否被卫生部门确认为新冠肺炎确诊病例或疑似病例？</label>
                                     <div class="col-lg-10 col-sm-9">
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox1" name="is_confirmed" value="是"> 是
+                                            <input type="radio" name="is_confirmed" value="yes"> yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox2" name="is_confirmed" value="否"> 否
+                                            <input type="radio"  name="is_confirmed" value="no"> no
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">本人是否打过新冠疫苗，可选“未打过，已打1针，已打2针，已打3针”</label>
+                                    <label class="col-sm-2 control-label col-lg-2" >本人是否打过新冠疫苗，可选“未打过，已打1针，已打2针，已打3针”</label>
                                     <div class="col-lg-10">
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox1" name="vaccine" value="1"> 1
+                                            <input type="radio"  name="vaccine" value="1"> 1
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox2" name="vaccine" value="2"> 2
+                                            <input type="radio"  name="vaccine" value="2"> 2
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" id="inlineCheckbox3" name="vaccine" value="3"> 3
+                                            <input type="radio"  name="vaccine" value="3"> 3
                                         </label>
 
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">当前健康状况？无异常、发烧（≥37.3℃）、乏力、干咳、鼻塞、流涕、咽痛、腹泻等。</label>
+                                    <label class="col-sm-2 control-label col-lg-2" >当前健康状况？无异常、发烧（≥37.3℃）、乏力、干咳、鼻塞、流涕、咽痛、腹泻等。</label>
                                     <div class="col-lg-10">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" id="inlineCheckbox1" name="vaccine" value="正常" checked> 正常
@@ -338,24 +353,24 @@
                                             <input type="checkbox" id="inlineCheckbox2" name="vaccine" value="发烧"> 发烧
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 乏力
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 乏力
                                         </label>
                                         <br>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 干咳
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 干咳
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 鼻塞
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 鼻塞
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 流涕
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 流涕
                                         </label>
                                         <br>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 咽痛
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 咽痛
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" name="vaccine" value="乏力"> 腹泻
+                                            <input type="checkbox"  name="vaccine" value="乏力"> 腹泻
                                         </label>
                                     </div>
                                 </div>
@@ -387,18 +402,18 @@
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="../js/jquery-migrate-1.2.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/modernizr.min.js"></script>
-<script src="../js/jquery.nicescroll.js"></script>
+<script src="./js/jquery-1.10.2.min.js"></script>
+<script src="./js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="./js/jquery-migrate-1.2.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/modernizr.min.js"></script>
+<script src="./js/jquery.nicescroll.js"></script>
 
-<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
-<script src="../js/validation-init.js"></script>
+<script type="text/javascript" src="./js/jquery.validate.min.js"></script>
+<script src="./js/validation-init.js"></script>
 
 <!--common scripts for all pages-->
-<script src="../js/scripts.js"></script>
+<script src="./js/scripts.js"></script>
 
 </body>
 </html>

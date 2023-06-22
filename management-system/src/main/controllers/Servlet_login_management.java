@@ -48,6 +48,8 @@ public class Servlet_login_management extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         user_manage_impl user_manage = new user_manage_impl();
@@ -66,15 +68,19 @@ public class Servlet_login_management extends HttpServlet {
                 request.getSession().setAttribute("username",username);
                 request.getSession().setAttribute("level",list.get(0).getLevel());
                 System.out.println("登录成功");
-                Student_manage_impl student_manage = new Student_manage_impl();
-                List<main.models.Student> student_list = new ArrayList<main.models.Student>();
-                student_list = student_manage.findAllStudent();
-                request.setAttribute("studentlist",student_list);
-                Teacher_manage_impl teacher_manage = new Teacher_manage_impl();
-                List<main.models.Teacher> teacher_list = new ArrayList<main.models.Teacher>();
-                teacher_list = teacher_manage.findAllTeacher();
-                request.setAttribute("teacherlist",teacher_list);
-                request.getRequestDispatcher("index.jsp").forward(request,response);
+                if(list.get(0).getLevel() == 0 ){
+                    Student_manage_impl student_manage = new Student_manage_impl();
+                    List<main.models.Student> student_list = new ArrayList<main.models.Student>();
+                    student_list = student_manage.findAllStudent();
+                    request.setAttribute("studentlist",student_list);
+                    Teacher_manage_impl teacher_manage = new Teacher_manage_impl();
+                    List<main.models.Teacher> teacher_list = new ArrayList<main.models.Teacher>();
+                    teacher_list = teacher_manage.findAllTeacher();
+                    request.setAttribute("teacherlist",teacher_list);
+                    request.getRequestDispatcher("index.jsp").forward(request,response);
+                }
+
+
             } else {
                 request.setAttribute("msg","密码错误");
                 System.out.println("密码错误");

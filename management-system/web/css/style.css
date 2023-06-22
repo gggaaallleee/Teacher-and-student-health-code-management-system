@@ -591,6 +591,7 @@ h5.left-nav-title {
 }
 
 .menu-right {
+    overflow-y: scroll;
     float: right;
     margin-right: 15px;
 }
