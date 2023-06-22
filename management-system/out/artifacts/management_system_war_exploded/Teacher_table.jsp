@@ -31,7 +31,6 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body class="sticky-header">
@@ -351,12 +350,14 @@
                             <div class="adv-table editable-table ">
                                 <div class="clearfix">
                                     <div class="btn-group">
-                                        <button id="editable-sample_new" class="btn btn-primary">
-                                            Add New <i class="fa fa-plus"></i>
-                                        </button>
-                                        <label for="file1"  id="upFile"  class="btn btn-primary">数据导入</label>
-                                        <input type="file" id="file1" name="file1" multiple style="width: 0;" >
+                                        <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addteacher.jsp'"> > Add New <i class="fa fa-plus"></i></button>
+
                                     </div>
+                                    <form action="BatchAddTeacher.do" method="post" enctype="multipart/form-data">
+                                        <label for="file1"  id="upFile"  class="btn btn-primary" >数据导入</label>
+                                        <input type="file" id="file1" name="file1" multiple style="width: 0;" >
+                                        <input type="submit" value="上传" />
+                                    </form>
                                     <div class="btn-group pull-right">
                                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
                                         </button>
@@ -395,8 +396,8 @@
                                         <td>${teacher.workNo}</td>
                                         <td>${teacher.college}</td>
                                         <td>${teacher.role}</td>
-                                        <td><a class="edit" href="UpdateTeacher.do?name=${teacher.name}&idCard=${teacher.idCard}&workNo=${teacher.workNo}&college=${teacher.college}&role=${teacher.role}">修改</a></td>
-                                        <td><a class="delete" href="DeleteTeacher.do?workNo=${teacher.workNo}">Delete</a></td>
+                                        <td><a  href="editeacher.jsp?name=${teacher.name}&idCard=${teacher.idCard}&workNo=${teacher.workNo}&college=${teacher.college}&role=${teacher.role}">修改</a></td>
+                                        <td><a  href="DeleteTeacher.do?workNo=${teacher.workNo}">Delete</a></td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>

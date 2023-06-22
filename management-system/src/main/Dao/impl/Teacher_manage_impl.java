@@ -160,7 +160,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
 
     @Override
     public List<Teacher> findTeacher(String way,String thing){
-        String sql = "SELECT * FROM Teacher WHERE "+way+"=?";
+        String sql = "SELECT * FROM teacher WHERE "+way+"=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -168,7 +168,7 @@ public class Teacher_manage_impl implements main.Dao.Teacher_manage{
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            String pattern = "%" + thing + "%";
+            String pattern = thing;
             pstmt.setString(1, pattern);
             rs = pstmt.executeQuery();
             while (rs.next()) {
