@@ -37,11 +37,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -62,43 +62,23 @@
         <ul class="nav nav-pills nav-stacked custom-nav">
           <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
           <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
-          <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+          <li><a href="manage_login.jsp"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
         </ul>
       </div>
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
         <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
-        <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Teacher_table.html"> 教师信息管理</a></li>
-            <li><a href="./Student_table.html"> 学生信息管理</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
-          </ul>
-        </li>
-        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Teacher_table1.html">查看教师信息</a></li>
-            <li><a href="./Student_table2.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html">打卡查询</a></li>
-          </ul>
-        </li>
         <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Student_table.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
+            <li><a href="Servlet_refresh_teacher_college"> 教师信息查询</a></li>
+            <li><a href="Servlet_refresh_student_college"> 学生信息查询</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table_college"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table_college"> 学生打卡查询</a></li>
           </ul>
         </li>
 
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.html">每日打卡</a></li>
-            <li><a href="mail_compose.html">健康码显示</a></li>
-          </ul>
-        </li>
-
-
-        <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+        <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -304,7 +284,7 @@
             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
               <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
               <li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li>
-              <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              <li><a href="manage_login.jsp"><i class="fa fa-sign-out"></i> Log Out</a></li>
             </ul>
           </li>
 
@@ -361,9 +341,10 @@
                     List<Teacher>list=new ArrayList<>();
                     list=(List<Teacher>)request.getAttribute("teacher_list");
                   %>
-                  <c:forEach items="<%=list%>" var="teacher">
+
                   </thead>
                   <tbody>
+                  <c:forEach items="<%=list%>" var="teacher">
                   <tr class="gradeX">
                     <td>${teacher.name}</td>
                     <td>${teacher.idCard}</td>

@@ -74,7 +74,7 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
           <ul class="sub-menu-list">
             <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
@@ -107,7 +107,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.html" method="post">
+      <form class="searchform" action="Servlet_refresh_index" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -335,6 +335,17 @@
             </header>
             <div class="panel-body">
               <div class="adv-table">
+                <div class="btn-group pull-right">
+                  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Print</a></li>
+                    <li><a href="#">Save as PDF</a></li>
+                    <li><a href="#">Export to Excel</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="space15"></div>
                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                   <thead>
                   <tr>
@@ -343,14 +354,16 @@
                     <th>学号</th>
                     <th>健康码</th>
                     <th>打卡情况</th>
+                    <th>打卡天数</th>
                   </tr>
                     <%
                     List<Student> list=new ArrayList<>();
                     list=(List<Student>)request.getAttribute("student_list");
                     %>
-                    <c:forEach items="<%=list%>" var="student">
+
                   </thead>
                   <tbody>
+                  <c:forEach items="<%=list%>" var="student">
                   <tr class="gradeX">
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>
@@ -362,8 +375,6 @@
                   </c:forEach>
                   </tbody>
                 </table>
-
-              </div>
             </div>
           </section>
         </div>

@@ -43,11 +43,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -74,37 +74,19 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
-        <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Teacher_table.html"> 教师信息管理</a></li>
-            <li><a href="./Student_table.html"> 学生信息管理</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
-          </ul>
-        </li>
+        <li class="active"><a href="Servlet_refresh_index_school"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Teacher_table1.html">查看教师信息</a></li>
-            <li><a href="./Student_table2.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html">打卡查询</a></li>
-          </ul>
-        </li>
-        <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Student_table.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
-          </ul>
-        </li>
-
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.html">每日打卡</a></li>
-            <li><a href="mail_compose.html">健康码显示</a></li>
+            <li><a href="Servlet_refresh_teacher_school"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student_school"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table_school"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table_school"> 学生打卡查询</a></li>
+            <li><a href="Servlet_refresh_schoolsetting_school">管理员设置</a></li>
           </ul>
         </li>
 
 
-        <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+        <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -124,7 +106,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.html" method="post">
+      <form class="searchform" action="Servlet_refresh_index_school" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -360,14 +342,16 @@
                     <th>学号</th>
                     <th>健康码</th>
                     <th>打卡情况</th>
+                    <th>打卡天数</th>
                   </tr>
                   <%
                     List<Student> list=new ArrayList<>();
                     list=(List<Student>)request.getAttribute("student_list");
                   %>
-                  <c:forEach items="<%=list%>" var="student">
+
                   </thead>
                   <tbody>
+                  <c:forEach items="<%=list%>" var="student">
                   <tr class="gradeX">
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>

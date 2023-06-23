@@ -58,17 +58,17 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="./images/logo.png" alt=""></a>
+            <a href="healthy_enter.jsp"><img src="./images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a href="healthy_enter.jsp"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
+            <li><a href="healthy_enter.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
 
             <li class="menu-list nav-active"><a href=""><i class="fa fa-tasks"></i> <span>每日一报填写与查看</span></a>
                 <ul class="sub-menu-list">
@@ -76,7 +76,7 @@
                     <li><a href="Servlet_healthycode"> 我的健康码</a></li>
                 </ul>
             </li>
-            <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+            <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
         </ul>
         <!--sidebar nav end-->
@@ -96,7 +96,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="index.html" method="post">
+            <form class="searchform" action="healthy_enter.jsp" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="点此搜索...在开发中未实现" />
             </form>
             <!--search end-->

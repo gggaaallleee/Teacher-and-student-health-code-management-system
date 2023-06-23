@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 @MultipartConfig
-@WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/AddTeacherBatch.do"})
+@WebServlet({"/AddTeacher.do", "/FindTeacher.do", "/DeleteTeacher.do", "/UpdateTeacher.do", "/AddTeacherBatch.do","/Findteacher_withway.do"})
 public class Servlet_Teacher_manage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -122,6 +122,42 @@ public class Servlet_Teacher_manage extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        else if(uri.endsWith("/Findteacher_withway.do")){
+            String way1 = request.getParameter("way");
+            String thing = request.getParameter("thing");
+            String way;
+            //如果way1为姓名，则way为name；如果way1为身份证号，则way为idCard；如果way1为工号，则way为workNo，如果way1为学院，则way为college
+            if(way1.equals("姓名")){
+                way = "name";
+                System.out.println("name");
+            }
+            else if(way1.equals("身份证号")){
+                way = "idCard";
+                System.out.println("idCard");
+            }
+            else if(way1.equals("工号")){
+                way = "workNo";
+                System.out.println("workNo");
+            }
+            else{
+                way = "college";
+                System.out.println("college");
+            }
+            try {
+                request.setAttribute("teacher_list", teacherDao.findTeacher(way,thing));
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+                request.getRequestDispatcher("Teacher_table.jsp").forward(request,response);
+            } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+                e.printStackTrace();
+            }
+        }
         else if(uri.endsWith("/FindTeacher.do")){
             // String sql = "SELECT * FROM Teacher WHERE " + way + "=?";
             //如果way和thing有值的话调用findStudent，否则调用findAllStudent
@@ -211,14 +247,12 @@ public class Servlet_Teacher_manage extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-
             respond_json respond = new respond_json(0,"success");
             String json = JSON.toJSONString(respond);
             response.setContentType("application/json");
             response.getWriter().write(json);
             request.getRequestDispatcher("/Servlet_refresh_teacher").forward(request,response);
             fileContent.close();
-
         }
     }
 }
