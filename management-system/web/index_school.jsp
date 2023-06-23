@@ -62,11 +62,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.jsp"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="index.jsp"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -86,13 +86,13 @@
         <ul class="nav nav-pills nav-stacked custom-nav">
           <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
           <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
-          <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+          <li><a href="user_login.jsp"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
         </ul>
       </div>
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="active"><a href="Servlet_refresh_index_school"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
           <ul class="sub-menu-list">
             <li><a href="Servlet_refresh_teacher_school"> 教师信息管理</a></li>
@@ -102,25 +102,7 @@
             <li><a href="Servlet_refresh_schoolsetting_school">管理员设置</a></li>
           </ul>
         </li>
-        <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="Teacher_table.jsp">查看教师信息</a></li>
-            <li><a href="Student_table.jsp"> 查看学生信息</a></li>
-            <li><a href="health_table.jsp"> 教师打卡查询</a></li>
-            <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
-          </ul>
-        </li>
-
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.jsp">每日打卡</a></li>
-            <li><a href="mail_compose.jsp">健康码显示</a></li>
-          </ul>
-        </li>
-
-
         <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
-
       </ul>
       <!--sidebar nav end-->
 
@@ -139,7 +121,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.jsp" method="post">
+      <form class="searchform" action="Servlet_refresh_index_school" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -336,7 +318,6 @@
     </div>
     <!-- header section end-->
 
-    <!-- page heading start-->
     <div class="page-heading">
       <h3>
         主页
@@ -370,7 +351,6 @@
     </div>
     <!-- page heading end-->
 
-    <!--body wrapper start-->
     <div class="wrapper">
       <div class="row">
         <div class="col-md-6">
@@ -417,7 +397,7 @@
                     session.setAttribute("list_student",studentList);
 
                   %>
-                  <div class="value">${scount}</div>
+                  <div class="value" id="student_card">${scount}</div>
                   <div class="title">已打卡的学生</div>
                 </div>
               </div>
@@ -428,7 +408,7 @@
                   <i class="fa fa-tags"></i>
                 </div>
                 <div class="state-value">
-                  <div class="value">${scount1}</div>
+                  <div class="value" id="student_NoCard">${scount1}</div>
                   <div class="title">未打卡的学生</div>
                 </div>
               </div>
@@ -441,7 +421,7 @@
                   <i class="fa fa-money"></i>
                 </div>
                 <div class="state-value">
-                  <div class="value">${tcount}</div>
+                  <div class="value" id="teacher_card">${tcount}</div>
                   <div class="title"> 已打卡的教师</div>
                 </div>
               </div>
@@ -451,8 +431,8 @@
                 <div class="symbol">
                   <i class="fa fa-eye"></i>
                 </div>
-                <div class="state-value">
-                  <div class="value">${tcount1}</div>
+                <div class="state-value" >
+                  <div class="value" id="teacher_NoCard">${tcount1}</div>
                   <div class="title"> 未打卡的教师</div>
                 </div>
               </div>
@@ -564,11 +544,16 @@
                   </div>
                   <div class="details">
                     <div class="title">
-                      <a href="#">John Doe</a> - Project Lead
+                      <a href="#">学生已打卡</a>
                     </div>
+                    <% double t1 = (double)tcount/(tcount+tcount1)*100;
+                      double  t2 = (double)tcount1/(tcount+tcount1)*100;
+                      double  s1 = (double)scount/(scount+scount1)*100;
+                      double  s2 = (double)scount1/(scount+scount1)*100;
+                    %>
                     <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                        <span class="">70%</span>
+                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=s1%>%">
+                        <span class=""><%= s1%>%</span>
                       </div>
                     </div>
                   </div>
@@ -579,11 +564,11 @@
                   </div>
                   <div class="details">
                     <div class="title">
-                      <a href="#">Cameron Doe</a> - Sales
+                      <a href="#">学生未打卡</a>
                     </div>
                     <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 91%">
-                        <span class="">91%</span>
+                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=s2%>%">
+                        <span class=""> <%= s2%>%</span>
                       </div>
                     </div>
                   </div>
@@ -594,11 +579,12 @@
                   </div>
                   <div class="details">
                     <div class="title">
-                      <a href="#">Hoffman Doe</a> - Support
+                      <a href="#">教师已打卡</a>
                     </div>
                     <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                        <span class="">40%</span>
+
+                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=t1%>%">
+                        <span class=""><%= t1%></span>
                       </div>
                     </div>
                   </div>
@@ -609,32 +595,16 @@
                   </div>
                   <div class="details">
                     <div class="title">
-                      <a href="#">Jane Doe</a> - Marketing
+                      <a href="#">教师未打卡</a>
                     </div>
                     <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                        <span class="">20%</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="prog-avatar">
-                    <img src="images/photos/user5.png" alt=""/>
-                  </div>
-                  <div class="details">
-                    <div class="title">
-                      <a href="#">Hoffman Doe</a> - Support
-                    </div>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                        <span class="">45%</span>
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=t2%>%">
+                        <span class=""><%= t2%>%</span>
                       </div>
                     </div>
                   </div>
                 </li>
               </ul>
-              <div class="text-center"><a href="#">View all Goals</a></div>
             </div>
           </div>
         </div>

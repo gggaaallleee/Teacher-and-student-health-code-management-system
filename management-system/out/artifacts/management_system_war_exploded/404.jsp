@@ -35,7 +35,7 @@
       <h1><img alt="" src="images/404-error.png"></h1>
       <h2>page not found</h2>
       <h3>We Couldn’t Find This Page</h3>
-      <a class="back-btn" href="index.html"> Back To Home</a>
+      <a class="back-btn" href="user_login.jsp"> Back To Home</a>
     </section>
 
   </div>
