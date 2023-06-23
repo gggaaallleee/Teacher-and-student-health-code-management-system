@@ -69,42 +69,22 @@
                 <ul class="nav nav-pills nav-stacked custom-nav">
                     <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
                     <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
-                    <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+                    <li><a href="manage_login.jsp"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
                 </ul>
             </div>
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
-                <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
-                        <li><a href="Student_table.jsp"> 学生信息管理</a></li>
-                        <li><a href="health_table.jsp"> 打卡查询</a></li>
-                    </ul>
-                </li>
-                <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="Teacher_table_school.jsp">查看教师信息</a></li>
-                        <li><a href="Student_table_school.jsp"> 查看学生信息</a></li>
-                        <li><a href="health_table.jsp">打卡查询</a></li>
-                    </ul>
-                </li>
+                <li class="active"><a href="Servlet_refresh_index_college"><i class="fa fa-home"></i> <span>主页</span></a></li>
+
                 <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="Teacher_table.jsp"> 查看教师信息</a></li>
-                        <li><a href="Student_table.jsp"> 查看学生信息</a></li>
-                        <li><a href="health_table.jsp"> 打卡查询</a></li>
+                        <li><a href="Servlet_refresh_teacher_college"> 教师信息查询</a></li>
+                        <li><a href="Servlet_refresh_student_college"> 学生信息查询</a></li>
+                        <li><a href="Servlet_refresh_teacher_health_table_college"> 教师打卡查询</a></li>
+                        <li><a href="Servlet_refresh_student_health_table_college"> 学生打卡查询</a></li>
                     </ul>
                 </li>
-
-                <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="mail.jsp">每日打卡</a></li>
-                        <li><a href="mail_compose.jsp">健康码显示</a></li>
-                    </ul>
-                </li>
-
 
                 <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
@@ -126,7 +106,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="index.html" method="post">
+            <form class="searchform" action="Servlet_refresh_index_college" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
             </form>
             <!--search end-->
@@ -330,12 +310,12 @@
             </h3>
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#">师生健康码管理系统</a>
                 </li>
                 <li>
-                    <a href="#">Data Tables</a>
+                    <a href="#">数据表</a>
                 </li>
-                <li class="active"> Dynamic Table </li>
+                <li class="active">教师查询 </li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -344,7 +324,7 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-sm-12">
-                    <section class="panel">
+                    <section class="pan el">
                         <header class="panel-heading">
                             Teacher Table
                             <span class="tools pull-right">
@@ -367,9 +347,10 @@
                                         List<Teacher> list=new ArrayList<>();
                                         list=(List<Teacher>)request.getAttribute("teacher_list");
                                     %>
-                                    <c:forEach items="<%=list%>" var="teacher">
+
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="<%=list%>" var="teacher">
                                     <tr class="">
                                         <td>${teacher.name}</td>
                                         <td>${teacher.idCard}</td>

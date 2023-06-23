@@ -44,11 +44,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_school"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -75,38 +75,17 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
-        <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="Teacher_table.jsp"> 教师信息管理</a></li>
-            <li><a href="Student_table.jsp"> 学生信息管理</a></li>
-            <li><a href="health_table.jsp"> 打卡查询</a></li>
-          </ul>
-        </li>
+        <li class="active"><a href="Servlet_refresh_index_school"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Teacher_table_school.jsp">查看教师信息</a></li>
-            <li><a href="Student_table_school.jsp"> 查看学生信息</a></li>
-            <li><a href="health_table.jsp">打卡查询</a></li>
+            <li><a href="Servlet_refresh_teacher_school"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student_school"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table_school"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table_school"> 学生打卡查询</a></li>
+            <li><a href="Servlet_refresh_schoolsetting_school">管理员设置</a></li>
           </ul>
         </li>
-        <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="Teacher_table.jsp"> 查看教师信息</a></li>
-            <li><a href="Student_table.jsp"> 查看学生信息</a></li>
-            <li><a href="health_table.jsp"> 打卡查询</a></li>
-          </ul>
-        </li>
-
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.jsp">每日打卡</a></li>
-            <li><a href="mail_compose.jsp">健康码显示</a></li>
-          </ul>
-        </li>
-
-
-        <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+        <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -126,7 +105,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.html" method="post">
+      <form class="searchform" action="Servlet_refresh_index_school" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -367,9 +346,10 @@
                     List<Teacher> list=new ArrayList<>();
                     list=(List<Teacher>)request.getAttribute("teacher_list");
                   %>
-                  <c:forEach items="<%=list%>" var="teacher">
+
                   </thead>
                   <tbody>
+                  <c:forEach items="<%=list%>" var="teacher">
                   <tr class="">
                     <td>${teacher.name}</td>
                     <td>${teacher.idCard}</td>

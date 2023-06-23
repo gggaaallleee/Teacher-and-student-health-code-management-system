@@ -337,11 +337,6 @@
                                         <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addCclass_manage.jsp'"> > Add New <i class="fa fa-plus"></i></button>
 
                                     </div>
-                                    <form action="BatchAddClass.do" method="post" enctype="multipart/form-data">
-                                        <label for="file1"  id="upFile"  class="btn btn-primary" >数据导入</label>
-                                        <input type="file" id="file1" name="file1" multiple style="width: 0;" >
-                                        <input type="submit" value="上传" />
-                                    </form>
                                     <div class="btn-group pull-right">
                                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
                                         </button>
@@ -373,8 +368,8 @@
                                     <c:forEach items="<%=list%>" var="cclass">
                                     <tr>
                                         <td>${cclass.name}</td>
-                                        <td>${cclass.Cmajor}</td>
-                                        <td><a  href="UpdateClass.do?name=${cclass.name}&Cmajor=${cclass.Cmajor}">修改</a></td>
+                                        <td>${cclass.cmajor}</td>
+                                        <td><a  href="UpdateClass.do?name=${cclass.name}&Cmajor=${cclass.cmajor}">修改</a></td>
                                         <td><a  href="DeleteClass.do?name=${cclass.name}">Delete</a></td>
                                     </tr>
                                     </c:forEach>

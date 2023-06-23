@@ -1,14 +1,13 @@
-<%--
+<%@ page import="main.models.Student" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2023/6/21
-  Time: 20:47
+  Time: 20:41
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="main.models.Teacher" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
 
-  <title>Teacher Table</title>
+  <title>Dynamic Table</title>
 
   <!--dynamic table-->
   <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
@@ -44,11 +43,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="Servlet_refresh_index_school"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="Servlet_refresh_index_school"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -75,16 +74,17 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="Servlet_refresh_index_school"><i class="fa fa-home"></i> <span>主页</span></a></li>
-        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
+        <li class="active"><a href="Servlet_refresh_index_college"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>院级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Servlet_refresh_teacher_school"> 教师信息管理</a></li>
-            <li><a href="Servlet_refresh_student_school"> 学生信息管理</a></li>
-            <li><a href="Servlet_refresh_teacher_health_table_school"> 教师打卡查询</a></li>
-            <li><a href="Servlet_refresh_student_health_table_school"> 学生打卡查询</a></li>
-            <li><a href="Servlet_refresh_schoolsetting_school">管理员设置</a></li>
+            <li><a href="Servlet_refresh_teacher_college"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student_college"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table_college"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table_college"> 学生打卡查询</a></li>
           </ul>
         </li>
+
+
         <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
@@ -105,7 +105,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="Servlet_refresh_index_school" method="post">
+      <form class="searchform" action="Servlet_refresh_index_college" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -305,7 +305,7 @@
     <!-- page heading start-->
     <div class="page-heading">
       <h3>
-        Teacher Table
+        Health Table
       </h3>
       <ul class="breadcrumb">
         <li>
@@ -325,7 +325,7 @@
         <div class="col-sm-12">
           <section class="panel">
             <header class="panel-heading">
-              Teacher Table
+              Health Table
               <span class="tools pull-right">
                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                 <a href="javascript:;" class="fa fa-times"></a>
@@ -338,37 +338,39 @@
                   <tr>
                     <th>姓名</th>
                     <th>身份证号</th>
-                    <th>工号</th>
-                    <th>学院</th>
-                    <th>角色</th>
+                    <th>学号</th>
+                    <th>健康码</th>
+                    <th>打卡情况</th>
+                    <th>打卡天数</th>
                   </tr>
                   <%
-                    List<Teacher> list=new ArrayList<>();
-                    list=(List<Teacher>)request.getAttribute("teacher_list");
+                    List<Student> list=new ArrayList<>();
+                    list=(List<Student>)request.getAttribute("student_list");
                   %>
 
                   </thead>
                   <tbody>
-                  <c:forEach items="<%=list%>" var="teacher">
-                  <tr class="">
-                    <td>${teacher.name}</td>
-                    <td>${teacher.idCard}</td>
-                    <td>${teacher.workNo}</td>
-                    <td>${teacher.college}</td>
-                    <td>${teacher.role}</td>
+                  <c:forEach items="<%=list%>" var="student">
+                  <tr class="gradeX">
+                    <td>${student.name}</td>
+                    <td>${student.idCard}</td>
+                    <td>${student.studentNo}</td>
+                    <td class="center">${student.healthCode}</td>
+                    <td>${student.dailycheck}</td>
+                    <td>${student.checkdays}</td>
                   </tr>
                   </c:forEach>
-
                   </tbody>
                 </table>
+
               </div>
             </div>
           </section>
         </div>
       </div>
     </div>
-
     <!--body wrapper end-->
+
 
 
   </div>

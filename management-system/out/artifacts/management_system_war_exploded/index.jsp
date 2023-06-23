@@ -85,7 +85,7 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.jsp"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
                     <ul class="sub-menu-list">
                         <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
@@ -98,7 +98,7 @@
                         <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
                     </ul>
                 </li>
-                <li><a href=""><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+                <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
             </ul>
         </div>
     </div>

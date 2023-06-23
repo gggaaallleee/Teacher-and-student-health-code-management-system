@@ -109,7 +109,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="index.jsp" method="post">
+      <form class="searchform" action="Servlet_refresh_index" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -337,10 +337,20 @@
             </header>
             <div class="panel-body">
               <div class="adv-table">
+                <div class="btn-group pull-right">
+                  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Print</a></li>
+                    <li><a href="#">Save as PDF</a></li>
+                    <li><a href="#">Export to Excel</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="space15"></div>
                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                   <thead>
                   <tr>
-
                     <th>姓名</th>
                     <th>身份证号</th>
                     <th>工号</th>
@@ -352,9 +362,10 @@
                       List<Teacher>list=new ArrayList<>();
                       list=(List<Teacher>)request.getAttribute("teacher_list");
                     %>
-                    <c:forEach items="<%=list%>" var="teacher">
+
                   </thead>
                   <tbody>
+                    <c:forEach items="${teacher_list}" var="teacher">
                   <tr class="gradeX">
                       <td>${teacher.name}</td>
                       <td>${teacher.idCard}</td>
@@ -366,9 +377,8 @@
                   </c:forEach>
                   </tbody>
                 </table>
-
-              </div>
             </div>
+
           </section>
         </div>
       </div>
