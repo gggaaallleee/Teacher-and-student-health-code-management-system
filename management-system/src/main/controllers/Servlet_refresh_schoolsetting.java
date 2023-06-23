@@ -18,8 +18,8 @@ public class Servlet_refresh_schoolsetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             user_manage_impl user_manage = new user_manage_impl();
-        List<main.models.User> user_list = user_manage.findAllUser();
-        request.setAttribute("user_list", user_list);
-        request.getRequestDispatcher("schoolSetting_table.jsp").forward(request, response);
+            List<main.models.User> user_list = user_manage.findAllUser();
+            request.setAttribute("user_list", user_list);
+            request.getRequestDispatcher("schoolSetting_table.jsp").forward(request, response);
     }
 }

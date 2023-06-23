@@ -68,6 +68,7 @@ public class Servlet_login_user extends HttpServlet {
             } else {
                 if (list.get(0).getWorkNo().equals(username) && list.get(0).getIdCard().substring(10,18).equals(password)) {
                     request.getSession().setAttribute("username",username);System.out.println("thisway3");
+                    request.getSession().setAttribute("identity",type);
                     request.getRequestDispatcher("healthy_enter.jsp").forward(request,response);
                 } else {
                     System.out.println("thisway4");

@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -56,32 +57,14 @@
           <ul class="sub-menu-list">
             <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
             <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
-            <li><a href="health_table.jsp"> 打卡查询</a></li>
-            <li><a href="Servlet_refresh_schoolsetting"> 管理员设置</a></li>
+            <li><a href="Servlet_refresh_college"> 学院信息管理</a></li>
+            <li><a href="Servlet_refresh_major"> 专业信息管理</a></li>
+            <li><a href="Servlet_refresh_class"> 班级信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table"> 学生打卡查询</a></li>
+            <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
           </ul>
         </li>
-        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="Teacher_table1.jsp">查看教师信息</a></li>
-            <li><a href="Student_table2.jsp"> 查看学生信息</a></li>
-            <li><a href="health_table.jsp">打卡查询</a></li>
-          </ul>
-        </li>
-        <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="Student_table.jsp"> 查看学生信息</a></li>
-            <li><a href="health_table.jsp"> 打卡查询</a></li>
-          </ul>
-        </li>
-
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.jsp">每日打卡</a></li>
-            <li><a href="mail_compose.jsp">健康码显示</a></li>
-          </ul>
-        </li>
-
-
         <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
@@ -332,8 +315,12 @@
                   <div class="btn-group">
                     <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addstudent.jsp'"> > Add New <i class="fa fa-plus"></i></button>
 
-                    <label for="file1"  id="upFile"  class="btn btn-primary  lab">数据导入</label>
-                    <input type="file" id="file1" name="file1" multiple style="width: 0;" >
+                    <form action="AddStudentBatch.do" method="post" enctype="multipart/form-data">
+                      <label for="file"  id="upFile"  class="btn btn-primary" >数据导入</label>
+                      <input type="file" id="file" name="file" multiple style="width: 0;" >
+                      <input type="submit" value="上传" />
+                    </form>
+
                   </div>
                   <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>

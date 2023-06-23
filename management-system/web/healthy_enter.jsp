@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -24,6 +25,28 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
+<script>
+        function handleNormalCheckbox() {
+            const normalCheckbox = document.getElementById('inlineCheckbox1');
+            const symptomCheckboxes = document.querySelectorAll('input[name="healthStatus"]:not(#inlineCheckbox1)');
+
+            if (normalCheckbox.checked) {
+                symptomCheckboxes.forEach(checkbox => checkbox.checked = false);
+            }
+        }
+
+        function handleSymptomCheckbox() {
+            const normalCheckbox = document.getElementById('inlineCheckbox1');
+            const symptomCheckboxes = document.querySelectorAll('input[name="healthStatus"]:not(#inlineCheckbox1)');
+            const checkedSymptomCheckboxes = document.querySelectorAll('input[name="healthStatus"]:not(#inlineCheckbox1):checked');
+
+            if (checkedSymptomCheckboxes.length > 0) {
+                normalCheckbox.checked = false;
+            } else {
+                normalCheckbox.checked = true;
+            }
+        }
+    </script>
     <![endif]-->
 </head>
 
@@ -49,8 +72,8 @@
 
             <li class="menu-list nav-active"><a href=""><i class="fa fa-tasks"></i> <span>每日一报填写与查看</span></a>
                 <ul class="sub-menu-list">
-                    <li class="active"><a href="health_enter.html"> 填写表单</a></li>
-                    <li><a href="./healthcode.html"> 我的健康码</a></li>
+                    <li class="active"><a href="health_enter.jsp"> 填写表单</a></li>
+                    <li><a href="Servlet_healthycode"> 我的健康码</a></li>
                 </ul>
             </li>
             <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
@@ -229,15 +252,15 @@
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form class="cmxform form-horizontal adminex-form" id="signupForm" method="get" action="Addhealth_check.do">
+                            <form class="cmxform form-horizontal adminex-form"  method="post" action="Addhealth_check.do">
                                 <div class="form-group ">
                                     <label  class="control-label col-lg-2 col-sm-3">身份</label>
                                     <div class="col-lg-10 col-sm-9">
                                         <label class="checkbox-inline">
-                                            <input type="radio" name="identity" value="student" <% if ("student".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 学生
+                                            <input type="radio" name="identityy" value="student" <% if ("student".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 学生
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="radio" name="identity" value="teacher" <% if ("teacher".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 老师
+                                            <input type="radio" name="identityy" value="teacher" <% if ("teacher".equals(session.getAttribute("identity"))) { %>checked disabled<% } %>> 老师
                                         </label>
                                     </div>
                                 </div>
@@ -331,6 +354,9 @@
                                     <label class="col-sm-2 control-label col-lg-2" >本人是否打过新冠疫苗，可选“未打过，已打1针，已打2针，已打3针”</label>
                                     <div class="col-lg-10">
                                         <label class="checkbox-inline">
+                                            <input type="radio"  name="vaccine" value="0"> 未打过
+                                        </label>
+                                        <label class="checkbox-inline">
                                             <input type="radio"  name="vaccine" value="1"> 1
                                         </label>
                                         <label class="checkbox-inline">
@@ -347,30 +373,30 @@
                                     <label class="col-sm-2 control-label col-lg-2" >当前健康状况？无异常、发烧（≥37.3℃）、乏力、干咳、鼻塞、流涕、咽痛、腹泻等。</label>
                                     <div class="col-lg-10">
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" name="vaccine" value="正常" checked> 正常
+                                            <input type="checkbox" id="inlineCheckbox1" name="healthStatus" value="正常" checked onclick="handleNormalCheckbox()"> 正常
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" name="vaccine" value="发烧"> 发烧
+                                            <input type="checkbox" id="inlineCheckbox2" name="healthStatus" value="发烧" onclick="handleSymptomCheckbox()"> 发烧
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 乏力
-                                        </label>
-                                        <br>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 干咳
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 鼻塞
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 流涕
+                                            <input type="checkbox"  name="healthStatus" value="乏力" onclick="handleSymptomCheckbox()"> 乏力
                                         </label>
                                         <br>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 咽痛
+                                            <input type="checkbox"  name="healthStatus" value="干咳" onclick="handleSymptomCheckbox()"> 干咳
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox"  name="vaccine" value="乏力"> 腹泻
+                                            <input type="checkbox"  name="healthStatus" value="鼻塞" onclick="handleSymptomCheckbox()"> 鼻塞
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"  name="healthStatus" value="流涕" onclick="handleSymptomCheckbox()"> 流涕
+                                        </label>
+                                        <br>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"  name="healthStatus" value="咽痛" onclick="handleSymptomCheckbox()"> 咽痛
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"  name="healthStatus" value="腹泻" onclick="handleSymptomCheckbox()"> 腹泻
                                         </label>
                                     </div>
                                 </div>
@@ -389,12 +415,6 @@
         </div>
     </div>
     <!--body wrapper end-->
-
-    <!--footer section start-->
-    <footer>
-        2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-    </footer>
-    <!--footer section end-->
 
 
     </div>

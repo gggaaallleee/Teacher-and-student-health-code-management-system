@@ -7,15 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*"%>
-<%@ page import="java.io.*"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.DateFormat"%>
-<%@ page import="java.text.ParseException"%>
 <%@ page import="main.models.Student" %>
 <%@ page import="main.models.Teacher" %>
-<%@ page import="main.Dao.impl.Teacher_manage_impl" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -61,11 +55,11 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.jsp"><img src="images/logo.png" alt=""></a>
+            <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.jsp"><img src="images/logo_icon.png" alt=""></a>
+            <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
@@ -96,57 +90,29 @@
                     <ul class="sub-menu-list">
                         <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
                         <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
-                        <li><a href="health_table.jsp"> 教师打卡查询</a></li>
-                        <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
+                        <li><a href="Servlet_refresh_college"> 学院信息管理</a></li>
+                        <li><a href="Servlet_refresh_major"> 专业信息管理</a></li>
+                        <li><a href="Servlet_refresh_class"> 班级信息管理</a></li>
+                        <li><a href="Servlet_refresh_teacher_health_table"> 教师打卡查询</a></li>
+                        <li><a href="Servlet_refresh_student_health_table"> 学生打卡查询</a></li>
                         <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
                     </ul>
                 </li>
-                <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="Teacher_table1.jsp">查看教师信息</a></li>
-                        <li><a href="Student_table2.jsp"> 查看学生信息</a></li>
-                        <li><a href="health_table.jsp"> 教师打卡查询</a></li>
-                        <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
-                    </ul>
-                </li>
-                <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="Teacher_table.jsp">查看教师信息</a></li>
-                        <li><a href="Student_table.jsp"> 查看学生信息</a></li>
-                        <li><a href="health_table.jsp"> 教师打卡查询</a></li>
-                        <li><a href="health_table1.jsp"> 学生打卡查询</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a href="mail.jsp">每日打卡</a></li>
-                        <li><a href="mail_compose.jsp">健康码显示</a></li>
-                    </ul>
-                </li>
-
-
-                <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
-
+                <li><a href=""><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
             </ul>
-            <!--sidebar nav end-->
-
         </div>
     </div>
     <!-- left side end-->
 
     <!-- main content start-->
     <div class="main-content" >
-
         <!-- header section start-->
         <div class="header-section">
-
             <!--toggle button start-->
             <a class="toggle-btn"><i class="fa fa-bars"></i></a>
             <!--toggle button end-->
-
             <!--search start-->
-            <form class="searchform" action="index.jsp" method="post">
+            <form class="searchform" action="Servlet_refresh_index" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
             </form>
             <!--search end-->
@@ -332,7 +298,7 @@
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                             <li><a href="#"><i class="fa fa-user"></i>  Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                            <li><a href="user_login.jsp"><i class="fa fa-sign-out"></i> Log Out</a></li>
                         </ul>
                     </li>
 
@@ -377,7 +343,6 @@
         </div>
         <!-- page heading end-->
 
-        <!--body wrapper start-->
         <div class="wrapper">
             <div class="row">
                 <div class="col-md-6">
@@ -424,18 +389,18 @@
                                         session.setAttribute("list_student",studentList);
 
                                     %>
-                                    <div class="value">${scount}</div>
+                                    <div class="value" id="student_card">${scount}</div>
                                     <div class="title">已打卡的学生</div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         <div class="col-md-6 col-xs-12 col-sm-6">
                             <div class="panel red">
                                 <div class="symbol">
                                     <i class="fa fa-tags"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value">${scount1}</div>
+                                    <div class="value" id="student_NoCard">${scount1}</div>
                                     <div class="title">未打卡的学生</div>
                                 </div>
                             </div>
@@ -448,7 +413,7 @@
                                     <i class="fa fa-money"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value">${tcount}</div>
+                                    <div class="value" id="teacher_card">${tcount}</div>
                                     <div class="title"> 已打卡的教师</div>
                                 </div>
                             </div>
@@ -458,8 +423,8 @@
                                 <div class="symbol">
                                     <i class="fa fa-eye"></i>
                                 </div>
-                                <div class="state-value">
-                                    <div class="value">${tcount1}</div>
+                                <div class="state-value" >
+                                    <div class="value" id="teacher_NoCard">${tcount1}</div>
                                     <div class="title"> 未打卡的教师</div>
                                 </div>
                             </div>
@@ -571,11 +536,16 @@
                                     </div>
                                     <div class="details">
                                         <div class="title">
-                                            <a href="#">John Doe</a> - Project Lead
+                                            <a href="#">学生已打卡</a>
                                         </div>
+                                        <% double t1 = (double)tcount/(tcount+tcount1)*100;
+                                            double  t2 = (double)tcount1/(tcount+tcount1)*100;
+                                            double  s1 = (double)scount/(scount+scount1)*100;
+                                            double  s2 = (double)scount1/(scount+scount1)*100;
+                                        %>
                                         <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                                <span class="">70%</span>
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=s1%>%">
+                                                <span class=""><%= s1%>%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -586,11 +556,11 @@
                                     </div>
                                     <div class="details">
                                         <div class="title">
-                                            <a href="#">Cameron Doe</a> - Sales
+                                            <a href="#">学生未打卡</a>
                                         </div>
                                         <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 91%">
-                                                <span class="">91%</span>
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=s2%>%">
+                                                <span class=""> <%= s2%>%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -601,11 +571,12 @@
                                     </div>
                                     <div class="details">
                                         <div class="title">
-                                            <a href="#">Hoffman Doe</a> - Support
+                                            <a href="#">教师已打卡</a>
                                         </div>
                                         <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                <span class="">40%</span>
+
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=t1%>%">
+                                                <span class=""><%= t1%></span>
                                             </div>
                                         </div>
                                     </div>
@@ -616,32 +587,16 @@
                                     </div>
                                     <div class="details">
                                         <div class="title">
-                                            <a href="#">Jane Doe</a> - Marketing
+                                            <a href="#">教师未打卡</a>
                                         </div>
                                         <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                                <span class="">20%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="prog-avatar">
-                                        <img src="images/photos/user5.png" alt=""/>
-                                    </div>
-                                    <div class="details">
-                                        <div class="title">
-                                            <a href="#">Hoffman Doe</a> - Support
-                                        </div>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                <span class="">45%</span>
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=t2%>%">
+                                                <span class=""><%= t2%>%</span>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
-                            <div class="text-center"><a href="#">View all Goals</a></div>
                         </div>
                     </div>
                 </div>
@@ -921,7 +876,7 @@
 <script src="js/scripts.js"></script>
 
 <!--Dashboard Charts-->
-<script src="js/dashboard-chart-init.js"></script>
+<script src="js/dashboard-chart-init1.js"></script>
 
 
 </body>

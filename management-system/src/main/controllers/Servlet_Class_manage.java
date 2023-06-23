@@ -22,6 +22,8 @@ public class Servlet_Class_manage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //"INSERT INTO Class(id,name,Cmajor) VALUES(?,?,?)"
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String uri = request.getRequestURI();
         class_manage_impl classDao = new class_manage_impl();
         //进行四个操作的时候同时注意，添加数据要注意Major表的name是否有此处的Cmajor，删除数据时联合student表一起删除
@@ -38,6 +40,7 @@ public class Servlet_Class_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("Servlet_refresh_class").forward(request, response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);
@@ -60,6 +63,7 @@ public class Servlet_Class_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("Servlet_refresh_class").forward(request, response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);

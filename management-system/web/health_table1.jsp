@@ -1,4 +1,6 @@
-<%--
+<%@ page import="main.models.Student" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2023/6/21
@@ -6,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,11 +43,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="index.html"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-      <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -65,7 +68,7 @@
         <ul class="nav nav-pills nav-stacked custom-nav">
           <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
           <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
-          <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+          <li><a href="user_login.jsp"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
         </ul>
       </div>
 
@@ -74,34 +77,17 @@
         <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>主页</span></a></li>
         <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="./Teacher_table.html"> 教师信息管理</a></li>
-            <li><a href="./Student_table.html"> 学生信息管理</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
+            <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_college"> 学院信息管理</a></li>
+            <li><a href="Servlet_refresh_major"> 专业信息管理</a></li>
+            <li><a href="Servlet_refresh_class"> 班级信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table"> 学生打卡查询</a></li>
+            <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
           </ul>
         </li>
-        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Teacher_table1.html">查看教师信息</a></li>
-            <li><a href="./Student_table2.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html">打卡查询</a></li>
-          </ul>
-        </li>
-        <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>院级管理员</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="./Student_table.html"> 查看学生信息</a></li>
-            <li><a href="./health_table.html"> 打卡查询</a></li>
-          </ul>
-        </li>
-
-        <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>教师每日一报</span></a>
-          <ul class="sub-menu-list">
-            <li><a href="mail.html">每日打卡</a></li>
-            <li><a href="mail_compose.html">健康码显示</a></li>
-          </ul>
-        </li>
-
-
-        <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+        <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -352,15 +338,15 @@
                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                   <thead>
                   <tr>
-
                     <th>姓名</th>
                     <th>身份证号</th>
                     <th>学号</th>
                     <th>健康码</th>
                     <th>打卡情况</th>
                   </tr>
-                    List<Student>list=new ArrayList<>();
-                    list=(list<Student>)request.getAttribute("list");
+                    <%
+                    List<Student> list=new ArrayList<>();
+                    list=(List<Student>)request.getAttribute("student_list");
                     %>
                     <c:forEach items="<%=list%>" var="student">
                   </thead>
@@ -368,13 +354,12 @@
                   <tr class="gradeX">
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>
-                    <td>${student.StudentNo}</td>
+                    <td>${student.studentNo}</td>
                     <td class="center">${student.healthCode}</td>
                     <td>${student.dailycheck}</td>
+                    <td>${student.checkdays}</td>
                   </tr>
                   </c:forEach>
-                  </tr>
-
                   </tbody>
                 </table>
 
@@ -386,11 +371,6 @@
     </div>
     <!--body wrapper end-->
 
-    <!--footer section start-->
-    <footer>
-      2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-    </footer>
-    <!--footer section end-->
 
 
   </div>

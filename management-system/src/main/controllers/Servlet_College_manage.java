@@ -22,7 +22,8 @@ public class Servlet_College_manage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 // "INSERT INTO College(id,name) VALUES(?,?)";
-
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         String uri = request.getRequestURI();
         college_manage_impl collegeDao = new college_manage_impl();
         if (uri.endsWith("AddCollege.do")) {
@@ -37,6 +38,7 @@ public class Servlet_College_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("Servlet_refresh_college").forward(request, response);
             } catch (Exception e) {
                                e.printStackTrace();
                                respond_json respond = new respond_json(1,"failed");
@@ -114,6 +116,7 @@ public class Servlet_College_manage extends HttpServlet {
                 String json = JSON.toJSONString(respond);
                 response.setContentType("application/json");
                 response.getWriter().write(json);
+                request.getRequestDispatcher("Servlet_refresh_college").forward(request, response);
             } catch (Exception e) {
                                e.printStackTrace();
                                respond_json respond = new respond_json(1,"failed");

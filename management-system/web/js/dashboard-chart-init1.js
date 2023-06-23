@@ -1,12 +1,29 @@
 // Use Morris.Area instead of Morris.Line
+// let student_card=parseInt(document.querySelector('#student_card').value)
+// let student_NoCard=parseInt(document.querySelector('#student_NoCard').value)
+// let teacher_card=parseInt(document.querySelector('#teacher_card').value)
+// let teacher_NoCard=parseInt(document.querySelector('#teacher_Nocard').value)
 
+// 获取 id="student_card" 的元素
+var student_card = document.getElementById("student_card");
+var student_NoCard = document.getElementById("student_NoCard");
+var teacher_card = document.getElementById("teacher_card");
+var teacher_NoCard = document.getElementById("teacher_NoCard");
+// 获取元素的内容（数值）
+var studentCardValue = parseInt(student_card.innerHTML);
+var studentNoCardValue = parseInt(student_NoCard.innerHTML);
+var teacherCardValue = parseInt(teacher_card.innerHTML);
+var teacherNoCardValue = parseInt(teacher_NoCard.innerHTML);
+let value2=10;
+let value3=10;
+let value4=10;
 Morris.Donut({
     element: 'graph-donut',
     data: [
-        {value:<%= request.getAttribute("scount")%>, label: '学生已打卡', formatted: 'at least 70%' },
-        {value:<%= request.getAttribute("scount+scount1")%>: '学生未打卡', formatted: 'approx. 15%' },
-        {value:<%= request.getAttribute("tcount")%>: '教师已打卡', formatted: 'approx. 10%' },
-        {value:<%= request.getAttribute("tcount+tcount1")%>: '教师未打卡', formatted: 'at most 99.99%' }
+        {value: studentCardValue, label: '学生已打卡', formatted: `${studentCardValue}人` },
+        {value: studentNoCardValue, label: '学生未打卡', formatted: `${studentNoCardValue}人` },
+        {value: teacherCardValue, label: '教师已打卡', formatted: `${teacherCardValue}人` },
+        {value: teacherNoCardValue, label: '教师未打卡', formatted: `${teacherNoCardValue}人` }
     ],
     backgroundColor: false,
     labelColor: '#fff',
@@ -16,35 +33,18 @@ Morris.Donut({
     formatter: function (x, data) { return data.formatted; }
 });
 
-
+var myVariable = 401;
 $(function() {
 
     var d1 = [
-        [0, 501],
-        [1, 620],
-        [2, 437],
-        [3, 361],
-        [4, 549],
-        [5, 618],
-        [6, 570],
-        [7, 758],
-        [8, 658],
-        [9, 538],
-        [10, 488]
+
 
     ];
     var d2 = [
-        [0, 401],
-        [1, 520],
-        [2, 337],
-        [3, 261],
-        [4, 449],
-        [5, 518],
-        [6, 470],
-        [7, 658],
-        [8, 558],
-        [9, 438],
-        [10, 388]
+        [1, studentCardValue],
+        [2, studentNoCardValue],
+        [3, teacherCardValue],
+        [4, teacherNoCardValue],
     ];
 
     var data = ([{

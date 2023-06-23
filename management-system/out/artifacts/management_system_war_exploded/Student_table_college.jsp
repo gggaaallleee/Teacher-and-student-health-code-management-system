@@ -1,4 +1,12 @@
-<%--
+<%@ page import="main.models.Student" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="main.models.Student" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %><%--
+
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 2023/6/21
@@ -21,7 +29,6 @@
     <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
     <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
     <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
-
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
 
@@ -81,8 +88,8 @@
                 </li>
                 <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>校级管理员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="Teacher_table1.jsp">查看教师信息</a></li>
-                        <li><a href="Student_table2.jsp"> 查看学生信息</a></li>
+                        <li><a href="Teacher_table_school.jsp">查看教师信息</a></li>
+                        <li><a href="Student_table_school.jsp"> 查看学生信息</a></li>
                         <li><a href="health_table.jsp">打卡查询</a></li>
                     </ul>
                 </li>
@@ -360,8 +367,8 @@
                                         <th>班级</th>
                                     </tr>
                                     <%
-                                        List<Student>list=new ArrayList<>();
-                                        list=(list<Student>)request.getAttribute("list");
+                                        List<Student> list=new ArrayList<>();
+                                        list= (List<Student>) request.getAttribute("student_list");
                                     %>
                                     <c:forEach items="<%=list%>" var="student">
                                     </thead>
@@ -369,8 +376,8 @@
                                     <tr class="gradeX">
                                         <td>${student.name}</td>
                                         <td>${student.idCard}</td>
-                                        <td>${student.StudentNo}</td>
-                                        <td class="center">${student.collage}</td>
+                                        <td>${student.studentNo}</td>
+                                        <td>${student.college}</td>
                                         <th>${student.major}</th>
                                         <th>${student.classNo}</th>
                                     </tr>
@@ -386,9 +393,6 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
-        <footer>
-            2014 &copy; AdminEx by <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-        </footer>
         <!--footer section end-->
 
 
@@ -415,4 +419,5 @@
 
 </body>
 </html>
+
 
