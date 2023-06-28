@@ -74,9 +74,9 @@ $(function() {
     var options = {
         grid: {
             backgroundColor:
-            {
-                colors: ["#ffffff", "#f4f4f6"]
-            },
+                {
+                    colors: ["#ffffff", "#f4f4f6"]
+                },
             hoverable: true,
             clickable: true,
             tickColor: "#eeeeee",

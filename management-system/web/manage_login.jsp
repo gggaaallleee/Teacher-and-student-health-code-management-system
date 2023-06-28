@@ -37,13 +37,29 @@
       border-bottom: 2px solid #17bb9b;
     }
   </style>
+
+  <script>
+    function checkblank(){
+      var x = document.forms["testform"]["username"].value;
+      var y = document.forms["testform"]["password"].value;
+      if (x==""){
+        alert("用户名输入存在空值");
+        return false;
+      }
+      if (y=="") {
+        alert("密码输入存在空值");
+        return false;
+      }
+      return true;
+    }
+  </script>
 </head>
 
 <body class="login-body">
 
 <div class="container">
 
-  <form class="form-signin" action="Servlet_login_management" method="post">
+  <form class="form-signin" action="Servlet_login_management" method="post" name="testform">
     <div class="form-signin-heading text-center">
       <h1 class="sign-title">Sign In</h1>
       <div class="tab-nav">
@@ -59,7 +75,7 @@
       <input name="username" type="text" class="form-control" placeholder="User ID" autofocus>
       <input name="password" type="password" class="form-control" placeholder="Password">
 
-      <button class="btn btn-lg btn-login btn-block" onclick="check()">
+      <button class="btn btn-lg btn-login btn-block" onclick="checkblank()">
         <i class="fa fa-check"></i>
       </button>
 
@@ -93,8 +109,8 @@
 
           </div>
           <div class="modal-footer">
-            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-            <button class="btn btn-primary" type="button">Submit</button>
+            <button data-dismiss="modal" class="btn btn-default" type="button" >Cancel</button>
+            <button class="btn btn-primary" type="button" >Submit</button>
           </div>
         </div>
       </div>

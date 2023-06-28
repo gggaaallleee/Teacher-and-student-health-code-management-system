@@ -320,7 +320,14 @@
                       <input type="file" id="file" name="file" multiple style="width: 0;" >
                       <input type="submit" value="上传" />
                     </form>
-
+                    <div class="btn-group">
+                      <!-- 一个查询按钮 ,链接到/Findteacher_withway.do，内容为 两个个text框，一个name为way，一个为thing，-->
+                      <form action = "Findstudent_withway.do" method="post">
+                        <input type="text" name="way" placeholder="查询方式">
+                        <input type="text" name="thing" placeholder="查询内容">
+                        <input type="submit" value="查询">
+                      </form>
+                    </div>
                   </div>
                   <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>

@@ -339,11 +339,6 @@
                                         <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addMajor_manage.jsp'"> > Add New <i class="fa fa-plus"></i></button>
 
                                     </div>
-                                    <form action="BatchAddMajor.do" method="post" enctype="multipart/form-data">
-                                        <label for="file1"  id="upFile"  class="btn btn-primary" >数据导入</label>
-                                        <input type="file" id="file1" name="file1" multiple style="width: 0;" >
-                                        <input type="submit" value="上传" />
-                                    </form>
                                     <div class="btn-group pull-right">
                                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
                                         </button>

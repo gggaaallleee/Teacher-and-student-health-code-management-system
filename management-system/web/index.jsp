@@ -9,6 +9,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="main.models.Student" %>
 <%@ page import="main.models.Teacher" %>
+<%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -389,8 +390,9 @@
                                         session.setAttribute("list_student",studentList);
 
                                     %>
-                                    <div class="value" id="student_card">${scount}</div>
-                                    <div class="title">已打卡的学生</div>
+                                    <div class="value" id="student_card">
+                                       ${scount}</div>
+                                    <div class="title"><a href="Servlet_refresh_student"> 已打卡的学生</a></div>
                                 </div>
                             </div>
                         </div>
@@ -400,8 +402,9 @@
                                     <i class="fa fa-tags"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value" id="student_NoCard">${scount1}</div>
-                                    <div class="title">未打卡的学生</div>
+                                    <div class="value" id="student_NoCard">
+                                        ${scount1}</div>
+                                    <div class="title"> <a href="Servlet_refresh_student"> 未打卡的学生</a></div>
                                 </div>
                             </div>
                         </div>
@@ -413,8 +416,8 @@
                                     <i class="fa fa-money"></i>
                                 </div>
                                 <div class="state-value">
-                                    <div class="value" id="teacher_card">${tcount}</div>
-                                    <div class="title"> 已打卡的教师</div>
+                                    <div class="value" id="teacher_card"> ${tcount}</div>
+                                    <div class="title"> <a href="Servlet_refresh_teacher"> 已打卡的教师</a></div>
                                 </div>
                             </div>
                         </div>
@@ -424,8 +427,9 @@
                                     <i class="fa fa-eye"></i>
                                 </div>
                                 <div class="state-value" >
-                                    <div class="value" id="teacher_NoCard">${tcount1}</div>
-                                    <div class="title"> 未打卡的教师</div>
+                                    <div class="value" id="teacher_NoCard">
+                                        ${tcount1}</div>
+                                    <div class="title"> <a href="Servlet_refresh_teacher"> 未打卡的教师</a></div>
                                 </div>
                             </div>
                         </div>
@@ -461,26 +465,11 @@
                         <div class="panel-body">
                             <div class="row revenue-states">
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <h4>Monthly revenue report</h4>
-                                    <div class="icheck">
-                                        <div class="square-red single-row">
-                                            <div class="checkbox ">
-                                                <input type="checkbox" checked>
-                                                <label>Online</label>
-                                            </div>
-                                        </div>
-                                        <div class="square-blue single-row">
-                                            <div class="checkbox ">
-                                                <input type="checkbox">
-                                                <label>Offline </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <h4>每日打卡折线图</h4>
 
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <ul class="revenue-nav">
-                                        <li><a href="#">打卡折线图</a></li>
                                         <li class="active"><a href="#">打卡折线图</a></li>
                                     </ul>
                                 </div>
@@ -542,6 +531,12 @@
                                             double  t2 = (double)tcount1/(tcount+tcount1)*100;
                                             double  s1 = (double)scount/(scount+scount1)*100;
                                             double  s2 = (double)scount1/(scount+scount1)*100;
+
+                                            DecimalFormat df = new DecimalFormat("#.##");
+                                            t1 = Double.parseDouble(df.format(t1));
+                                            t2 = Double.parseDouble(df.format(t2));
+                                            s1 = Double.parseDouble(df.format(s1));
+                                            s2 = Double.parseDouble(df.format(s2));
                                         %>
                                         <div class="progress progress-xs">
                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%=s1%>%">

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 @MultipartConfig
-@WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/AddStudentBatch.do"})
+@WebServlet({"/AddStudent.do", "/FindStudent.do", "/DeleteStudent.do", "/UpdateStudent.do", "/AddStudentBatch.do","/Findstudent_withway.do"})
 public class Servlet_student_manage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -120,6 +120,48 @@ public class Servlet_student_manage extends HttpServlet {
                 response.setContentType("application/json");
                 response.getWriter().write(json);
                 request.getRequestDispatcher("/Servlet_refresh_student").forward(request,response);
+            } catch (Exception e) {
+                respond_json respond = new respond_json(1,"failed");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+                e.printStackTrace();
+            }
+        }
+        else if(uri.endsWith("/Findstudent_withway.do")){
+            String way1 = request.getParameter("way");
+            String thing = request.getParameter("thing");
+            String way;
+    //姓名 身份证号	学号	学院	专业	班级 为 name idCard studentNo college major classNo
+            if(way1.equals("姓名")){
+                way = "name";
+            }
+            else if(way1.equals("身份证号")){
+                way = "idCard";
+            }
+            else if(way1.equals("学号")){
+                way = "studentNo";
+            }
+            else if(way1.equals("学院")){
+                way = "college";
+            }
+            else if(way1.equals("专业")){
+                way = "major";
+            }
+            else if(way1.equals("班级")){
+                way = "classNo";
+            }
+            else{
+                way = "name";
+            }
+            try {
+                request.setAttribute("student_list", studentDao.findStudent(way,thing));
+                studentDao.findStudent(way,thing);
+                respond_json respond = new respond_json(0,"success");
+                String json = JSON.toJSONString(respond);
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+                request.getRequestDispatcher("/Student_table.jsp").forward(request,response);
             } catch (Exception e) {
                 respond_json respond = new respond_json(1,"failed");
                 String json = JSON.toJSONString(respond);

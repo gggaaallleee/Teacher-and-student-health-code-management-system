@@ -1,6 +1,12 @@
 <%@ page import="main.models.Student" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %><%--
+  Created by IntelliJ IDEA.
+  User: Lenovo
+  Date: 2023/6/21
+  Time: 20:41
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -11,27 +17,43 @@
   <meta name="description" content="">
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
-  <title>Student Table</title>
-  <!--data table-->
+
+  <title>Dynamic Table</title>
+
+  <!--dynamic table-->
+  <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
   <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
+  <![endif]-->
 </head>
+
 <body class="sticky-header">
+
 <section>
   <!-- left side start-->
   <div class="left-side sticky-left-side">
+
     <!--logo and iconic logo start-->
     <div class="logo">
-      <a href="Servlet_refresh_index"><img src="images/logo.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo.png" alt=""></a>
     </div>
+
     <div class="logo-icon text-center">
-      <a href="Servlet_refresh_index"><img src="images/logo_icon.png" alt=""></a>
+      <a href="Servlet_refresh_index_college"><img src="images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
+
+
     <div class="left-side-inner">
+
       <!-- visible to small devices only -->
       <div class="visible-xs hidden-sm hidden-md hidden-lg">
         <div class="media logged-user">
@@ -52,20 +74,18 @@
 
       <!--sidebar nav start-->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="Servlet_refresh_index"><i class="fa fa-home"></i> <span>主页</span></a></li>
-        <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>系统管理员</span></a>
+        <li class="active"><a href="Servlet_refresh_index_college"><i class="fa fa-home"></i> <span>主页</span></a></li>
+        <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>院级管理员</span></a>
           <ul class="sub-menu-list">
-            <li><a href="Servlet_refresh_teacher"> 教师信息管理</a></li>
-            <li><a href="Servlet_refresh_student"> 学生信息管理</a></li>
-            <li><a href="Servlet_refresh_college"> 学院信息管理</a></li>
-            <li><a href="Servlet_refresh_major"> 专业信息管理</a></li>
-            <li><a href="Servlet_refresh_class"> 班级信息管理</a></li>
-            <li><a href="Servlet_refresh_teacher_health_table"> 教师打卡查询</a></li>
-            <li><a href="Servlet_refresh_student_health_table"> 学生打卡查询</a></li>
-            <li><a href="Servlet_refresh_schoolsetting">管理员设置</a></li>
+            <li><a href="Servlet_refresh_teacher_college"> 教师信息管理</a></li>
+            <li><a href="Servlet_refresh_student_college"> 学生信息管理</a></li>
+            <li><a href="Servlet_refresh_teacher_health_table_college"> 教师打卡查询</a></li>
+            <li><a href="Servlet_refresh_student_health_table_college"> 学生打卡查询</a></li>
           </ul>
         </li>
-        <li><a href="user_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
+
+
+        <li><a href="manage_login.jsp"><i class="fa fa-sign-in"></i> <span>登出</span></a></li>
 
       </ul>
       <!--sidebar nav end-->
@@ -85,7 +105,7 @@
       <!--toggle button end-->
 
       <!--search start-->
-      <form class="searchform" action="Servlet_refresh_index" method="post">
+      <form class="searchform" action="Servlet_refresh_index_college" method="post">
         <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
       </form>
       <!--search end-->
@@ -173,7 +193,6 @@
             <div class="dropdown-menu dropdown-menu-head pull-right">
               <h5 class="title">You have 5 Mails </h5>
               <ul class="dropdown-list normal-list">
-
                 <li class="new">
                   <a href="">
                     <span class="thumb"><img src="images/photos/user1.png" alt="" /></span>
@@ -286,101 +305,76 @@
     <!-- page heading start-->
     <div class="page-heading">
       <h3>
-        Student Table
+        Health Table
       </h3>
       <ul class="breadcrumb">
         <li>
           <a href="#">Dashboard</a>
         </li>
         <li>
-          <a href="#">Data Table</a>
+          <a href="#">Data Tables</a>
         </li>
-        <li class="active"> Editable Table </li>
+        <li class="active"> Dynamic Table </li>
       </ul>
     </div>
+    <!-- page heading end-->
+
+    <!--body wrapper start-->
     <div class="wrapper">
       <div class="row">
         <div class="col-sm-12">
           <section class="panel">
             <header class="panel-heading">
-              学生信息表
+              Health Table
               <span class="tools pull-right">
-                        <a href="javascript:;" class="fa fa-chevron-down"></a>
-                        <a href="javascript:;" class="fa fa-times"></a>
-                     </span>
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
             </header>
             <div class="panel-body">
-              <div class="adv-table editable-table ">
-                <div class="clearfix">
-                  <div class="btn-group">
-                    <button id="editable-sample_new" class="btn btn-primary" onclick="window.location.href='addstudent.jsp'"> > Add New <i class="fa fa-plus"></i></button>
-
-                    <form action="AddStudentBatch.do" method="post" enctype="multipart/form-data">
-                      <label for="file"  id="upFile"  class="btn btn-primary" >数据导入</label>
-                      <input type="file" id="file" name="file" multiple style="width: 0;" >
-                      <input type="submit" value="上传" />
-                    </form>
-                    <div class="btn-group">
-                      <!-- 一个查询按钮 ,链接到/Findteacher_withway.do，内容为 两个个text框，一个name为way，一个为thing，-->
-                      <form action = "Findstudent_withway.do" method="post">
-                        <input type="text" name="way" placeholder="查询方式">
-                        <input type="text" name="thing" placeholder="查询内容">
-                        <input type="submit" value="查询">
-                      </form>
-                    </div>
-                  </div>
-                  <div class="btn-group pull-right">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu pull-right">
-                      <li><a href="#">Print</a></li>
-                      <li><a href="#">Save as PDF</a></li>
-                      <li><a href="#">Export to Excel</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="space15"></div>
-                <table class="table table-striped table-hover table-bordered" id="editable-sample">
+              <div class="adv-table">
+                <table  class="display table table-bordered table-striped" id="dynamic-table">
                   <thead>
                   <tr>
                     <th>姓名</th>
                     <th>身份证号</th>
                     <th>学号</th>
-                    <th>学院</th>
-                    <th>专业</th>
-                    <th>班级</th>
-                    <th>修改</th>
-                    <th>删除</th>
+                    <th>健康码</th>
+                    <th>打卡情况</th>
+                    <th>打卡天数</th>
                   </tr>
-                  </thead>
                   <%
                     List<Student> list=new ArrayList<>();
-                    list= (List<Student>) request.getAttribute("student_list");
+                    list=(List<Student>)request.getAttribute("student_list");
                   %>
 
+                  </thead>
                   <tbody>
                   <c:forEach items="<%=list%>" var="student">
-                  <tr>
+                  <tr class="gradeX">
                     <td>${student.name}</td>
                     <td>${student.idCard}</td>
                     <td>${student.studentNo}</td>
-                    <td>${student.college}</td>
-                    <th>${student.major}</th>
-                    <th>${student.classNo}</th>
-                    <td><a  href="editmanage.jsp?name=${student.name}&idCard=${student.idCard}&StudentNo=${student.studentNo}&college=${student.college}&major=${student.major}&classNo=${student.classNo}">修改</a></td>
-                    <td><a  href="DeleteStudent.do?StudentNo=${student.studentNo}">Delete</a></td>
+                    <td class="center">${student.healthCode}</td>
+                    <td>${student.dailycheck}</td>
+                    <td>${student.checkdays}</td>
                   </tr>
                   </c:forEach>
                   </tbody>
                 </table>
+
               </div>
             </div>
           </section>
         </div>
       </div>
     </div>
+    <!--body wrapper end-->
+
+
 
   </div>
+  <!-- main content end-->
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
@@ -391,22 +385,14 @@
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
 
-<!--data table-->
-<script type="text/javascript" src="js/data-tables/jquery.dataTables.js"></script>
+<!--dynamic table-->
+<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+<!--dynamic table initialization -->
+<script src="js/dynamic_table_init.js"></script>
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
-
-<!--script for editable table-->
-<script src="js/editable-table.js"></script>
-
-<!-- END JAVASCRIPTS -->
-<script>
-  jQuery(document).ready(function() {
-    EditableTable.init();
-  });
-</script>
 
 </body>
 </html>

@@ -17,7 +17,7 @@ public class Servlet_refresh_class extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         class_manage_impl cclass_manage = new class_manage_impl();
-        request.setAttribute("class_list",cclass_manage.findAllClass());
+        request.setAttribute("cclass_list",cclass_manage.findAllClass());
         request.getRequestDispatcher("CClass_manage_table.jsp").forward(request,response);
     }
 }

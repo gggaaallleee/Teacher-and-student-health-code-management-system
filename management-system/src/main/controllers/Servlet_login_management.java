@@ -67,6 +67,7 @@ public class Servlet_login_management extends HttpServlet {
             if (list.get(0).getPassword().equals(sha256Str)) {
                 request.getSession().setAttribute("username",username);
                 request.getSession().setAttribute("level",list.get(0).getLevel());
+                request.getSession().setAttribute("isLogin",true);
                 System.out.println("登录成功");
                 if(list.get(0).getLevel() == 0){
                     Student_manage_impl student_manage = new Student_manage_impl();
